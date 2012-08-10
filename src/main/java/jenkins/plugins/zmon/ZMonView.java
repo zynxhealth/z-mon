@@ -6,6 +6,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 
 import javax.servlet.ServletException;
+import java.io.IOException;
 
 
 public class ZMonView extends ListView{
@@ -39,6 +40,11 @@ public class ZMonView extends ListView{
 
   }
 
+    @Override
+    protected void submit(StaplerRequest req) throws ServletException,
+            Descriptor.FormException, IOException {
+        super.submit(req);
 
+    }
 
 }
