@@ -1,0 +1,258 @@
+@import "reset";
+
+$background-color: #000;
+$base-color: #424242;
+$green: #94C600;
+$red: #FF6700;
+$base-size: 24px;
+$arrow-size: 20px;
+$box-width: 100px;
+$box-height: 100px;
+$circle-size: 100px;
+$gutter: 40px;
+
+@mixin rounded-corners ($radius) {
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius;
+	-khtml-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin radials ($color) {
+	border: 1px solid $color;
+	background: -webkit-gradient(radial, center center, 0, center center, 460, from($color), to(darken($color, 20%)));
+	background: -webkit-radial-gradient(circle, $color, darken($color, 30%));
+	background: -moz-radial-gradient(circle, $color, darken($color, 30%));
+	background: -ms-radial-gradient(circle, $color, darken($color, 30%));
+}
+
+@mixin shadow ($hor, $vert, $blur, $spread) {
+	-moz-box-shadow:    $hor $vert $blur $spread $base-color;
+	-webkit-box-shadow: $hor $vert $blur $spread $base-color;
+	box-shadow:         $hor $vert $blur $spread $base-color;
+}
+
+
+
+body {
+	background-color: $background-color;
+	color: $base-color;
+	font-family: 'Arial', 'Helvetica', sans-serif;
+	font-size: $base-size;
+	padding: 10px;
+
+	#header {
+		display: block;
+		clear: both;
+		overflow: hidden;
+		margin-bottom: 30px;
+
+		#team-name {
+			float: right;
+			font-weight: 600;
+			color: lighten($base-color, 30%);
+		}
+
+		#logo {
+			background-image:url('zynx-logo-dark.png');
+			background-repeat: no-repeat;
+			background-size: contain;
+			width: 200px;
+		}
+		#build-num {
+			display: block;
+			text-align: center;
+			margin-top: -20px;
+		}
+	}
+
+	#current-cycle {
+		overflow: hidden;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 40px;
+	}
+
+	#other-info {
+		border-top: 1px solid $base-color;
+		padding-top: 10px;
+
+		.job-container {
+			margin-left: 70px;
+			margin-right: 40px;
+		}
+	}
+
+
+	div.job-container {
+		width: $box-width;
+		float: left;
+		padding-left: $gutter;
+		padding-right: $gutter;
+
+		.job-name {
+			color: lighten($base-color, 50%);
+			font-size: $base-size * 1;
+			font-weight: 600;
+			text-align: center;
+			display: block;		
+		}
+
+		.last-ran {
+			font-size: $base-size * 0.55;
+			text-align: center;
+			display: block;
+
+			strong {
+				color: lighten($base-color, 80%);
+			}
+		}
+
+		.test-count {
+			float: left;
+			position: relative;
+			left: $circle-size * 1.2;
+			top: 30px;
+			color: darken($red, 20%);
+			font-size: $base-size * 0.7;
+
+			strong {
+				font-size: $base-size * 1.4;
+				font-weight: 600;
+				color: $red;
+				clear: both;
+				display: block;
+			}
+
+		}
+
+		.job-status {
+			@include rounded-corners(50%);
+			/*@include shadow (1px, 1px, 1px, 0px);*/
+			background-color: $base-color;
+			width: $circle-size;
+			height: $circle-size;		
+			margin-top: 10px;
+			margin-bottom: 10px;
+			color: lighten($base-color, 80%);
+
+			.time-value {
+				font-size: $base-size * 1.6;
+				font-weight: 800;
+				text-align: center;
+				display: block;
+				margin-top: $base-size * 0.5;
+			}
+
+			.time-unit {
+				font-size: $base-size * 0.6;
+				text-align: center;
+				display: block;
+			}
+		}
+
+		.passed {
+			@include radials($green);
+		}
+
+		.failed {
+			@include radials($red);
+		}
+
+		.running {
+			@include radials($base-color);
+		}
+
+
+
+		.waiting {
+			border: 2px dotted $base-color;
+			background-color: darken($base-color, 20%)
+		}
+	}
+
+	.arrow-right {
+		float: left;
+		margin-top: 70px;
+		width: 0; 
+		height: 0; 
+		border-top: $arrow-size * 0.6 solid transparent;
+		border-bottom: $arrow-size* 0.6 solid transparent;
+		background-color: $background-color;
+		border-left: $arrow-size solid $base-color;
+	}	
+
+}
+
+
+/*#loading {
+	margin: 80px auto;
+	position: relative;
+	width: 100px;
+	height: 100px;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+	border-radius: 50px;
+	text-align: center;
+	line-height: 100px;
+	color: white;
+	-webkit-box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+#loading:before {
+	content: "";
+	position: absolute;
+	left: -20px;
+	top: -20px;
+	bottom: -20px;
+	right: -20px;
+	-webkit-border-radius: 70px;
+	-moz-border-radius: 70px;
+	border-radius: 70px;
+	background: $base-color;
+	z-index: -2;
+	-webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+	-moz-box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+	box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+}
+span.time-value {
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-top: 80px solid rgba(255,255,255,0.7);
+	z-index: -1;
+	top: -28px;
+	left: 0px;
+	-webkit-animation: ticktock 5s linear infinite;
+	-webkit-transform-origin: 50px 80px;
+}
+
+#loading strong {
+	overflow: hidden;
+	display: block;
+	margin: 0 auto;
+	background-color: $base-color;
+	-webkit-animation: expand 2.5s linear infinite;
+}
+
+@-webkit-keyframes expand {
+	0% {
+		width: 0;
+	}
+	100% {
+		width: 60px;
+	}
+}
+
+@-webkit-keyframes ticktock {
+	0% {
+		-webkit-transform: rotate(0);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
+}*/
