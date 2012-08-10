@@ -5,12 +5,13 @@
 $background-color: #000;
 $base-color: #424242;
 $green: #94C600;
-$red: #FF6700;
+$red: #DF2F16;
 $base-size: 24px;
 $arrow-size: 20px;
 $box-width: 100px;
 $box-height: 100px;
 $circle-size: 100px;
+$progress-circle-width: 15px;
 $gutter: 40px;
 
 @mixin rounded-corners ($radius) {
@@ -21,20 +22,18 @@ $gutter: 40px;
 }
 
 @mixin radials ($color) {
-	border: 1px solid $color;
-	background: -webkit-gradient(radial, center center, 0, center center, 460, from($color), to(darken($color, 20%)));
-	background: -webkit-radial-gradient(circle, $color, darken($color, 30%));
-	background: -moz-radial-gradient(circle, $color, darken($color, 30%));
-	background: -ms-radial-gradient(circle, $color, darken($color, 30%));
+	border: 2px solid darken($color, 6%);
+	background: -webkit-radial-gradient(circle, lighten($color, 5%), darken($color, 20%));
+	background: -moz-radial-gradient(circle, $color, darken($color, 20%));
+	background: -ms-radial-gradient(circle, $color, darken($color, 20%));
+	@include shadow (1px, 2px, 5px, -1px)
 }
 
 @mixin shadow ($hor, $vert, $blur, $spread) {
-	-moz-box-shadow:    $hor $vert $blur $spread $base-color;
+	-moz-box-shadow:    $hor $vert $blur $spread darken($base-color, 40%);
 	-webkit-box-shadow: $hor $vert $blur $spread $base-color;
 	box-shadow:         $hor $vert $blur $spread $base-color;
 }
-
-
 
 body {
 	background-color: $background-color;
@@ -74,7 +73,7 @@ body {
 		overflow: hidden;
 		margin-left: auto;
 		margin-right: auto;
-		margin-bottom: 40px;
+		/*margin-bottom: 40px;*/
 	}
 
 	#other-info {
@@ -87,7 +86,6 @@ body {
 		}
 	}
 
-
 	div.job-container {
 		width: $box-width;
 		float: left;
@@ -95,11 +93,11 @@ body {
 		padding-right: $gutter;
 
 		.job-name {
-			color: lighten($base-color, 50%);
-			font-size: $base-size * 1;
+			color: lighten($base-color, 70%);
+			font-size: $base-size * 0.8;
 			font-weight: 600;
 			text-align: center;
-			display: block;		
+			display: block;	
 		}
 
 		.last-ran {
@@ -132,12 +130,11 @@ body {
 
 		.job-status {
 			@include rounded-corners(50%);
-			/*@include shadow (1px, 1px, 1px, 0px);*/
 			background-color: $base-color;
 			width: $circle-size;
 			height: $circle-size;		
-			margin-top: 10px;
-			margin-bottom: 10px;
+			margin-top: 20px;
+			margin-bottom: 20px;
 			color: lighten($base-color, 80%);
 
 			.time-value {
@@ -165,8 +162,40 @@ body {
 
 		.running {
 			@include radials($base-color);
+			border: 1px solid $background-color;
 		}
 
+		div.running:before {
+			content: "";
+			@include rounded-corners(50%);
+			position: relative;
+			display: block;
+			height: $circle-size + ($progress-circle-width * 2);
+			width: $circle-size + ($progress-circle-width * 2);
+			top: ($progress-circle-width * -1);
+			left: ($progress-circle-width * -1);
+			background-color: gray;
+			z-index: -2;
+		}
+
+		span.loading-wheel {
+			position: absolute;
+			width: 0;
+			height: 0;
+			left: 200px;
+			top: 100px;
+			border-left: 100px solid transparent;
+			/*border-right: 100px solid transparent;*/
+			border-top: 100px solid $background-color;
+			z-index: -1;
+			-webkit-animation: ticktock 4s linear infinite;
+			-webkit-transform-origin: 0 0;			
+		}
+
+		.running-time {
+			position: relative;
+			top: ($circle-size + ($progress-circle-width * 2)) * -1 ;
+		}
 
 
 		.waiting {
@@ -187,6 +216,15 @@ body {
 	}	
 
 }
+
+@-webkit-keyframes ticktock {
+    0% {
+            -webkit-transform: rotate(0);
+    }
+    100% {
+            -webkit-transform: rotate(360deg);
+    }
+ }  
 
 
 /*#loading {

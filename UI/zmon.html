@@ -3,91 +3,87 @@
 	<link rel="StyleSheet" HREF="style.css" TYPE="text/css">
 </head>
 <body>
-	<section id="header">
+	<div id="header">
 		<div id="team-name">team name</div>
 		<div id="logo">&nbsp;</div>
 		<div id="build-num">#1542</div>		
-	</section>
+	</div>
 
-	<section id="current-cycle">
+	<div id="current-cycle">
 		<div class="job-container">
-			<span class="job-name">build</span>
-			<div class="job-status passed">
-				<span class="time-value">17</span>
-				<span class="time-unit">mins</span>
-			</div>
-			<span class="last-ran">
-				last ran <strong>43 mins</strong> ago
-			</span>			
-		</div>
-
-		<div class="arrow-right"></div>
-
-		<div class="job-container">
-			<span class="job-name">deploy</span>
+			<h2 class="job-name">build</h2>
+			<span class="loading-wheel"></span>
 			<div class="job-status running">
-				<span class="time-value">17</span>
-				<span class="time-unit">mins</span>
+				<p class="time-value running-time">17
+					<span class="time-unit">mins</span>
+				</p>
 			</div>
-			<span class="last-ran">
+			<p class="last-ran">
 				last ran <strong>43 mins</strong> ago
-			</span>
+			</p>			
 		</div>
 
 		<div class="arrow-right"></div>
 
 		<div class="job-container">
-			<span class="job-name">tests</span>
-		
-			<div class="job-status failed">
-				<span class="time-value">54</span>
-				<span class="time-unit">mins</span>
-			</div>
-
-			<span class="last-ran">
-				last ran <strong>43 mins</strong> ago
-			</span>		
-
-			<span class="test-count"><strong id="failed-current">36%</strong> failed</span>			
-		</div>
-	</section>
-
-	<section id="other-info" class="job-container">
-
-		<div class="job-container">
-			<span class="job-name">mature</span>
-								
+			<h2 class="job-name">deploy</h2>
+			
 			<div class="job-status passed">
-				<span class="time-value">1.31</span>
-				<span class="time-unit">hours</span>
+				<p class="time-value">17
+					<span class="time-unit">mins</span>
+				</p>
 			</div>
-
-			<span class="last-ran">
+			<p class="last-ran">
 				last ran <strong>43 mins</strong> ago
-			</span>
+			</p>
+		</div>
 
-			<span class="test-count"><strong id="failed-mature">2%</strong> failed</span>
+		<div class="arrow-right"></div>
 
+		<div class="job-container">
+			<h2 class="job-name">tests</h2>
+			<div class="job-status failed">
+				<p class="time-value">17
+					<span class="time-unit">mins</span>
+				</p>
+			</div>
+			<p class="last-ran">
+				last ran <strong>43 mins</strong> ago
+			</p>
+			<p class="test-count"><strong id="failed-current">36%</strong> failed</p>			
+		</div>
+	</div>
+
+	<div id="other-info">
+
+		<div class="job-container">
+			<h2 class="job-name">mature</h2>
+			<div class="job-status failed">
+				<p class="time-value">17
+					<span class="time-unit">mins</span>
+				</p>
+			</div>
+			<p class="last-ran">
+				last ran <strong>43 mins</strong> ago
+			</p>
+			<p class="test-count"><strong id="failed-current">36%</strong> failed</p>			
 		</div>
 
 		<div class="job-container">
-			<span class="job-name">regression</span>
-			
+			<h2 class="job-name">regression</h2>
 			<div class="job-status failed">
-				<span class="time-value">17</span>
-				<span class="time-unit">mins</span>
+				<p class="time-value">17
+					<span class="time-unit">mins</span>
+				</p>
 			</div>
-
-			<span class="last-ran">
+			<p class="last-ran">
 				last ran <strong>43 mins</strong> ago
-			</span>
-
-			<span class="test-count"><strong id="failed-regression">14%</strong> failed</span>		
-			
+			</p>
+			<p class="test-count"><strong id="failed-current">36%</strong> failed</p>			
 		</div>
-	</section>
+	</div>
 
-	<section id="footer">
+	<div id="footer">
 		
-	</section>
+	</div>
 </body>
