@@ -12,7 +12,7 @@ $box-width: 100px;
 $box-height: 100px;
 $circle-size: 100px;
 $progress-circle-width: 15px;
-$gutter: 40px;
+$gutter: 60px;
 
 @mixin rounded-corners ($radius) {
 	-moz-border-radius: $radius;
@@ -91,6 +91,7 @@ body {
 		float: left;
 		padding-left: $gutter;
 		padding-right: $gutter;
+		position: relative;
 
 		.job-name {
 			color: lighten($base-color, 70%);
@@ -182,13 +183,12 @@ body {
 			position: absolute;
 			width: 0;
 			height: 0;
-			left: 200px;
-			top: 100px;
-			border-left: 100px solid transparent;
-			/*border-right: 100px solid transparent;*/
-			border-top: 100px solid $background-color;
+			left: 110px;
+			top: 90px;
+			border-left: 90px solid transparent;
+			border-top: 40px solid $background-color;
 			z-index: -1;
-			-webkit-animation: ticktock 4s linear infinite;
+			-webkit-animation: spin 4s linear infinite;
 			-webkit-transform-origin: 0 0;			
 		}
 
@@ -217,15 +217,20 @@ body {
 
 }
 
-@-webkit-keyframes ticktock {
-    0% {
-            -webkit-transform: rotate(0);
-    }
-    100% {
-            -webkit-transform: rotate(360deg);
-    }
- }  
+@-webkit-keyframes spin {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+}
 
+@-moz-keyframes spin {
+  from { -moz-transform: rotate(0deg); }
+  to { -moz-transform: rotate(360deg); }
+}
+
+@-ms-keyframes spin {
+  from { -ms-transform: rotate(0deg); }
+  to { -ms-transform: rotate(360deg); }
+}
 
 /*#loading {
 	margin: 80px auto;
