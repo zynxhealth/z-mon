@@ -1,14 +1,22 @@
 package jenkins.plugins.zmon;
+import hudson.Extension;
 import hudson.Plugin;
-import hudson.model.ListView;
-import hudson.model.Job;
-import hudson.model.Hudson;
-import hudson.model.ViewDescriptor;
+import hudson.model.*;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.StaplerRequest;
 
+import javax.servlet.ServletException;
 
 
 public class ZMonView extends ListView{
-  /**
+
+    private Integer numColumns = 1;
+    @DataBoundConstructor
+    public ZMonView(String name, Integer numColumns) {
+        super(name);
+        this.numColumns = numColumns != null ? numColumns : 1;
+    }
+    /**
    * C'tor<meta  />
    * @param name the name of the view
    * @param numColumns the number of columns to use on the layout (work in progress)
@@ -21,7 +29,7 @@ public class ZMonView extends ListView{
    * Notify Hudson we're implementing a new View
    * @author jrenaut
    */
-//  @Extension
+  @Extension
   public static final class ZMonViewDescriptor extends ViewDescriptor {
 
     @Override
@@ -30,4 +38,7 @@ public class ZMonView extends ListView{
     }
 
   }
+
+
+
 }
