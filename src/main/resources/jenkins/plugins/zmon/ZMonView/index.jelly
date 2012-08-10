@@ -6,7 +6,7 @@
     <div id="header" style="display:block;margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent">
         <div id="team-name">team name</div>
         <div id="logo"></div>
-        <div id="build-num">#1542</div>
+        <div id="build-num">${buildJob.number}</div>
     </div>
 
 

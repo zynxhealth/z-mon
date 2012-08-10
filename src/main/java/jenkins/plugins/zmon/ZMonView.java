@@ -11,22 +11,11 @@ import java.io.IOException;
 
 public class ZMonView extends ListView{
 
-    private Integer numColumns = 1;
     @DataBoundConstructor
-    public ZMonView(String name, Integer numColumns) {
+    public ZMonView(String name) {
         super(name);
-        this.numColumns = numColumns != null ? numColumns : 1;
     }
     /**
-   * C'tor<meta  />
-   * @param name the name of the view
-   * @param numColumns the number of columns to use on the layout (work in progress)
-   */
-  public ZMonView(String name) {
-    super(name);
-  }
-
-  /**
    * Notify Hudson we're implementing a new View
    * @author jrenaut
    */
