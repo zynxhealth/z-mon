@@ -13,13 +13,13 @@
         <div class="job-container">
             <h2 class="job-name">build</h2>
             <span class="loading-wheel"></span>
-            <div class="job-status passed">
-                <p class="time-value">17
-                    <span class="time-unit">mins</span>
+            <div class="job-status ${it.buildStatus}">
+                <p class="time-value ${it.buildStatus2}">${it.buildTime}
+                    <span class="time-unit">${it.buildTimeUnit}</span>
                 </p>
             </div>
             <p class="last-ran">
-                last ran <strong>43 mins</strong> ago
+                last ran <strong>${it.buildSinceLastRun}</strong> ago
             </p>
         </div>
 
@@ -28,13 +28,13 @@
         <div class="job-container">
             <h2 class="job-name">deploy</h2>
             <span class="loading-wheel"></span>
-            <div class="job-status waiting">
-                <p class="time-value">17
-                    <span class="time-unit">mins</span>
+            <div class="job-status ${it.deployStatus}">
+                <p class="time-value ${it.deployStatus2}">${it.deployTime}
+                    <span class="time-unit">${it.deployTimeUnit}</span>
                 </p>
             </div>
             <p class="last-ran">
-                last ran <strong>43 mins</strong> ago
+                last ran <strong>${it.deploySinceLastRun}</strong> ago
             </p>
         </div>
 
@@ -43,43 +43,47 @@
         <div class="job-container">
             <h2 class="job-name">tests</h2>
             <span class="loading-wheel"></span>
-            <div class="job-status running">
-                <p class="time-value running-time">17
-                    <span class="time-unit">mins</span>
+            <div class="job-status ${it.testsStatus}">
+                <p class="time-value ${it.testsStatus2}">${it.testsTime}
+                    <span class="time-unit">${it.testsTimeUnit}</span>
                 </p>
             </div>
             <p class="last-ran">
-                last ran <strong>43 mins</strong> ago
+                last ran <strong>${it.testsSinceLastRun}</strong> ago
             </p>
+
             <p class="test-count"><strong id="failed-current">36%</strong> failed</p>
         </div>
     </div>
 
     <div id="other-info">
-
         <div class="job-container">
             <h2 class="job-name">mature</h2>
-            <div class="job-status failed">
-                <p class="time-value">17
-                    <span class="time-unit">mins</span>
+            <span class="loading-wheel"></span>
+            <div class="job-status ${it.matureStatus}">
+                <p class="time-value ${it.matureStatus2}">${it.matureTime}
+                    <span class="time-unit">${it.matureTimeUnit}</span>
                 </p>
             </div>
             <p class="last-ran">
-                last ran <strong>43 mins</strong> ago
+                last ran <strong>${it.matureSinceLastRun}</strong> ago
             </p>
+
             <p class="test-count"><strong id="failed-current">36%</strong> failed</p>
         </div>
 
         <div class="job-container">
             <h2 class="job-name">regression</h2>
-            <div class="job-status failed">
-                <p class="time-value">17
-                    <span class="time-unit">mins</span>
+            <span class="loading-wheel"></span>
+            <div class="job-status ${it.regressionStatus}">
+                <p class="time-value ${it.regressionStatus2}">${it.regressionTime}
+                    <span class="time-unit">${it.regressionTimeUnit}</span>
                 </p>
             </div>
             <p class="last-ran">
-                last ran <strong>43 mins</strong> ago
+                last ran <strong>${it.regressionSinceLastRun}</strong> ago
             </p>
+
             <p class="test-count"><strong id="failed-current">36%</strong> failed</p>
         </div>
     </div>
