@@ -40,11 +40,11 @@ public class ZMonView extends ListView{
 
   }
 
-    @Override
-    protected void submit(StaplerRequest req) throws ServletException,
-            Descriptor.FormException, IOException {
+  @Override
+  protected void submit(StaplerRequest req) throws ServletException,
+        Descriptor.FormException, IOException {
         super.submit(req);
+  }
 
-    }
 
 }
