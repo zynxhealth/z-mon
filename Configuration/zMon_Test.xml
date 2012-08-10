@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.queueSorter.PrioritySorterJobProperty>
+      <priority>100</priority>
+    </hudson.queueSorter.PrioritySorterJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>Time_Build</name>
+          <description>Time build is to take in seconds.</description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>Time_Deploy</name>
+          <description>Time deploy is to take in seconds.</description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>Time_Test</name>
+          <description>Time test is to take in seconds.</description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.TextParameterDefinition>
+          <name>Time_Mature</name>
+          <description>Time mature is to take in seconds.</description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.TextParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>Time_Regression</name>
+          <description>Time regression is to take in seconds</description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>Results_Test</name>
+          <description></description>
+          <defaultValue>Pass</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>Result_Mature</name>
+          <description></description>
+          <defaultValue>Pass</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>Result_Regression</name>
+          <description></description>
+          <defaultValue>Pass</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>System1</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.plugins.powershell.PowerShell>
+      <command>&quot;Tests should: &quot; + $env:Results_Test&#xd;
+if ($env:Results_Test -eq &quot;Pass&quot;)&#xd;
+{&#xd;
+&apos;&lt;testsuite errors=&quot;0&quot; failures=&quot;0&quot; hostname=&quot;Dummy&quot; name=&quot;DummyTest&quot; tests=&quot;1&quot; time=&quot;43.173&quot; timestamp=&quot;2011-12-06T21:36:26&quot;&gt; &lt;properties /&gt; &lt;testcase classname=&quot;DummyTest&quot; name=&quot;DummyTest&quot; time=&quot;0.1&quot; /&gt; &lt;/testsuite&gt;&apos; | Set-Content ($env:WORKSPACE + &quot;\dummy.xml&quot;)&#xd;
+}&#xd;
+else&#xd;
+{&#xd;
+&apos;&lt;testsuite errors=&quot;1&quot; failures=&quot;1&quot; hostname=&quot;Dummy&quot; name=&quot;DummyTest&quot; tests=&quot;1&quot; time=&quot;43.173&quot; timestamp=&quot;2011-12-06T21:36:26&quot;&gt; &lt;properties /&gt; &lt;testcase classname=&quot;DummyTest&quot; name=&quot;DummyTest&quot; time=&quot;0.1&quot; &gt;&lt;failure type=&quot;failure&quot; message=&quot;A failed test.&quot;/&gt;&lt;/testcase&gt; &lt;/testsuite&gt;&apos; | Set-Content ($env:WORKSPACE + &quot;\dummy.xml&quot;)&#xd;
+}</command>
+    </hudson.plugins.powershell.PowerShell>
+    <hudson.plugins.powershell.PowerShell>
+      <command>Start-Sleep -s $env:Time_Test</command>
+    </hudson.plugins.powershell.PowerShell>
+  </builders>
+  <publishers>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>dummy.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+    <hudson.plugins.parameterizedtrigger.BuildTrigger>
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
+          </configs>
+          <projects>zMon_Mature</projects>
+          <condition>SUCCESS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.BuildTrigger>
+  </publishers>
+  <buildWrappers/>
+</project>
