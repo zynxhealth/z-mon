@@ -1,5 +1,6 @@
 *.class
 target/
+work/
 # Package Files #
 *.jar
 *.war
