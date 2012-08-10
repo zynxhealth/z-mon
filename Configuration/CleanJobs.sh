@@ -7,9 +7,8 @@ JOB_ZMON_REGRESSION="zMon_Regression"
 function importJob() {
 echo ""
 echo "Importing Jenkins Project: $4" 
-echo "    Running: java -jar $JENKINS_CLI -s $1 create-job $4 --username $2 --password $3"
-echo "    Loading:  $4.xml"
-java -jar $JENKINS_CLI -s $1 create-job $4 --username $2 --password $3 < $4.xml
+echo "    Running: java -jar $JENKINS_CLI -s $1 delete-job $4 --username $2 --password $3"
+java -jar $JENKINS_CLI -s $1 delete-job $4 --username $2 --password $3
 }
 
 echo "Your Jenkins CLI is located at: $JENKINS_CLI"

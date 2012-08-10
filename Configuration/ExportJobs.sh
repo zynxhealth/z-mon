@@ -14,9 +14,9 @@ java -jar $JENKINS_CLI -s $1 get-job $4 --username $2 --password $3 > $4.xml
 
 echo "Your Jenkins CLI is located at: $JENKINS_CLI"
 echo "Your Jenkins Master is: $JENKINS_MASTER"
-exportJob $1 $2 $3 $JOB_ZMON_BUILD
-exportJob $1 $2 $3 $JOB_ZMON_DEPLOY
-exportJob $1 $2 $3 $JOB_ZMON_TEST
-exportJob $1 $2 $3 $JOB_ZMON_MATURE
 exportJob $1 $2 $3 $JOB_ZMON_REGRESSION
+exportJob $1 $2 $3 $JOB_ZMON_MATURE
+exportJob $1 $2 $3 $JOB_ZMON_TEST
+exportJob $1 $2 $3 $JOB_ZMON_DEPLOY
+exportJob $1 $2 $3 $JOB_ZMON_BUILD
 
