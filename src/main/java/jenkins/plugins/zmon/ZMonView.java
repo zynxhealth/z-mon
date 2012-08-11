@@ -39,7 +39,7 @@ public class ZMonView extends ListView{
 
     public String getTeamName() {
         if (this.teamName == null) {
-            this.teamName = "Team Z-Mon";
+            this.teamName = "the zmon team";
         }
         return  this.teamName;
     }
@@ -51,11 +51,11 @@ public class ZMonView extends ListView{
     public String getMatureJobName() {return getJobName("zMon_Mature"); }
     public String getRegressionJobName() { return getJobName("zMon_Regression"); }
 
-    public String getBuildTimeUnit() {return getTimeUnit(); }
-    public String getDeployTimeUnit() { return getTimeUnit(); }
-    public String getTestsTimeUnit() { return getTimeUnit(); }
-    public String getMatureTimeUnit() {return getTimeUnit(); }
-    public String getRegressionTimeUnit() { return getTimeUnit(); }
+    public String getBuildTimeUnit() {return getTimeUnit("zMon_Build"); }
+    public String getDeployTimeUnit() { return getTimeUnit("zMon_Deploy"); }
+    public String getTestsTimeUnit() { return getTimeUnit("zMon_Test"); }
+    public String getMatureTimeUnit() {return getTimeUnit("zMon_Mature"); }
+    public String getRegressionTimeUnit() { return getTimeUnit("zMon_Regression"); }
 
     public String getBuildSinceLastRun() { return getSinceLastRun("zMon_Build"); }
     public String getDeploySinceLastRun() { return getSinceLastRun("zMon_Deploy"); }
@@ -76,9 +76,18 @@ public class ZMonView extends ListView{
     public String getRegressionStatus2() { return getStatus2("zMon_Regression"); }
 
 
-    public String getSinceLastRun(String jobName) {
+    private Long getBuildDuration(String jobName) {
         Project tli = (Project)(Hudson.getInstance().getItem(jobName));
-        return String.valueOf((System.currentTimeMillis() - tli.getLastBuild().getTimeInMillis()) / 60000) + " mins";
+        return (System.currentTimeMillis() - tli.getLastBuild().getTimeInMillis()) / 60000;
+    }
+
+    public String getSinceLastRun(String jobName) {
+        String s = "";
+        Long duration = getBuildDuration(jobName);
+        if (duration > 1) {
+            s = "s";
+        }
+        return String.valueOf(duration) + " min" + s;
     }
 
     private String getJobName(String jobName) {
@@ -86,12 +95,17 @@ public class ZMonView extends ListView{
         return String.valueOf(tli.getLastBuild().getDuration()/60000);
     }
 
-    public String getTimeUnit() {
-       return "mins";
+    public String getTimeUnit(String jobName) {
+        String s = "";
+        if (getBuildDuration(jobName) > 1) {
+            s = "s";
+        }
+        return "min" + s;
   }
 
   public String getStatus(String jobName) {
       Project tli = (Project)(Hudson.getInstance().getItem(jobName));
+
       if (tli.isBuilding()) {
           return "running";
       }
