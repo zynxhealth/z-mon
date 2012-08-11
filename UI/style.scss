@@ -8,17 +8,28 @@ $green: #94C600;
 $red: #DF2F16;
 $base-size: 24px;
 $arrow-size: 20px;
-$box-width: 100px;
+$box-width: 120px;
 $box-height: 100px;
 $circle-size: 100px;
 $progress-circle-width: 15px;
-$gutter: 60px;
+$gutter: 50px;
 
 @mixin rounded-corners ($radius) {
 	-moz-border-radius: $radius;
 	-webkit-border-radius: $radius;
 	-khtml-border-radius: $radius;
 	border-radius: $radius;
+}
+
+@mixin pass-fail-box($color) {
+    @include rounded-corners(5px);
+    color: lighten($color, 20%);
+    background-color: darken($color, 20%);
+    border: 1px solid darken($color, 15%);
+    font-size: $base-size * 0.6;
+    font-weight: 600;
+    padding: 0 7px 5px 7px;
+    line-height: $base-size;
 }
 
 @mixin radials ($color) {
@@ -52,6 +63,7 @@ body {
 			float: right;
 			font-weight: 600;
 			color: lighten($base-color, 30%);
+			margin-right: $gutter;
 		}
 
 		#logo {
@@ -79,18 +91,20 @@ body {
 	#other-info {
 		border-top: 1px solid $base-color;
 		padding-top: 10px;
+		overflow: hidden;
+		display: block;
 
 		.job-container {
-			margin-left: 70px;
-			margin-right: 40px;
+            padding-left: $gutter;
+            padding-right: $gutter;
 		}
 	}
 
 	div.job-container {
 		width: $box-width;
 		float: left;
-		padding-left: $gutter;
-		padding-right: $gutter;
+		margin-left: $gutter;
+		margin-right: $gutter;
 		position: relative;
 
 		.job-name {
@@ -98,24 +112,36 @@ body {
 			font-size: $base-size * 0.8;
 			font-weight: 600;
 			text-align: center;
-			display: block;	
+			display: block;
+			margin-left: -20px;
 		}
 
 		.last-ran {
 			font-size: $base-size * 0.55;
 			text-align: center;
 			display: block;
+			color: lighten($base-color, 10%);
 
 			strong {
 				color: lighten($base-color, 80%);
+			}
+
+			.last-run-pass {
+			    @include pass-fail-box($green);
+			}
+			.last-run-fail {
+			    @include pass-fail-box($red);
+			}
+			.last-run- {
+			    @include pass-fail-box(lighten($base-color, 10%));
 			}
 		}
 
 		.test-count {
 			float: right;
 			position: relative;
-			left: $circle-size * 0.9;
-			top: -120px;
+			left: $circle-size * 0.7;
+			top: ($circle-size * 1.55 * -1);
 			color: darken($red, 20%);
 			font-size: $base-size * 0.7;
 
@@ -135,7 +161,7 @@ body {
 			width: $circle-size;
 			height: $circle-size;		
 			margin-top: 20px;
-			margin-bottom: 20px;
+			margin-bottom: 30px;
 			color: lighten($base-color, 80%);
 
 			.time-value {
@@ -176,6 +202,7 @@ body {
 			top: ($progress-circle-width * -1);
 			left: ($progress-circle-width * -1);
 			background-color: gray;
+			border: 1px solid lighten($base-color, 10%);
 			z-index: -2;
 		}
 
@@ -183,12 +210,13 @@ body {
 			position: absolute;
 			width: 0;
 			height: 0;
-			left: 110px;
+			left: 50px;
 			top: 90px;
 			border-left: 90px solid transparent;
-			border-top: 40px solid $background-color;
+            border-top: 50px solid rgb(0, 0, 0);
+            border-top: 50px solid rgba(0, 0, 0, .6);
 			z-index: -1;
-			-webkit-animation: spin 4s linear infinite;
+			-webkit-animation: spin 6s linear infinite;
 			-webkit-transform-origin: 0 0;			
 		}
 
@@ -206,7 +234,7 @@ body {
 
 	.arrow-right {
 		float: left;
-		margin-top: 70px;
+		margin-top: 80px;
 		width: 0; 
 		height: 0; 
 		border-top: $arrow-size * 0.6 solid transparent;
@@ -231,75 +259,3 @@ body {
   from { -ms-transform: rotate(0deg); }
   to { -ms-transform: rotate(360deg); }
 }
-
-/*#loading {
-	margin: 80px auto;
-	position: relative;
-	width: 100px;
-	height: 100px;
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-	text-align: center;
-	line-height: 100px;
-	color: white;
-	-webkit-box-shadow: 0 0 5px rgba(0,0,0,0.5);
-	-moz-box-shadow: 0 0 5px rgba(0,0,0,0.5);
-	box-shadow: 0 0 5px rgba(0,0,0,0.5);
-}
-
-#loading:before {
-	content: "";
-	position: absolute;
-	left: -20px;
-	top: -20px;
-	bottom: -20px;
-	right: -20px;
-	-webkit-border-radius: 70px;
-	-moz-border-radius: 70px;
-	border-radius: 70px;
-	background: $base-color;
-	z-index: -2;
-	-webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
-	-moz-box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
-	box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
-}
-span.time-value {
-	position: absolute;
-	width: 0;
-	height: 0;
-	border-left: 50px solid transparent;
-	border-right: 50px solid transparent;
-	border-top: 80px solid rgba(255,255,255,0.7);
-	z-index: -1;
-	top: -28px;
-	left: 0px;
-	-webkit-animation: ticktock 5s linear infinite;
-	-webkit-transform-origin: 50px 80px;
-}
-
-#loading strong {
-	overflow: hidden;
-	display: block;
-	margin: 0 auto;
-	background-color: $base-color;
-	-webkit-animation: expand 2.5s linear infinite;
-}
-
-@-webkit-keyframes expand {
-	0% {
-		width: 0;
-	}
-	100% {
-		width: 60px;
-	}
-}
-
-@-webkit-keyframes ticktock {
-	0% {
-		-webkit-transform: rotate(0);
-	}
-	100% {
-		-webkit-transform: rotate(360deg);
-	}
-}*/

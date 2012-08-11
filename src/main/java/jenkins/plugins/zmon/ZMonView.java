@@ -39,17 +39,16 @@ public class ZMonView extends ListView{
 
     public String getTeamName() {
         if (this.teamName == null) {
-            this.teamName = "the zmon team";
+            this.teamName = "the anonymous";
         }
         return  this.teamName;
     }
 
-
     public String getBuildTime() {return getJobName("zMon_Build"); }
     public String getDeployTime() { return getJobName("zMon_Deploy"); }
     public String getTestsTime() { return getJobName("zMon_Test"); }
-    public String getMatureJobName() {return getJobName("zMon_Mature"); }
-    public String getRegressionJobName() { return getJobName("zMon_Regression"); }
+    public String getMatureTime() {return getJobName("zMon_Mature"); }
+    public String getRegressionTime() { return getJobName("zMon_Regression"); }
 
     public String getBuildTimeUnit() {return getTimeUnit("zMon_Build"); }
     public String getDeployTimeUnit() { return getTimeUnit("zMon_Deploy"); }
@@ -60,8 +59,20 @@ public class ZMonView extends ListView{
     public String getBuildSinceLastRun() { return getSinceLastRun("zMon_Build"); }
     public String getDeploySinceLastRun() { return getSinceLastRun("zMon_Deploy"); }
     public String getTestsSinceLastRun() { return getSinceLastRun("zMon_Test"); }
-    public String getMaturedSinceLastRun() { return getSinceLastRun("zMon_Mature"); }
+    public String getMatureSinceLastRun() { return getSinceLastRun("zMon_Mature"); }
     public String getRegressionSinceLastRun() { return getSinceLastRun("zMon_Regression"); }
+
+    public String getBuildLastRunPassFail() { return getLastRunPassFail("zMon_Build"); }
+    public String getDeployLastRunPassFail() { return getLastRunPassFail("zMon_Deploy"); }
+    public String getTestsLastRunPassFail() { return getLastRunPassFail("zMon_Test"); }
+    public String getMatureLastRunPassFail() { return getLastRunPassFail("zMon_Mature"); }
+    public String getRegressionLastRunPassFail() { return getLastRunPassFail("zMon_Regression"); }
+
+    public String getBuildLastRunStatus() { return getLastRunStatus("zMon_Build"); }
+    public String getDeployLastRunStatus() { return getLastRunStatus("zMon_Deploy"); }
+    public String getTestsLastRunStatus() { return getLastRunStatus("zMon_Test"); }
+    public String getMatureLastRunStatus() { return getLastRunStatus("zMon_Mature"); }
+    public String getRegressionLastRunStatus() { return getLastRunStatus("zMon_Regression"); }
 
     public String getBuildStatus() { return getStatus("zMon_Build"); }
     public String getDeployStatus() { return getStatus("zMon_Deploy"); }
@@ -82,12 +93,16 @@ public class ZMonView extends ListView{
     }
 
     public String getSinceLastRun(String jobName) {
-        String s = "";
         Long duration = getBuildDuration(jobName);
-        if (duration > 1) {
-            s = "s";
-        }
-        return String.valueOf(duration) + " min" + s;
+        return String.valueOf(duration) + " min" + ((duration == 1) ? "" : "s");
+    }
+
+    private String getLastRunPassFail(String jobName) {
+        return "";
+    }
+
+    private String getLastRunStatus(String jobName) {
+        return "unknown";
     }
 
     private String getJobName(String jobName) {
@@ -96,11 +111,7 @@ public class ZMonView extends ListView{
     }
 
     public String getTimeUnit(String jobName) {
-        String s = "";
-        if (getBuildDuration(jobName) > 1) {
-            s = "s";
-        }
-        return "min" + s;
+        return "min" + ((getBuildDuration(jobName) == 1) ? "" : "s");
   }
 
   public String getStatus(String jobName) {
