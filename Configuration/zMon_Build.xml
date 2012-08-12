@@ -57,22 +57,19 @@
   <triggers class="vector"/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.plugins.powershell.PowerShell>
-      <command>Start-Sleep -s $env:Time_Build</command>
-    </hudson.plugins.powershell.PowerShell>
+    <hudson.tasks.Shell>
+      <command>sleep ${Time_Build}</command>
+    </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <hudson.plugins.parameterizedtrigger.BuildTrigger>
-      <configs>
-        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
-          <configs>
-            <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
-          </configs>
-          <projects>zMon_Deploy</projects>
-          <condition>SUCCESS</condition>
-        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
-      </configs>
-    </hudson.plugins.parameterizedtrigger.BuildTrigger>
+    <hudson.tasks.BuildTrigger>
+      <childProjects>zMon_Deploy</childProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
   </publishers>
   <buildWrappers/>
 </project>

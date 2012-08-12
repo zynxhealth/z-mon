@@ -57,20 +57,9 @@
   <triggers class="vector"/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.plugins.powershell.PowerShell>
-      <command>&quot;Tests should: &quot; + $env:Results_Test
-if ($env:Result_Mature -eq &quot;Pass&quot;)
-{
-&apos;&lt;testsuite errors=&quot;0&quot; failures=&quot;0&quot; hostname=&quot;Dummy&quot; name=&quot;DummyTest&quot; tests=&quot;1&quot; time=&quot;43.173&quot; timestamp=&quot;2011-12-06T21:36:26&quot;&gt; &lt;properties /&gt; &lt;testcase classname=&quot;DummyTest&quot; name=&quot;DummyTest&quot; time=&quot;0.1&quot; /&gt; &lt;/testsuite&gt;&apos; | Set-Content ($env:WORKSPACE + &quot;\dummy.xml&quot;)
-}
-else
-{
-&apos;&lt;testsuite errors=&quot;1&quot; failures=&quot;1&quot; hostname=&quot;Dummy&quot; name=&quot;DummyTest&quot; tests=&quot;1&quot; time=&quot;43.173&quot; timestamp=&quot;2011-12-06T21:36:26&quot;&gt; &lt;properties /&gt; &lt;testcase classname=&quot;DummyTest&quot; name=&quot;DummyTest&quot; time=&quot;0.1&quot; &gt;&lt;failure type=&quot;failure&quot; message=&quot;A failed test.&quot;/&gt;&lt;/testcase&gt; &lt;/testsuite&gt;&apos; | Set-Content ($env:WORKSPACE + &quot;\dummy.xml&quot;)
-}</command>
-    </hudson.plugins.powershell.PowerShell>
-    <hudson.plugins.powershell.PowerShell>
-      <command>Start-Sleep -s $env:Result_Mature</command>
-    </hudson.plugins.powershell.PowerShell>
+    <hudson.tasks.Shell>
+      <command>sleep ${Time_Mature}</command>
+    </hudson.tasks.Shell>
   </builders>
   <publishers>
     <hudson.tasks.junit.JUnitResultArchiver>
@@ -78,17 +67,6 @@ else
       <keepLongStdio>false</keepLongStdio>
       <testDataPublishers/>
     </hudson.tasks.junit.JUnitResultArchiver>
-    <hudson.plugins.parameterizedtrigger.BuildTrigger>
-      <configs>
-        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
-          <configs>
-            <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
-          </configs>
-          <projects>zMon_Regression</projects>
-          <condition>SUCCESS</condition>
-        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
-      </configs>
-    </hudson.plugins.parameterizedtrigger.BuildTrigger>
   </publishers>
   <buildWrappers/>
 </project>

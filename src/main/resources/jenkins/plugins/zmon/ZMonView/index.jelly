@@ -13,7 +13,7 @@ html,body,body div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,ad
 
     <div id="current-cycle">
         <div class="job-container">
-            <h2 class="job-name">build</h2>
+            <h2 class="job-name">${it.buildJobName}</h2>
             <span class="loading-wheel"></span>
             <div class="job-status ${it.buildStatus}">
                 <p class="time-value ${it.buildStatus2}">${it.buildTime}
@@ -29,7 +29,7 @@ html,body,body div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,ad
         <div class="arrow-right"></div>
 
         <div class="job-container">
-            <h2 class="job-name">deploy</h2>
+            <h2 class="job-name">${it.deployJobName}</h2>
             <span class="loading-wheel"></span>
             <div class="job-status ${it.deployStatus}">
                 <p class="time-value ${it.deployStatus2}">${it.deployTime}
@@ -45,7 +45,7 @@ html,body,body div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,ad
         <div class="arrow-right"></div>
 
         <div class="job-container">
-            <h2 class="job-name">tests</h2>
+            <h2 class="job-name">${it.fastTestDisplay}</h2>
             <span class="loading-wheel"></span>
             <div class="job-status ${it.testsStatus}">
                 <p class="time-value ${it.testsStatus2}">${it.testsTime}
@@ -63,7 +63,7 @@ html,body,body div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,ad
 
     <div id="other-info">
         <div class="job-container">
-            <h2 class="job-name">mature</h2>
+            <h2 class="job-name">${it.mediumTestDisplay}</h2>
             <span class="loading-wheel"></span>
             <div class="job-status ${it.matureStatus}">
                 <p class="time-value ${it.matureStatus2}">${it.matureTime}
@@ -79,7 +79,7 @@ html,body,body div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,ad
         </div>
 
         <div class="job-container">
-            <h2 class="job-name">regression</h2>
+            <h2 class="job-name">${it.slowTestDisplay}</h2>
             <span class="loading-wheel"></span>
             <div class="job-status ${it.regressionStatus}">
                 <p class="time-value ${it.regressionStatus2}">${it.regressionTime}
