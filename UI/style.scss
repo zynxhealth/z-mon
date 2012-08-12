@@ -8,11 +8,11 @@ $green: #94C600;
 $red: #DF2F16;
 $base-size: 24px;
 $arrow-size: 20px;
-$box-width: 120px;
+$box-width: 160px;
 $box-height: 100px;
 $circle-size: 100px;
 $progress-circle-width: 15px;
-$gutter: 50px;
+$gutter: 40px;
 
 @mixin rounded-corners ($radius) {
 	-moz-border-radius: $radius;
@@ -24,10 +24,12 @@ $gutter: 50px;
 @mixin pass-fail-box($color) {
     @include rounded-corners(5px);
     color: lighten($color, 20%);
+    clear: both;
     background-color: darken($color, 20%);
     border: 1px solid darken($color, 15%);
     font-size: $base-size * 0.6;
     font-weight: 600;
+    margin-top: 5px;
     padding: 0 7px 5px 7px;
     line-height: $base-size;
 }
@@ -54,16 +56,17 @@ body {
 	padding: 10px;
 
 	#header {
-		display: block;
-		clear: both;
 		overflow: hidden;
-		margin-bottom: 30px;
+		margin: auto;
+		margin-bottom: 50px;
+		width: 90%;
 
 		#team-name {
-			float: right;
+			float: left;
 			font-weight: 600;
-			color: lighten($base-color, 30%);
-			margin-right: $gutter;
+			color: lighten($base-color, 20%);
+			margin-right: 20px;
+			font-size: $base-size * 1.2;
 		}
 
 		#logo {
@@ -71,13 +74,14 @@ body {
 			background-repeat: no-repeat;
 			background-size: contain;
 			width: 200px;
+			float: right;
 		}
 		#build-num {
 			display: block;
 			text-align: center;
-			margin-top: -25px;
 			font-weight: 600;
 			font-size: $base-size * 1.2;
+			float: left;
 		}
 	}
 
@@ -85,18 +89,24 @@ body {
 		overflow: hidden;
 		margin-left: auto;
 		margin-right: auto;
-		/*margin-bottom: 40px;*/
+		margin-bottom: 40px;
+		width: 90%;
 	}
 
 	#other-info {
 		border-top: 1px solid $base-color;
 		padding-top: 10px;
 		overflow: hidden;
-		display: block;
+		margin: auto;
+		width: 90%;
 
 		.job-container {
             padding-left: $gutter;
             padding-right: $gutter;
+		}
+
+		span.loading-wheel {
+		    left: 120px;
 		}
 	}
 
@@ -113,7 +123,8 @@ body {
 			font-weight: 600;
 			text-align: center;
 			display: block;
-			margin-left: -20px;
+			margin-left: auto;
+			margin-right: auto;
 		}
 
 		.last-ran {
@@ -121,6 +132,7 @@ body {
 			text-align: center;
 			display: block;
 			color: lighten($base-color, 10%);
+			padding-bottom: 10px;
 
 			strong {
 				color: lighten($base-color, 80%);
@@ -140,6 +152,7 @@ body {
 		.test-count {
 			float: right;
 			position: relative;
+			height: 0;
 			left: $circle-size * 0.7;
 			top: ($circle-size * 1.55 * -1);
 			color: darken($red, 20%);
@@ -162,6 +175,8 @@ body {
 			height: $circle-size;		
 			margin-top: 20px;
 			margin-bottom: 30px;
+			margin-left: auto;
+			margin-right: auto;
 			color: lighten($base-color, 80%);
 
 			.time-value {
@@ -210,7 +225,7 @@ body {
 			position: absolute;
 			width: 0;
 			height: 0;
-			left: 50px;
+			left: 80px;
 			top: 90px;
 			border-left: 90px solid transparent;
             border-top: 50px solid rgb(0, 0, 0);

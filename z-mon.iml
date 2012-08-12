@@ -203,6 +203,8 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.jvnet.hudson:netx:0.5-hudson-2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.easymock:easymock:2.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.jenkins-ci.main:ui-samples-plugin:1.437" level="project" />
+    <orderEntry type="library" name="Configuration" level="project" />
+    <orderEntry type="library" name="target" level="project" />
   </component>
 </module>
 
