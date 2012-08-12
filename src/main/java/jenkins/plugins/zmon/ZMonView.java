@@ -6,10 +6,12 @@ import hudson.tasks.junit.*;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 import javax.servlet.ServletException;
+import java.math.BigDecimal;
 import java.io.IOException;
 
 public class ZMonView extends ListView {
     private final int millisecondsInAMinute = 60000;
+    private final double minutesInAnHour = 60.0;
 
     @DataBoundConstructor
     public ZMonView(String name) {
@@ -70,23 +72,19 @@ public class ZMonView extends ListView {
       this.slowTestDisplay = (req.getParameter("slowTestDisplay") != null) ? req.getParameter("slowTestDisplay") : "regression";
     }
 
-    public String getBuildTime() {return getLastBuildDuration(buildJobName); }
-    public String getDeployTime() { return getLastBuildDuration(deployJobName); }
-    public String getTestsTime() { return getLastBuildDuration(fastTestJob); }
-    public String getMatureTime() {return getLastBuildDuration(mediumTestJob); }
-    public String getRegressionTime() { return getLastBuildDuration(slowTestJob); }
+    public String getBuildNumber() {return String.valueOf((int) getLastBuild(buildJobName).number); }
 
-    public String getBuildTimeUnit() {return getTimeUnit(buildJobName); }
-    public String getDeployTimeUnit() { return getTimeUnit(deployJobName); }
-    public String getTestsTimeUnit() { return getTimeUnit(fastTestJob); }
-    public String getMatureTimeUnit() {return getTimeUnit(mediumTestJob); }
-    public String getRegressionTimeUnit() { return getTimeUnit(slowTestJob); }
+    public String getBuildTime() {return getCurrentBuildDuration(buildJobName); }
+    public String getDeployTime() { return getCurrentBuildDuration(deployJobName); }
+    public String getTestsTime() { return getCurrentBuildDuration(fastTestJob); }
+    public String getMatureTime() {return getCurrentBuildDuration(mediumTestJob); }
+    public String getRegressionTime() { return getCurrentBuildDuration(slowTestJob); }
 
-    public String getBuildSinceLastRun() { return getSinceLastRun(buildJobName); }
-    public String getDeploySinceLastRun() { return getSinceLastRun(deployJobName); }
-    public String getTestsSinceLastRun() { return getSinceLastRun(fastTestJob); }
-    public String getMatureSinceLastRun() { return getSinceLastRun(mediumTestJob); }
-    public String getRegressionSinceLastRun() { return getSinceLastRun(slowTestJob); }
+    public String getBuildSinceLastRun() { return getTimeElapsedSinceLastRun(buildJobName); }
+    public String getDeploySinceLastRun() { return getTimeElapsedSinceLastRun(deployJobName); }
+    public String getTestsSinceLastRun() { return getTimeElapsedSinceLastRun(fastTestJob); }
+    public String getMatureSinceLastRun() { return getTimeElapsedSinceLastRun(mediumTestJob); }
+    public String getRegressionSinceLastRun() { return getTimeElapsedSinceLastRun(slowTestJob); }
 
     public String getBuildLastRunPassFail() { return getLastRunPassFail(buildJobName); }
     public String getDeployLastRunPassFail() { return getLastRunPassFail(deployJobName); }
@@ -106,24 +104,17 @@ public class ZMonView extends ListView {
     public String getMatureStatus() { return getStatus(mediumTestJob); }
     public String getRegressionStatus() { return getStatus(slowTestJob); }
 
-    public String getBuildStatus2() { return getStatus2(buildJobName); }
-    public String getDeployStatus2() { return getStatus2(deployJobName); }
-    public String getTestsStatus2() { return getStatus2(fastTestJob); }
-    public String getMatureStatus2() { return getStatus2(mediumTestJob); }
-    public String getRegressionStatus2() { return getStatus2(slowTestJob); }
-
     public String getTestsFailed() { return getFailedTests(fastTestJob); }
     public String getMatureFailed() { return getFailedTests(mediumTestJob); }
     public String getRegressionFailed() { return getFailedTests(slowTestJob); }
 
-
-    private String getLastBuildDuration(String jobName) {
-      Project tli = (Project)(Hudson.getInstance().getItem(jobName));
-      return String.valueOf(tli.getLastBuild().getDuration()/millisecondsInAMinute);
+    private String getCurrentBuildDuration(String jobName) {
+        Project tli = (Project)(Hudson.getInstance().getItem(jobName));
+        return convertDurationToDisplay(tli.getLastBuild().getDuration());
     }
 
-    public String getBuildNumber() {
-        return String.valueOf((int) getLastBuild(buildJobName).number);
+    private String getTimeElapsedSinceLastRun(String jobName) {
+        return convertDurationToDisplay((System.currentTimeMillis() - getLastBuild(jobName).getTimeInMillis()) / millisecondsInAMinute);
     }
 
     private String getFailedTests(String jobName) {
@@ -150,15 +141,6 @@ public class ZMonView extends ListView {
         }
     }
 
-    private Long getBuildDuration(String jobName) {
-        return (System.currentTimeMillis() - getLastBuild(jobName).getTimeInMillis()) / millisecondsInAMinute;
-    }
-
-    private String getSinceLastRun(String jobName) {
-        Long duration = getBuildDuration(jobName);
-        return String.valueOf(duration) + " min" + ((duration == 1) ? "" : "s");
-    }
-
     private String getLastRunPassFail(String jobName) {
         if (getLastBuild(jobName).getBuildStatusSummary().message.toString().equalsIgnoreCase("stable")) {
             return "pass";
@@ -169,10 +151,6 @@ public class ZMonView extends ListView {
 
     private String getLastRunStatus(String jobName) {
         return getLastBuild(jobName).getBuildStatusSummary().message.toString();
-    }
-
-    private String getTimeUnit(String jobName) {
-        return "min" + ((getBuildDuration(jobName) == 1) ? "" : "s");
     }
 
     private String getStatus(String jobName) {
@@ -189,12 +167,19 @@ public class ZMonView extends ListView {
         }
     }
 
-    private String getStatus2(String jobName) {
-        Project tli = (Project) (Hudson.getInstance().getItem(jobName));
-        if (tli.isBuilding()) {
-            return "running-time";
-        } else {
-            return "";
+    private String convertDurationToDisplay(long durationInMillis) {
+        long durationInMins = durationInMillis / millisecondsInAMinute;
+        if (durationInMins > minutesInAnHour) {
+            return "<strong>" + String.valueOf(round(durationInMins / minutesInAnHour, 2, BigDecimal.ROUND_HALF_UP)) + "</strong> hours";
         }
+        else {
+            return "<strong>" + String.valueOf(durationInMins) + "</strong> min" + ((durationInMins == 1) ? "" : "s");
+        }
+    }
+
+    private static double round(double unrounded, int precision, int roundingMode) {
+        BigDecimal bd = new BigDecimal(unrounded);
+        BigDecimal rounded = bd.setScale(precision, roundingMode);
+        return rounded.doubleValue();
     }
 }

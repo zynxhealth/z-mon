@@ -183,17 +183,21 @@ body {
 			color: lighten($base-color, 80%);
 
 			.time-value {
-				font-size: $base-size * 1.6;
-				font-weight: 800;
-				text-align: center;
-				display: block;
-				margin-top: $base-size * 0.5;
-			}
-
-			.time-unit {
 				font-size: $base-size * 0.6;
 				text-align: center;
 				display: block;
+
+			    strong {
+                    font-size: $base-size * 1.6;
+                    font-weight: 800;
+                    text-align: center;
+                    display: block;
+                    margin-top: $base-size * 0.5;
+			    }
+
+			}
+
+			.time-unit {
 			}
 		}
 
@@ -208,6 +212,11 @@ body {
 		.running {
 			@include radials($base-color);
 			border: 1px solid $background-color;
+
+			p.time-value {
+                position: relative;
+                top: ($circle-size + ($progress-circle-width * 2)) * -1 ;
+			}
 		}
 
 		div.running:before {
