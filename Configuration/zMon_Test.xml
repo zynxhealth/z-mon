@@ -19,7 +19,7 @@
         <hudson.model.StringParameterDefinition>
           <name>Time_Test</name>
           <description>Time test is to take in seconds.</description>
-          <defaultValue>1</defaultValue>
+          <defaultValue>60</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.TextParameterDefinition>
           <name>Time_Mature</name>

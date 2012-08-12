@@ -83,11 +83,11 @@ public class ZMonView extends ListView{
         return  this.teamName;
     }
 
-    public String getBuildTime() {return getSinceLastRun(buildJobName); }
-    public String getDeployTime() { return getSinceLastRun(deployJobName); }
-    public String getTestsTime() { return getSinceLastRun(fastTestJob); }
-    public String getMatureTime() {return getSinceLastRun(mediumTestJob); }
-    public String getRegressionTime() { return getSinceLastRun(slowTestJob); }
+    public String getBuildTime() {return getLastBuildDuration(buildJobName); }
+    public String getDeployTime() { return getLastBuildDuration(deployJobName); }
+    public String getTestsTime() { return getLastBuildDuration(fastTestJob); }
+    public String getMatureTime() {return getLastBuildDuration(mediumTestJob); }
+    public String getRegressionTime() { return getLastBuildDuration(slowTestJob); }
 
     public String getBuildTimeUnit() {return getTimeUnit(buildJobName); }
     public String getDeployTimeUnit() { return getTimeUnit(deployJobName); }
@@ -125,10 +125,15 @@ public class ZMonView extends ListView{
     public String getMatureStatus2() { return getStatus2(mediumTestJob); }
     public String getRegressionStatus2() { return getStatus2(slowTestJob); }
 
-    public String getTestsFailed() { return getFailedTests("zMon_Test"); }
-    public String getMatureFailed() { return getFailedTests("zMon_Mature"); }
-    public String getRegressionFailed() { return getFailedTests("zMon_Regression"); }
+    public String getTestsFailed() { return getFailedTests(fastTestJob); }
+    public String getMatureFailed() { return getFailedTests(mediumTestJob); }
+    public String getRegressionFailed() { return getFailedTests(slowTestJob); }
 
+
+    private String getLastBuildDuration(String jobName) {
+      Project tli = (Project)(Hudson.getInstance().getItem(jobName));
+      return String.valueOf(tli.getLastBuild().getDuration()/millisecondsInAMinute);
+    }
     public String getBuildNumber() {
         return String.valueOf((int) getLastBuild("zMon_Build").number);
     }

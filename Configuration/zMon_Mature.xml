@@ -24,7 +24,7 @@
         <hudson.model.TextParameterDefinition>
           <name>Time_Mature</name>
           <description>Time mature is to take in seconds.</description>
-          <defaultValue>1</defaultValue>
+          <defaultValue>120</defaultValue>
         </hudson.model.TextParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>Time_Regression</name>
@@ -61,12 +61,6 @@
       <command>sleep ${Time_Mature}</command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers>
-    <hudson.tasks.junit.JUnitResultArchiver>
-      <testResults>dummy.xml</testResults>
-      <keepLongStdio>false</keepLongStdio>
-      <testDataPublishers/>
-    </hudson.tasks.junit.JUnitResultArchiver>
-  </publishers>
+  <publishers/>
   <buildWrappers/>
 </project>
