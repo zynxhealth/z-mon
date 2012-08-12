@@ -1,7 +1,15 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
   xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
   xmlns:i="jelly:fmt">
-  
+
+    <f:entry title="${%Team / Project Name}" field="teamName">
+      <f:textbox id="zmon.teamName" name="teamName"/>
+    </f:entry>
+
+    <f:entry title="${%Team / Project Logo URL}" field="teamLogoURL">
+      <f:textbox id="zmon.teamLogo" name="teamLogoURL"/>
+    </f:entry>
+
   <f:entry title="${%Build And Compile Job Name}" field="buildJobName">
     <f:textbox id="zmon.buildJobName" name="buildJobName"/>
   </f:entry>

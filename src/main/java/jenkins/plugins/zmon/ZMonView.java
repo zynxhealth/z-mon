@@ -8,8 +8,7 @@ import org.kohsuke.stapler.StaplerRequest;
 import javax.servlet.ServletException;
 import java.io.IOException;
 
-public class ZMonView extends ListView{
-    private String teamName;
+public class ZMonView extends ListView {
     private final int millisecondsInAMinute = 60000;
 
     @DataBoundConstructor
@@ -26,32 +25,20 @@ public class ZMonView extends ListView{
     }
 
   }
-  public String getBuildJobName(){
-    return buildJobName; 
-  }
-  public String getDeployJobName(){
-    return deployJobName; 
-  }
-  public String getFastTestJob(){
-    return fastTestJob; 
-  }
-  public String getFastTestDisplay(){
-    return fastTestDisplay; 
-  }
-  public String getMediumTestJob(){
-    return mediumTestJob; 
-  }
-  public String getMediumTestDisplay(){
-    return mediumTestDisplay; 
-  }
-  public String getSlowTestJob(){
-    return slowTestJob; 
-  }
-  public String getSlowTestDisplay(){
-    return slowTestDisplay; 
-  }
 
+  public String getBuildJobName(){ return buildJobName; }
+  public String getDeployJobName(){ return deployJobName; }
+  public String getFastTestJob(){ return fastTestJob; }
+  public String getFastTestDisplay(){ return fastTestDisplay; }
+  public String getMediumTestJob(){ return mediumTestJob; }
+  public String getMediumTestDisplay(){ return mediumTestDisplay; }
+  public String getSlowTestJob(){ return slowTestJob; }
+  public String getSlowTestDisplay(){ return slowTestDisplay; }
+  public String getTeamName() { return teamName; }
+  public String getTeamLogoURL() { return teamLogoURL; }
 
+  private String teamName;
+  private String teamLogoURL;
   private String buildJobName; 
   private String deployJobName; 
   private String fastTestJob; 
@@ -64,24 +51,19 @@ public class ZMonView extends ListView{
 
   @Override
   protected void submit(StaplerRequest req) throws ServletException,
-        Descriptor.FormException, IOException {
-        super.submit(req);
-        this.buildJobName = req.getParameter("buildJobName");
-        this.deployJobName = req.getParameter("deployJobName");
-        this.fastTestJob = req.getParameter("fastTestJob");
-        this.fastTestDisplay = req.getParameter("fastTestDisplay");
-        this.mediumTestJob = req.getParameter("mediumTestJob");
-        this.mediumTestDisplay = req.getParameter("mediumTestDisplay");
-        this.slowTestJob = req.getParameter("slowTestJob");
-        this.slowTestDisplay = req.getParameter("slowTestDisplay");
+          Descriptor.FormException, IOException {
+      super.submit(req);
+      this.teamName = (req.getParameter("teamName") != null) ? req.getParameter("teamName") : "the anonymous";
+      this.teamLogoURL = (req.getParameter("teamLogoURL") != null) ? req.getParameter("teamLogoURL") : "";
+      this.buildJobName = (req.getParameter("buildJobName") != null) ? req.getParameter("buildJobName") : "zMon_Build";
+      this.deployJobName = (req.getParameter("deployJobName") != null) ? req.getParameter("deployJobName") : "zMon_Deploy";
+      this.fastTestJob = (req.getParameter("fastTestJob") != null) ? req.getParameter("fastTestJob") : "zMon_Test";
+      this.fastTestDisplay = (req.getParameter("fastTestDisplay") != null) ? req.getParameter("fastTestDisplay") : "tests";
+      this.mediumTestJob = (req.getParameter("mediumTestJob") != null) ? req.getParameter("mediumTestJob") : "zMon_Mature";
+      this.mediumTestDisplay = (req.getParameter("mediumTestDisplay") != null) ? req.getParameter("mediumTestDisplay") : "mature";
+      this.slowTestJob = (req.getParameter("slowTestJob") != null) ? req.getParameter("slowTestJob") : "zMon_Regression";
+      this.slowTestDisplay = (req.getParameter("slowTestDisplay") != null) ? req.getParameter("slowTestDisplay") : "regression";
   }
-
-    public String getTeamName() {
-        if (this.teamName == null) {
-            this.teamName = "the anonymous";
-        }
-        return  this.teamName;
-    }
 
     public String getBuildTime() {return getLastBuildDuration(buildJobName); }
     public String getDeployTime() { return getLastBuildDuration(deployJobName); }
@@ -134,8 +116,9 @@ public class ZMonView extends ListView{
       Project tli = (Project)(Hudson.getInstance().getItem(jobName));
       return String.valueOf(tli.getLastBuild().getDuration()/millisecondsInAMinute);
     }
+
     public String getBuildNumber() {
-        return String.valueOf((int) getLastBuild("zMon_Build").number);
+        return String.valueOf((int) getLastBuild(buildJobName).number);
     }
 
     private String getFailedTests(String jobName) {
@@ -162,7 +145,6 @@ public class ZMonView extends ListView{
         }
     }
 
-
     private Long getBuildDuration(String jobName) {
         return (System.currentTimeMillis() - getLastBuild(jobName).getTimeInMillis()) / millisecondsInAMinute;
     }
@@ -183,7 +165,6 @@ public class ZMonView extends ListView{
     private String getLastRunStatus(String jobName) {
         return getLastBuild(jobName).getBuildStatusSummary().message.toString();
     }
-
 
     private String getTimeUnit(String jobName) {
         return "min" + ((getBuildDuration(jobName) == 1) ? "" : "s");
