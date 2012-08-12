@@ -26,44 +26,49 @@ public class ZMonView extends ListView {
 
   }
 
-  public String getBuildJobName(){ return buildJobName; }
-  public String getDeployJobName(){ return deployJobName; }
-  public String getFastTestJob(){ return fastTestJob; }
-  public String getFastTestDisplay(){ return fastTestDisplay; }
-  public String getMediumTestJob(){ return mediumTestJob; }
-  public String getMediumTestDisplay(){ return mediumTestDisplay; }
-  public String getSlowTestJob(){ return slowTestJob; }
-  public String getSlowTestDisplay(){ return slowTestDisplay; }
-  public String getTeamName() { return teamName; }
-  public String getTeamLogoURL() { return teamLogoURL; }
+    public String getBuildJobName(){ return buildJobName; }
+    public String getBuildDisplay() { return buildDisplay; }
+    public String getDeployJobName(){ return deployJobName; }
+    public String getDeployDisplay() { return deployDisplay; }
+    public String getFastTestJob(){ return fastTestJob; }
+    public String getFastTestDisplay(){ return fastTestDisplay; }
+    public String getMediumTestJob(){ return mediumTestJob; }
+    public String getMediumTestDisplay(){ return mediumTestDisplay; }
+    public String getSlowTestJob(){ return slowTestJob; }
+    public String getSlowTestDisplay(){ return slowTestDisplay; }
+    public String getTeamName() { return teamName; }
+    public String getTeamLogoURL() { return teamLogoURL; }
 
-  private String teamName;
-  private String teamLogoURL;
-  private String buildJobName; 
-  private String deployJobName; 
-  private String fastTestJob; 
-  private String fastTestDisplay; 
-  private String mediumTestJob; 
-  private String mediumTestDisplay; 
-  private String slowTestJob; 
-  private String slowTestDisplay; 
+    private String teamName;
+    private String teamLogoURL;
+    private String buildJobName;
+    private String buildDisplay;
+    private String deployJobName;
+    private String deployDisplay;
+    private String fastTestJob;
+    private String fastTestDisplay;
+    private String mediumTestJob;
+    private String mediumTestDisplay;
+    private String slowTestJob;
+    private String slowTestDisplay;
 
-
-  @Override
-  protected void submit(StaplerRequest req) throws ServletException,
+    @Override
+    protected void submit(StaplerRequest req) throws ServletException,
           Descriptor.FormException, IOException {
       super.submit(req);
       this.teamName = (req.getParameter("teamName") != null) ? req.getParameter("teamName") : "the anonymous";
       this.teamLogoURL = (req.getParameter("teamLogoURL") != null) ? req.getParameter("teamLogoURL") : "";
-      this.buildJobName = (req.getParameter("buildJobName") != null) ? req.getParameter("buildJobName") : "zMon_Build";
-      this.deployJobName = (req.getParameter("deployJobName") != null) ? req.getParameter("deployJobName") : "zMon_Deploy";
-      this.fastTestJob = (req.getParameter("fastTestJob") != null) ? req.getParameter("fastTestJob") : "zMon_Test";
+      this.buildJobName = (req.getParameter("buildJobName") != null) ? req.getParameter("buildJobName") : "";
+      this.buildDisplay = (req.getParameter("buildDisplay") != null) ? req.getParameter("buildDisplay") : "build";
+      this.deployJobName = (req.getParameter("deployJobName") != null) ? req.getParameter("deployJobName") : "";
+      this.deployDisplay = (req.getParameter("deployDisplay") != null) ? req.getParameter("deployDisplay") : "deploy";
+      this.fastTestJob = (req.getParameter("fastTestJob") != null) ? req.getParameter("fastTestJob") : "";
       this.fastTestDisplay = (req.getParameter("fastTestDisplay") != null) ? req.getParameter("fastTestDisplay") : "tests";
-      this.mediumTestJob = (req.getParameter("mediumTestJob") != null) ? req.getParameter("mediumTestJob") : "zMon_Mature";
+      this.mediumTestJob = (req.getParameter("mediumTestJob") != null) ? req.getParameter("mediumTestJob") : "";
       this.mediumTestDisplay = (req.getParameter("mediumTestDisplay") != null) ? req.getParameter("mediumTestDisplay") : "mature";
-      this.slowTestJob = (req.getParameter("slowTestJob") != null) ? req.getParameter("slowTestJob") : "zMon_Regression";
+      this.slowTestJob = (req.getParameter("slowTestJob") != null) ? req.getParameter("slowTestJob") : "";
       this.slowTestDisplay = (req.getParameter("slowTestDisplay") != null) ? req.getParameter("slowTestDisplay") : "regression";
-  }
+    }
 
     public String getBuildTime() {return getLastBuildDuration(buildJobName); }
     public String getDeployTime() { return getLastBuildDuration(deployJobName); }

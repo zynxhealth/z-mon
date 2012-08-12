@@ -13,8 +13,14 @@
   <f:entry title="${%Build And Compile Job Name}" field="buildJobName">
     <f:textbox id="zmon.buildJobName" name="buildJobName"/>
   </f:entry>
+  <f:entry title="${%Build and Compile Job Display}" field="buildDisplay">
+    <f:textbox id="zmon.buildDisplay" name="buildDisplay"/>
+  </f:entry>
   <f:entry title="${%Deploy Job Name}" field="deployJobName">
     <f:textbox id="zmon.deployJobName" name="deployJobName"/>
+  </f:entry>
+  <f:entry title="${%Deploy Job Display}" field="deployDisplay">
+    <f:textbox id="zmon.deployDisplay" name="deployDisplay"/>
   </f:entry>
   <f:entry title="${%Fast Test Job Name}" field="fastTestJob">
     <f:textbox id="zmon.fastTestJob" name="fastTestJob"/>
