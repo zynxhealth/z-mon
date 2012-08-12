@@ -131,7 +131,7 @@ public class ZMonView extends ListView{
 
     private Long getBuildDuration(String jobName) {
         Project tli = (Project)(Hudson.getInstance().getItem(jobName));
-        return (System.currentTimeMillis() - tli.getLastBuild().getTimeInMillis()) / 60000;
+        return (System.currentTimeMillis() - tli.getLastBuild().getTimeInMillis()) / millisecondsInAMinute;
     }
 
     public String getSinceLastRun(String jobName) {
@@ -146,7 +146,7 @@ public class ZMonView extends ListView{
     private String getLastRunStatus(String jobName) {
         return "unknown";
     }
-    private long millisecondsInAMinute = 60000;
+    private final int millisecondsInAMinute = 60000;
     private String getLastBuildDuration(String jobName) {
         Project tli = (Project)(Hudson.getInstance().getItem(jobName));
         return String.valueOf(tli.getLastBuild().getDuration()/millisecondsInAMinute);
