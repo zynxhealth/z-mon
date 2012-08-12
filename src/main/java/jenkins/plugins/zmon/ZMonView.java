@@ -30,11 +30,58 @@ public class ZMonView extends ListView{
     }
 
   }
+  public String getBuildJobName(){
+    return buildJobName; 
+  }
+  public String getDeployJobName(){
+    return deployJobName; 
+  }
+  public String getFastTestJob(){
+    return fastTestJob; 
+  }
+  public String getFastTestDisplay(){
+    return fastTestDisplay; 
+  }
+  public String getMediumTestJob(){
+    return mediumTestJob; 
+  }
+  public String getMediumTestDisplay(){
+    return mediumTestDisplay; 
+  }
+  public String getSlowTestJob(){
+    return slowTestJob; 
+  }
+  public String getSlowTestDisplay(){
+    return slowTestDisplay; 
+  }
+
+
+  private String buildJobName; 
+  private String deployJobName; 
+  private String fastTestJob; 
+  private String fastTestDisplay; 
+  private String mediumTestJob; 
+  private String mediumTestDisplay; 
+  private String slowTestJob; 
+  private String slowTestDisplay; 
+
 
   @Override
   protected void submit(StaplerRequest req) throws ServletException,
         Descriptor.FormException, IOException {
         super.submit(req);
+        this.buildJobName = req.getParameter("buildJobName");
+        this.deployJobName = req.getParameter("deployJobName");
+        this.fastTestJob = req.getParameter("fastTestJob");
+        this.fastTestDisplay = req.getParameter("fastTestDisplay");
+        this.mediumTestJob = req.getParameter("mediumTestJob");
+        this.mediumTestDisplay = req.getParameter("mediumTestDisplay");
+        this.slowTestJob = req.getParameter("slowTestJob");
+        this.slowTestDisplay = req.getParameter("slowTestDisplay");
+
+
+
+
   }
 
     public String getTeamName() {
