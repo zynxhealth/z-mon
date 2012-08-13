@@ -84,6 +84,12 @@ public class ZMonView extends ListView {
     public String getMatureTime() {return getCurrentBuildDuration(mediumTestJob); }
     public String getRegressionTime() { return getCurrentBuildDuration(slowTestJob); }
 
+    public String getBuildPercentCompleted() {return getPercentCompleted(buildJobName); }
+    public String getDeployPercentCompleted() { return getPercentCompleted(deployJobName); }
+    public String getTestsPercentCompleted() { return getPercentCompleted(fastTestJob); }
+    public String getMaturePercentCompleted() {return getPercentCompleted(mediumTestJob); }
+    public String getRegressionPercentCompleted() { return getPercentCompleted(slowTestJob); }
+
     public String getBuildSinceLastRun() { return getTimeElapsedSinceLastRun(buildJobName); }
     public String getDeploySinceLastRun() { return getTimeElapsedSinceLastRun(deployJobName); }
     public String getTestsSinceLastRun() { return getTimeElapsedSinceLastRun(fastTestJob); }
@@ -121,6 +127,16 @@ public class ZMonView extends ListView {
         else {
             return convertDurationToDisplay(tli.getLastBuild().getDuration());
         }
+    }
+
+    private String getPercentCompleted(String jobName) {
+        Project tli = (Project)(Hudson.getInstance().getItem(jobName));
+        double percentCompleted = 0;
+
+//        if (tli.getLastBuild().isBuilding()) {
+//            percentCompleted = round ((double) tli.getLastBuild().getTimeInMillis() / (double) tli.getLastBuild().getEstimatedDuration() * 100.0, 2, BigDecimal.ROUND_HALF_UP);
+//        }
+        return String.valueOf(percentCompleted) + "%";
     }
 
     private String getTimeElapsedSinceLastRun(String jobName) {
