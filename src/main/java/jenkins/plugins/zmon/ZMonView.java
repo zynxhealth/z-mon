@@ -159,7 +159,7 @@ public class ZMonView extends ListView {
         if (tli.isBuilding()) {
             return "running";
         } else {
-            if (tli.getLastBuild().getBuildStatusSummary().message.toString().equalsIgnoreCase("stable")) {
+            if (tli.getLastBuild().getResult().toString().equalsIgnoreCase("SUCCESS")) {
                 return "passed";
             } else {
                 return "failed";
