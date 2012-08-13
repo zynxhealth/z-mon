@@ -110,10 +110,6 @@ body {
             padding-right: $gutter;
 		}
 
-		.test-count {
-			top: ($circle-size * 1.8 * -1);
-		}
-
 		span.loading-wheel {
 		    left: 120px;
 		}
@@ -163,8 +159,8 @@ body {
 			float: right;
 			position: relative;
 			height: 0;
-			left: $circle-size * 0.6;
-			top: ($circle-size * 2 * -1);
+			left: $circle-size * 0.7;
+			top: ($circle-size * 1.1 * -1);
 			color: darken($red, 20%);
 			font-size: $base-size * 0.7;
 			text-align: left;
