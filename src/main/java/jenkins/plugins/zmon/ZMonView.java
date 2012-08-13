@@ -118,7 +118,7 @@ public class ZMonView extends ListView {
     }
 
     private String getTimeElapsedSinceLastRun(String jobName) {
-        return convertDurationToDisplay((System.currentTimeMillis() - getLastBuild(jobName).getTimeInMillis()) / millisecondsInAMinute);
+        return convertDurationToDisplay((System.currentTimeMillis() - getLastBuild(jobName).getTimeInMillis()));
     }
 
     private String getFailedTests(String jobName) {
