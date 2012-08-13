@@ -40,6 +40,7 @@ public class ZMonView extends ListView {
     public String getSlowTestDisplay(){ return slowTestDisplay; }
     public String getTeamName() { return teamName; }
     public String getTeamLogoURL() { return teamLogoURL; }
+    public String getRefresh() { return refresh; }
 
     private String teamName;
     private String teamLogoURL;
@@ -53,6 +54,8 @@ public class ZMonView extends ListView {
     private String mediumTestDisplay;
     private String slowTestJob;
     private String slowTestDisplay;
+    private String refresh;
+
 
     @Override
     protected void submit(StaplerRequest req) throws ServletException,
@@ -70,6 +73,7 @@ public class ZMonView extends ListView {
       this.mediumTestDisplay = (req.getParameter("mediumTestDisplay") != null) ? req.getParameter("mediumTestDisplay") : "mature";
       this.slowTestJob = (req.getParameter("slowTestJob") != null) ? req.getParameter("slowTestJob") : "";
       this.slowTestDisplay = (req.getParameter("slowTestDisplay") != null) ? req.getParameter("slowTestDisplay") : "regression";
+      this.refresh = (req.getParameter("refresh") != null) ? req.getParameter("refresh") : "3";
     }
 
     public String getBuildNumber() {return String.valueOf((int) getLastBuild(buildJobName).number); }
