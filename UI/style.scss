@@ -247,8 +247,13 @@ body {
             border-top: 50px solid rgb(0, 0, 0);
             border-top: 50px solid rgba(0, 0, 0, .6);
 			z-index: -1;
+
 			-webkit-animation: spin 6s linear infinite;
 			-webkit-transform-origin: 0 0;			
+
+			-moz-animation: spin 6s linear infinite;
+			-moz-transform-origin: 0 0;	
+
 		}
 
 		.running-time {
