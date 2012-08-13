@@ -114,7 +114,13 @@ public class ZMonView extends ListView {
 
     private String getCurrentBuildDuration(String jobName) {
         Project tli = (Project)(Hudson.getInstance().getItem(jobName));
-        return convertDurationToDisplay(tli.getLastBuild().getDuration());
+
+        if (tli.getLastBuild().isBuilding()) {
+            return convertDurationToDisplay((System.currentTimeMillis() - tli.getLastBuild().getTimeInMillis()));
+        }
+        else {
+            return convertDurationToDisplay(tli.getLastBuild().getDuration());
+        }
     }
 
     private String getTimeElapsedSinceLastRun(String jobName) {
@@ -125,7 +131,7 @@ public class ZMonView extends ListView {
         TestResultAction testResults = (TestResultAction) getLastBuild(jobName).getTestResultAction();
 
         if (testResults != null) {
-            return "<strong>" + String.valueOf ( (int) ((testResults.getFailCount() / testResults.getTotalCount()) * 100)) + "%</strong> failed";
+            return "<strong>" + String.valueOf ( (int) (((double) testResults.getFailCount()/ (double) testResults.getTotalCount()) * 100.0)) + "%</strong> failed";
         }
         else {
             return "";
