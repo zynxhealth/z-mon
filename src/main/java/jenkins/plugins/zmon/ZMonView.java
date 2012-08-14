@@ -130,12 +130,29 @@ public class ZMonView extends ListView {
     }
 
     private String getPercentCompleted(String jobName) {
-        Project tli = (Project)(Hudson.getInstance().getItem(jobName));
-        double percentCompleted = 0;
+        Project tli = (Project) (Hudson.getInstance().getItem(jobName));
+        FreeStyleBuild lastBuild = (FreeStyleBuild) tli.getLastBuild();
+        long percentCompleted = 0;
+        long duration = 0;
+        long estimatedDuration = 0;
 
-//        if (tli.getLastBuild().isBuilding()) {
-//            percentCompleted = round ((double) tli.getLastBuild().getTimeInMillis() / (double) tli.getLastBuild().getEstimatedDuration() * 100.0, 2, BigDecimal.ROUND_HALF_UP);
-//        }
+        if (lastBuild.isBuilding()) {
+            duration = System.currentTimeMillis() - lastBuild.getTimeInMillis();
+            estimatedDuration = lastBuild.getEstimatedDuration();
+
+            if (estimatedDuration == -1) {
+                percentCompleted = 0;
+            }
+            else {
+                if (duration <= estimatedDuration) {
+                    percentCompleted = (long)((double) duration / (double) estimatedDuration * 100);
+                }
+                else {
+                    percentCompleted = 100;
+                }
+            }
+        }
+
         return String.valueOf(percentCompleted) + "%";
     }
 
