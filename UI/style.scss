@@ -113,6 +113,18 @@ body {
 		span.loading-wheel {
 		    left: 120px;
 		}
+
+		.test-count {
+			left: $circle-size * 0.9;
+		}
+	}
+
+	#footer {
+		color: darken($base-color, 20%);
+		font-size: $base-size * 0.5;
+		font-style: italic;
+		text-align: right;
+		width: 95%;
 	}
 
 	div.job-container {
