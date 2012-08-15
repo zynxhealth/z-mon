@@ -6,12 +6,13 @@ $background-color: #000;
 $base-color: #424242;
 $green: #94C600;
 $red: #DF2F16;
+
 $base-size: 24px;
-$arrow-size: 20px;
 $box-width: 160px;
 $box-height: 100px;
 $circle-size: 100px;
-$progress-circle-width: 15px;
+$panel-width: 90%;
+$progress-circle-width: 12px;
 $gutter: 40px;
 
 @mixin rounded-corners ($radius) {
@@ -28,7 +29,7 @@ $gutter: 40px;
     border: 1px solid darken($color, 15%);
     font-size: $base-size * 0.6;
     font-weight: 600;
-    padding: 0 8px 0 8px;
+    padding: 0 $base-size*0.4 0 $base-size*0.4;
     line-height: $base-size;
     display: block;   
     width: 70%;
@@ -55,18 +56,18 @@ body {
 	font-family: 'Arial', 'Helvetica', sans-serif;
 	font-size: $base-size;
 	padding: 7px;
+	overflow: hidden;
 
 	#header {
 		overflow: hidden;
 		margin: auto;
-		margin-bottom: 30px;
-		width: 90%;
+		width: $panel-width;
 
 		#team-name {
 			float: left;
 			font-weight: 600;
 			color: lighten($base-color, 20%);
-			margin-right: 30px;
+			margin-right: $gutter * 0.7;
 			font-size: $base-size * 1.2;
 		}
 
@@ -83,8 +84,8 @@ body {
 		}
 
 		#logo {
-			width: 150px;
-			height: 50px;
+			width: $box-width;
+			height: $box-width / 2;
 			float: right;
 		}
 	}
@@ -93,25 +94,24 @@ body {
 		overflow: hidden;
 		margin-left: auto;
 		margin-right: auto;
-		margin-bottom: 40px;
-		width: 90%;
+		margin-bottom: $gutter / 2;
+		width: $panel-width;
 		height: 40%;
 	}
 
 	#other-info {
 		border-top: 1px solid $base-color;
-		padding-top: 10px;
+		padding-top: $gutter * 0.3;
 		overflow: hidden;
 		margin: auto;
-		width: 90%;
+		width: $panel-width;
 
 		.job-container {
-            padding-left: $gutter;
-            padding-right: $gutter;
+            padding-left: $gutter * 2;
 		}
 
 		span.loading-wheel {
-		    left: 120px;
+		    left: $box-width;
 		}
 
 		.test-count {
@@ -120,11 +120,12 @@ body {
 	}
 
 	#footer {
-		color: darken($base-color, 20%);
+		color: darken($base-color, 15%);
+		padding-top: $gutter * 0.2;
 		font-size: $base-size * 0.5;
 		font-style: italic;
 		text-align: right;
-		width: 95%;
+		width: $panel-width;
 	}
 
 	div.job-container {
@@ -149,7 +150,7 @@ body {
 			text-align: center;
 			display: block;
 			color: lighten($base-color, 10%);
-			padding-bottom: 10px;
+			padding-bottom: $gutter * 0.2;
 			line-height: $base-size;
 
 			strong {
@@ -191,11 +192,10 @@ body {
 			@include rounded-corners(50%);
 			background-color: $base-color;
 			width: $circle-size;
-			height: $circle-size;		
-			margin-top: 20px;
-			margin-bottom: 30px;
-			margin-left: auto;
-			margin-right: auto;
+			height: $circle-size;	
+			margin: auto;	
+			margin-top: $gutter * 0.6;
+			margin-bottom: $gutter * 0.6;
 			color: lighten($base-color, 80%);
 
 			.pb-container {
@@ -234,15 +234,15 @@ body {
 				@include rounded-corners (3px);
 				border: 1px solid lighten($base-color, 15%);
 				width: $circle-size * 0.5;
-				height: 6px;
+				height: $base-size * 0.2;
 				margin: auto;
-				margin-top: 5px;
+				margin-top: $base-size * 0.4;
 				position: relative;
 				top: $box-height * -1.3;
 
 				.pb-value {
 					background-color: lighten($base-color, 10%);
-					height: 6px;
+					height: $base-size * 0.2;
 				}
 			}
 
@@ -270,11 +270,11 @@ body {
 			position: absolute;
 			width: 0;
 			height: 0;
-			left: 80px;
-			top: 90px;
-			border-left: 90px solid transparent;
-            border-top: 50px solid rgb(0, 0, 0);
-            border-top: 50px solid rgba(0, 0, 0, .6);
+			left: $box-width * 0.5;
+			top: $box-height;
+			border-left: $box-height solid transparent;
+            border-top: $box-height * 0.5 solid rgb(0, 0, 0);
+            border-top: $box-height * 0.5 solid rgba(0, 0, 0, .6);
 			z-index: -1;
 
 			-webkit-animation: spin 6s linear infinite;
@@ -287,7 +287,7 @@ body {
 
 		.running-time {
 			position: relative;
-			top: ($circle-size + ($progress-circle-width * 2)) * -1 ;
+			top: ($circle-size + ($progress-circle-width * 2)) * -1;
 		}
 
 
@@ -299,13 +299,13 @@ body {
 
 	.arrow-right {
 		float: left;
-		margin-top: 80px;
+		margin-top: $box-height * 0.8;
 		width: 0; 
 		height: 0; 
-		border-top: $arrow-size * 0.6 solid transparent;
-		border-bottom: $arrow-size* 0.6 solid transparent;
+		border-top: $gutter * 0.4 solid transparent;
+		border-bottom: $gutter * 0.4 solid transparent;
 		background-color: $background-color;
-		border-left: $arrow-size solid $base-color;
+		border-left: $gutter * 0.6 solid $base-color;
 	}	
 
 }
