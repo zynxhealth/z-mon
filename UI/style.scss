@@ -55,7 +55,7 @@ body {
 	color: $base-color;
 	font-family: 'Arial', 'Helvetica', sans-serif;
 	font-size: $base-size;
-	padding: 7px;
+	padding: $gutter * 0.2;
 	overflow: hidden;
 
 	#header {
@@ -96,12 +96,14 @@ body {
 		margin-right: auto;
 		margin-bottom: $gutter / 2;
 		width: $panel-width;
-		height: 40%;
+		height: $box-height * 2.7;
 	}
 
 	#other-info {
 		border-top: 1px solid $base-color;
+		border-bottom: 1px solid darken($base-color, 20%);
 		padding-top: $gutter * 0.3;
+		padding-bottom: $gutter * 1;
 		overflow: hidden;
 		margin: auto;
 		width: $panel-width;
@@ -113,18 +115,15 @@ body {
 		span.loading-wheel {
 		    left: $box-width;
 		}
-
-		.test-count {
-			left: $circle-size * 0.9;
-		}
 	}
 
 	#footer {
-		color: darken($base-color, 15%);
+		color: darken($base-color, 18%);
 		padding-top: $gutter * 0.2;
-		font-size: $base-size * 0.5;
+		font-size: $base-size * 0.45;
 		font-style: italic;
 		text-align: right;
+		margin: auto;
 		width: $panel-width;
 	}
 
@@ -169,10 +168,9 @@ body {
 		}
 
 		.test-count {
-			float: right;
 			position: relative;
 			height: 0;
-			left: $circle-size * 0.7;
+			margin-left: $box-width;
 			top: ($circle-size * 1.1 * -1);
 			color: darken($red, 20%);
 			font-size: $base-size * 0.7;
@@ -185,7 +183,6 @@ body {
 				clear: both;
 				display: block;
 			}
-
 		}
 
 		.job-status {
