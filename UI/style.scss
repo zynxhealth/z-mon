@@ -36,6 +36,14 @@ $gutter: 40px;
     margin: auto;
 }
 
+@mixin panel-layout () {
+	overflow: hidden;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: $gutter / 2;
+	width: $panel-width;
+}
+
 @mixin radials ($color) {
 	border: 2px solid darken($color, 6%);
 	background: -webkit-radial-gradient(circle, lighten($color, 5%), darken($color, 20%));
@@ -49,6 +57,8 @@ $gutter: 40px;
 	-webkit-box-shadow: $hor $vert $blur $spread $base-color;
 	box-shadow:         $hor $vert $blur $spread $base-color;
 }
+
+html{overflow:hidden;}
 
 body {
 	background-color: $background-color;
@@ -91,22 +101,13 @@ body {
 	}
 
 	#current-cycle {
-		overflow: hidden;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: $gutter / 2;
-		width: $panel-width;
-		height: $box-height * 2.7;
+		@include panel-layout();
 	}
 
 	#other-info {
+		@include panel-layout();
 		border-top: 1px solid $base-color;
-		border-bottom: 1px solid darken($base-color, 20%);
 		padding-top: $gutter * 0.3;
-		padding-bottom: $gutter * 1;
-		overflow: hidden;
-		margin: auto;
-		width: $panel-width;
 
 		.job-container {
             padding-left: $gutter * 2;
@@ -118,6 +119,7 @@ body {
 	}
 
 	#footer {
+		border-top: 1px solid darken($base-color, 20%);
 		color: darken($base-color, 18%);
 		padding-top: $gutter * 0.2;
 		font-size: $base-size * 0.45;
