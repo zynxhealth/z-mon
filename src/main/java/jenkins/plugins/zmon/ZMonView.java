@@ -119,7 +119,7 @@ public class ZMonView extends ListView {
     public String getRegressionFailed() { return getFailedTests(slowTestJob); }
 
     private String getCurrentBuildDuration(String jobName) {
-        Project tli = (Project)(Hudson.getInstance().getItem(jobName));
+        AbstractProject tli = (AbstractProject)(Hudson.getInstance().getItem(jobName));
 
         if (tli.getLastBuild().isBuilding()) {
             return convertDurationToDisplay((System.currentTimeMillis() - tli.getLastBuild().getTimeInMillis()));
@@ -130,7 +130,7 @@ public class ZMonView extends ListView {
     }
 
     private String getPercentCompleted(String jobName) {
-        Project tli = (Project) (Hudson.getInstance().getItem(jobName));
+        AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItem(jobName));
         FreeStyleBuild lastBuild = (FreeStyleBuild) tli.getLastBuild();
         long percentCompleted = 0;
         long duration = 0;
@@ -172,7 +172,7 @@ public class ZMonView extends ListView {
     }
 
     private FreeStyleBuild getLastBuild(String jobName) {
-        Project tli = (Project) (Hudson.getInstance().getItem(jobName));
+        AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItem(jobName));
         FreeStyleBuild lastBuild = (FreeStyleBuild) tli.getLastBuild();
 
         // this logic exists because getLastBuild() will return the currently running build
@@ -197,7 +197,7 @@ public class ZMonView extends ListView {
     }
 
     private String getStatus(String jobName) {
-        Project tli = (Project) (Hudson.getInstance().getItem(jobName));
+        AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItem(jobName));
 
         if (tli.isBuilding()) {
             return "running";
