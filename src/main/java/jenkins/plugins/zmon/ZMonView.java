@@ -131,7 +131,7 @@ public class ZMonView extends ListView {
 
     private String getPercentCompleted(String jobName) {
         AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItem(jobName));
-        FreeStyleBuild lastBuild = (FreeStyleBuild) tli.getLastBuild();
+        AbstractBuild lastBuild = (AbstractBuild) tli.getLastBuild();
         long percentCompleted = 0;
         long duration = 0;
         long estimatedDuration = 0;
@@ -171,13 +171,13 @@ public class ZMonView extends ListView {
         }
     }
 
-    private FreeStyleBuild getLastBuild(String jobName) {
+    private AbstractBuild getLastBuild(String jobName) {
         AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItem(jobName));
-        FreeStyleBuild lastBuild = (FreeStyleBuild) tli.getLastBuild();
+        AbstractBuild lastBuild = (AbstractBuild) tli.getLastBuild();
 
         // this logic exists because getLastBuild() will return the currently running build
         if (lastBuild.isBuilding()) {
-            return (FreeStyleBuild) tli.getBuilds().get(1);
+            return (AbstractBuild) tli.getBuilds().get(1);
         }
         else {
             return lastBuild;
