@@ -1,149 +1,151 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.jenkins-ci.plugins</groupId>
-    <artifactId>plugin</artifactId>
-    <version>1.514</version><!-- which version of Hudson is this plugin built against? -->
-    <relativePath>../pom.xml</relativePath>
-  </parent>
+    <parent>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>plugin</artifactId>
+        <version>1.559</version>
+        <!-- which version of Hudson is this plugin built against? -->
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
-  <artifactId>z-mon</artifactId>
-  <version>1.0-SNAPSHOT</version>
+    <!-- Artifact identification -->
+    <artifactId>z-mon</artifactId>
+    <version>1.559-SNAPSHOT</version>
+    <packaging>hpi</packaging>
+    <name>Z-Mon Feedback Panel</name>
 
-  <packaging>hpi</packaging>
+    <developers>
+        <developer>
+            <id>SteveMoyer</id>
+            <name>Steve Moyer</name>
+            <email>moyer.steve@gmail.com</email>
+        </developer>
+        <developer>
+            <id>AslanBrooke</id>
+            <name>Aslan Brooke</name>
+            <email>aslandbrooke@yahoo.com</email>
+        </developer>
+        <developer>
+            <id></id>
+            <name>Alex Tatiyants</name>
+            <email></email>
+        </developer>
+        <developer>
+            <id>jesseforrest</id>
+            <name>Jesse Forrest</name>
+            <email>jesseforrest@gmail.com</email>
+        </developer>
+    </developers>
 
-  <name>Z-Mon Feedback Panel</name>
-  <developers>
-    <developer>
-      <id>SteveMoyer</id>
-      <name>Steve Moyer</name>
-      <email>moyer.steve@gmail.com</email>
-    </developer>
-    <developer>
-      <id>AslanBrooke</id>
-      <name>Aslan Brooke</name>
-      <email>aslandbrooke@yahoo.com</email>
-    </developer>
-    <developer>
-      <id></id>
-      <name>Alex Tatiyants</name>
-      <email></email>
-    </developer>
+    <repositories>
+        <repository>
+            <id>jenkins-releases</id>
+            <url>http://repo.jenkins-ci.org/releases/</url>
+        </repository>
+    </repositories>
 
-  </developers>
-  <repositories>
-    <repository>
-      <id>repo.jenkins-ci.org</id>
-      <url>http://repo.jenkins-ci.org/public/</url>
-    </repository>
-  </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jenkins-releases</id>
+            <url>http://repo.jenkins-ci.org/releases/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <id>repo.jenkins-ci.org</id>
-      <url>http://repo.jenkins-ci.org/public/</url>
-    </pluginRepository>
-  </pluginRepositories>
-  <build>
-    <pluginManagement>
-           <plugins>
-             <plugin>
-               <groupId>org.jenkins-ci.tools</groupId>
-               <artifactId>maven-hpi-plugin</artifactId>
-               <version>1.95</version>
-             </plugin> 
-  <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-        <plugin>
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-          <configuration>
-            <lifecycleMappingMetadata>
-              <pluginExecutions>
-                <pluginExecution>
-                  <pluginExecutionFilter>
+    <!-- build process and details specification -->
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
                     <groupId>org.jenkins-ci.tools</groupId>
                     <artifactId>maven-hpi-plugin</artifactId>
-                    <versionRange>[1.95,)</versionRange>
-                    <goals>
-                      <goal>apt-compile</goal>
-                      <goal>insert-test</goal>
-                      <goal>resolve-test-dependencies</goal>
-                      <goal>test-hpl</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
-                </pluginExecution>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.jvnet.localizer</groupId>
-                    <artifactId>maven-localizer-plugin</artifactId>
-                    <versionRange>[1.8,)</versionRange>
-                    <goals>
-                      <goal>generate</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
-                </pluginExecution>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.codehaus.groovy.maven</groupId>
-                    <artifactId>gmaven-plugin</artifactId>
-                    <versionRange>[1.0-rc-5,)</versionRange>
-                    <goals>
-                      <goal>testCompile</goal>
-                      <goal>generateTestStubs</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
-                </pluginExecution>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <versionRange>[1.0-beta-1,)</versionRange>
-                    <goals>
-                      <goal>display-info</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
-                </pluginExecution>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.kohsuke</groupId>
-                    <artifactId>access-modifier-checker</artifactId>
-                    <versionRange>[1.0,)</versionRange>
-                    <goals>
-                      <goal>enforce</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
-                </pluginExecution>
-              </pluginExecutions>
-            </lifecycleMappingMetadata>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
-  <dependencies>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins</groupId>
-      <artifactId>claim</artifactId>
-      <version>2.2</version>
-    </dependency>
-  </dependencies>
+                    <version>1.95</version>
+                </plugin>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.jenkins-ci.tools</groupId>
+                                        <artifactId>maven-hpi-plugin</artifactId>
+                                        <versionRange>[1.95,)</versionRange>
+                                        <goals>
+                                            <goal>apt-compile</goal>
+                                            <goal>insert-test</goal>
+                                            <goal>resolve-test-dependencies</goal>
+                                            <goal>test-hpl</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.jvnet.localizer</groupId>
+                                        <artifactId>maven-localizer-plugin</artifactId>
+                                        <versionRange>[1.8,)</versionRange>
+                                        <goals>
+                                            <goal>generate</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.groovy.maven</groupId>
+                                        <artifactId>gmaven-plugin</artifactId>
+                                        <versionRange>[1.0-rc-5,)</versionRange>
+                                        <goals>
+                                            <goal>testCompile</goal>
+                                            <goal>generateTestStubs</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-enforcer-plugin</artifactId>
+                                        <versionRange>[1.0-beta-1,)</versionRange>
+                                        <goals>
+                                            <goal>display-info</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.kohsuke</groupId>
+                                        <artifactId>access-modifier-checker</artifactId>
+                                        <versionRange>[1.0,)</versionRange>
+                                        <goals>
+                                            <goal>enforce</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 </project>
