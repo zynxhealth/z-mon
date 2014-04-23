@@ -185,7 +185,9 @@ public class ZMonView extends ListView {
     }
 
     private String getLastRunPassFail(String jobName) {
-        if (getLastBuild(jobName).getBuildStatusSummary().message.toString().equalsIgnoreCase("stable")) {
+    	String lastBuildStatusSummary = getLastBuild(jobName).getBuildStatusSummary().message.toString();
+        if ((lastBuildStatusSummary.equalsIgnoreCase("stable")) || 
+    		(lastBuildStatusSummary.equalsIgnoreCase("back to normal"))){
             return "pass";
         } else {
             return "fail";
