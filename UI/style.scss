@@ -6,6 +6,7 @@ $background-color: #000;
 $base-color: #424242;
 $green: #94C600;
 $red: #DF2F16;
+$grey: #808080;
 
 $base-size: 24px;
 $box-width: 160px;
@@ -164,6 +165,9 @@ body {
 			.last-run-fail {
 			    @include pass-fail-box($red);
 			}
+            .last-run-aborted {
+              @include pass-fail-box($grey);
+            }
 			.last-run- {
 			    @include pass-fail-box(lighten($base-color, 10%));
 			}
@@ -223,6 +227,10 @@ body {
 		.failed {
 			@include radials($red);
 		}
+
+        .aborted {
+          @include radials($grey);
+        }
 
 		.running {
 			@include radials($base-color);

@@ -96,11 +96,11 @@ public class ZMonView extends ListView {
     public String getMatureSinceLastRun() { return getTimeElapsedSinceLastRun(mediumTestJob); }
     public String getRegressionSinceLastRun() { return getTimeElapsedSinceLastRun(slowTestJob); }
 
-    public String getBuildLastRunPassFail() { return getLastRunPassFail(buildJobName); }
-    public String getDeployLastRunPassFail() { return getLastRunPassFail(deployJobName); }
-    public String getTestsLastRunPassFail() { return getLastRunPassFail(fastTestJob); }
-    public String getMatureLastRunPassFail() { return getLastRunPassFail(mediumTestJob); }
-    public String getRegressionLastRunPassFail() { return getLastRunPassFail(slowTestJob); }
+    public String getBuildLastRunPassFailAborted() { return getLastRunPassFailAborted(buildJobName); }
+    public String getDeployLastRunPassFailAborted() { return getLastRunPassFailAborted(deployJobName); }
+    public String getTestsLastRunPassFailAborted() { return getLastRunPassFailAborted(fastTestJob); }
+    public String getMatureLastRunPassFailAborted() { return getLastRunPassFailAborted(mediumTestJob); }
+    public String getRegressionLastRunPassFailAborted() { return getLastRunPassFailAborted(slowTestJob); }
 
     public String getBuildLastRunStatus() { return getLastRunStatus(buildJobName); }
     public String getDeployLastRunStatus() { return getLastRunStatus(deployJobName); }
@@ -184,14 +184,14 @@ public class ZMonView extends ListView {
         }
     }
 
-    private String getLastRunPassFail(String jobName) {
-    	String lastBuildStatusSummary = getLastBuild(jobName).getBuildStatusSummary().message.toString();
-        if ((lastBuildStatusSummary.equalsIgnoreCase("stable")) || 
-    		(lastBuildStatusSummary.equalsIgnoreCase("back to normal"))){
-            return "pass";
-        } else {
-            return "fail";
-        }
+    private String getLastRunPassFailAborted(String jobName) {
+    	String lastBuildStatusSummary = getLastRunStatus(jobName).toLowerCase();
+    	if ((lastBuildStatusSummary.equals("stable")) || (lastBuildStatusSummary.equals("back to normal"))) {
+    		return "pass";
+    	} else if (lastBuildStatusSummary.equals("aborted")) {
+    		return "aborted";
+    	} 
+    	return "fail";
     }
 
     private String getLastRunStatus(String jobName) {
@@ -204,8 +204,10 @@ public class ZMonView extends ListView {
         if (tli.isBuilding()) {
             return "running";
         } else {
-            if (tli.getLastBuild().getResult().toString().equalsIgnoreCase("SUCCESS")) {
+            if (tli.getLastBuild().getResult().toString().equalsIgnoreCase("success")) {
                 return "passed";
+            } else if (tli.getLastBuild().getResult().toString().equalsIgnoreCase("aborted")) {
+                return "aborted";
             } else {
                 return "failed";
             }
