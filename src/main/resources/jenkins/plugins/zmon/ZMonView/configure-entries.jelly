@@ -1,48 +1,43 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
-  xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
-  xmlns:i="jelly:fmt">
-
-    <f:entry title="${%Team / Project Name}" field="teamName">
-      <f:textbox id="zmon.teamName" name="teamName"/>
-    </f:entry>
-
-    <f:entry title="${%Team / Project Logo URL}" field="teamLogoURL">
-      <f:textbox id="zmon.teamLogo" name="teamLogoURL"/>
-    </f:entry>
-
-  <f:entry title="${%Build And Compile Job Name}" field="buildJobName">
-    <f:textbox id="zmon.buildJobName" name="buildJobName"/>
-  </f:entry>
-  <f:entry title="${%Build and Compile Job Display}" field="buildDisplay">
-    <f:textbox id="zmon.buildDisplay" name="buildDisplay"/>
-  </f:entry>
-  <f:entry title="${%Deploy Job Name}" field="deployJobName">
-    <f:textbox id="zmon.deployJobName" name="deployJobName"/>
-  </f:entry>
-  <f:entry title="${%Deploy Job Display}" field="deployDisplay">
-    <f:textbox id="zmon.deployDisplay" name="deployDisplay"/>
-  </f:entry>
-  <f:entry title="${%Fast Test Job Name}" field="fastTestJob">
-    <f:textbox id="zmon.fastTestJob" name="fastTestJob"/>
-  </f:entry>
-  <f:entry title="${%Fast Test Job Display}" field="fastTestDisplay">
-    <f:textbox id="zmon.fastTestDisplay" name="fastTestDisplay"/>
-  </f:entry>
-  <f:entry title="${%Medium Test Job Name}" field="mediumTestJob">
-    <f:textbox id="zmon.mediumTestJob" name="mediumTestJob"/>
-  </f:entry>
-  <f:entry title="${%Medium Test Job Display}" field="mediumTestDisplay">
-    <f:textbox id="zmon.mediumTestDisplay" name="mediumTestDisplay"/>
-  </f:entry>
-  <f:entry title="${%Slow Test Job Name}" field="slowTestJob">
-    <f:textbox id="zmon.slowTestJob" name="slowTestJob"/>
-  </f:entry>
-  <f:entry title="${%Slow Test Job Display}" field="slowTestDisplay">
-    <f:textbox id="zmon.slowTestDisplay" name="slowTestDisplay"/>
-  </f:entry>
- <f:entry title="${%Refresh time in seconds}" field="refresh">
-    <f:textbox id="zmon.refresh" name="refresh"/>
-  </f:entry>
-  
+	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
+	xmlns:i="jelly:fmt">
+	<f:entry title="${%Team / Project Name}" field="teamName">
+		<f:textbox id="zmon.teamName" name="teamName" />
+	</f:entry>
+	<f:entry title="${%Team / Project Logo URL}" field="teamLogoURL">
+		<f:textbox id="zmon.teamLogo" name="teamLogoURL" />
+	</f:entry>
+	<f:entry title="${%Build And Compile Job Name}" field="buildJobName">
+		<f:textbox id="zmon.buildJobName" name="buildJobName" />
+	</f:entry>
+	<f:entry title="${%Build and Compile Job Display}" field="buildDisplay">
+		<f:textbox id="zmon.buildDisplay" name="buildDisplay" />
+	</f:entry>
+	<f:entry title="${%Deploy Job Name}" field="deployJobName">
+		<f:textbox id="zmon.deployJobName" name="deployJobName" />
+	</f:entry>
+	<f:entry title="${%Deploy Job Display}" field="deployDisplay">
+		<f:textbox id="zmon.deployDisplay" name="deployDisplay" />
+	</f:entry>
+	<f:entry title="${%Fast Test Job Name}" field="fastTestJob">
+		<f:textbox id="zmon.fastTestJob" name="fastTestJob" />
+	</f:entry>
+	<f:entry title="${%Fast Test Job Display}" field="fastTestDisplay">
+		<f:textbox id="zmon.fastTestDisplay" name="fastTestDisplay" />
+	</f:entry>
+	<f:entry title="${%Medium Test Job Name}" field="mediumTestJob">
+		<f:textbox id="zmon.mediumTestJob" name="mediumTestJob" />
+	</f:entry>
+	<f:entry title="${%Medium Test Job Display}" field="mediumTestDisplay">
+		<f:textbox id="zmon.mediumTestDisplay" name="mediumTestDisplay" />
+	</f:entry>
+	<f:entry title="${%Slow Test Job Name}" field="slowTestJob">
+		<f:textbox id="zmon.slowTestJob" name="slowTestJob" />
+	</f:entry>
+	<f:entry title="${%Slow Test Job Display}" field="slowTestDisplay">
+		<f:textbox id="zmon.slowTestDisplay" name="slowTestDisplay" />
+	</f:entry>
+	<f:entry title="${%Refresh time in seconds}" field="refresh">
+		<f:textbox id="zmon.refresh" name="refresh" />
+	</f:entry>
 </j:jelly>
-
