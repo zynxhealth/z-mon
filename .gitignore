@@ -9,3 +9,7 @@ work/
 ~*.pptx
 .idea
 tags
+
+.classpath
+
+.project
