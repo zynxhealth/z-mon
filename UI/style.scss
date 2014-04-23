@@ -272,8 +272,8 @@ body {
 			left: $box-width * 0.5;
 			top: $box-height;
 			border-left: $box-height solid transparent;
-            border-top: $box-height * 0.5 solid rgb(0, 0, 0);
-            border-top: $box-height * 0.5 solid rgba(0, 0, 0, .6);
+            border-top: $box-height * 0.5 solid $background-color;
+            opacity: .6;
 			z-index: -1;
 
 			-webkit-animation: spin 6s linear infinite;
