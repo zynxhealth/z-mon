@@ -14,7 +14,7 @@ $box-height: 100px;
 $circle-size: 100px;
 $panel-width: 90%;
 $progress-circle-width: 12px;
-$gutter: 40px;
+$gutter: 30px;
 
 @mixin rounded-corners ($radius) {
 	-moz-border-radius: $radius;
@@ -209,6 +209,7 @@ body {
 				font-size: $base-size * 0.6;
 				text-align: center;
 				display: block;
+                text-shadow: 1px 1px 1px #000;
 
 			    strong {
                     font-size: $base-size * 1.6;

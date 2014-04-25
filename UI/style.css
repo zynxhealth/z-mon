@@ -241,7 +241,7 @@ body {
   color: #424242;
   font-family: 'Arial', 'Helvetica', sans-serif;
   font-size: 24px;
-  padding: 8px;
+  padding: 6px;
   overflow: hidden; }
   body #header {
     overflow: hidden;
@@ -251,7 +251,7 @@ body {
       float: left;
       font-weight: 600;
       color: #757575;
-      margin-right: 28px;
+      margin-right: 21px;
       font-size: 28.8px; }
     body #header #build-num {
       display: block;
@@ -269,24 +269,24 @@ body {
     overflow: hidden;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     width: 90%; }
   body #other-info {
     overflow: hidden;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     width: 90%;
     border-top: 1px solid #424242;
-    padding-top: 12px; }
+    padding-top: 9px; }
     body #other-info .job-container {
-      padding-left: 80px; }
+      padding-left: 60px; }
     body #other-info span.loading-wheel {
       left: 160px; }
   body #footer {
     border-top: 1px solid #0f0f0f;
     color: #141414;
-    padding-top: 8px;
+    padding-top: 6px;
     font-size: 10.8px;
     font-style: italic;
     text-align: right;
@@ -295,8 +295,8 @@ body {
   body div.job-container {
     width: 160px;
     float: left;
-    margin-left: 40px;
-    margin-right: 40px;
+    margin-left: 30px;
+    margin-right: 30px;
     position: relative; }
     body div.job-container .job-name {
       color: whitesmoke;
@@ -311,7 +311,7 @@ body {
       text-align: center;
       display: block;
       color: #5c5c5c;
-      padding-bottom: 8px;
+      padding-bottom: 6px;
       line-height: 24px; }
       body div.job-container .last-ran strong {
         color: white; }
@@ -398,15 +398,16 @@ body {
       width: 100px;
       height: 100px;
       margin: auto;
-      margin-top: 24px;
-      margin-bottom: 24px;
+      margin-top: 18px;
+      margin-bottom: 18px;
       color: white; }
       body div.job-container .job-status .pb-container {
         visibility: hidden; }
       body div.job-container .job-status .time-value {
         font-size: 14.4px;
         text-align: center;
-        display: block; }
+        display: block;
+        text-shadow: 1px 1px 1px #000; }
         body div.job-container .job-status .time-value strong {
           font-size: 38.4px;
           font-weight: 600;
@@ -505,10 +506,10 @@ body {
     margin-top: 80px;
     width: 0;
     height: 0;
-    border-top: 16px solid transparent;
-    border-bottom: 16px solid transparent;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
     background-color: black;
-    border-left: 24px solid #424242; }
+    border-left: 18px solid #424242; }
 
 @-webkit-keyframes spin {
   from {

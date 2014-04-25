@@ -7,35 +7,35 @@
 	<f:entry title="${%Team / Project Logo URL}" field="teamLogoURL">
 		<f:textbox id="zmon.teamLogo" name="teamLogoURL" />
 	</f:entry>
-	<f:entry title="${%Build And Compile Job Name}" field="buildJobName">
-		<f:textbox id="zmon.buildJobName" name="buildJobName" />
+	<f:entry title="${%Job 1 Actual Name}" field="actualNameJob1">
+		<f:textbox id="zmon.actualNameJob1" name="actualNameJob1" />
 	</f:entry>
-	<f:entry title="${%Build and Compile Job Display}" field="buildDisplay">
-		<f:textbox id="zmon.buildDisplay" name="buildDisplay" />
+	<f:entry title="${%Job 1 Display Name}" field="displayNameJob1">
+		<f:textbox id="zmon.displayNameJob1" name="displayNameJob1" />
 	</f:entry>
-	<f:entry title="${%Deploy Job Name}" field="deployJobName">
-		<f:textbox id="zmon.deployJobName" name="deployJobName" />
+	<f:entry title="${%Job 2 Actual Name}" field="actualNameJob2">
+		<f:textbox id="zmon.actualNameJob2" name="actualNameJob2" />
 	</f:entry>
-	<f:entry title="${%Deploy Job Display}" field="deployDisplay">
-		<f:textbox id="zmon.deployDisplay" name="deployDisplay" />
+	<f:entry title="${%Job 2 Display Name}" field="displayNameJob2">
+		<f:textbox id="zmon.displayNameJob2" name="displayNameJob2" />
 	</f:entry>
-	<f:entry title="${%Fast Test Job Name}" field="fastTestJob">
-		<f:textbox id="zmon.fastTestJob" name="fastTestJob" />
+	<f:entry title="${%Job 3 Actual Name}" field="actualNameJob3">
+		<f:textbox id="zmon.actualNameJob3" name="actualNameJob3" />
 	</f:entry>
-	<f:entry title="${%Fast Test Job Display}" field="fastTestDisplay">
-		<f:textbox id="zmon.fastTestDisplay" name="fastTestDisplay" />
+	<f:entry title="${%Job 3 Display Name}" field="displayNameJob3">
+		<f:textbox id="zmon.displayNameJob3" name="displayNameJob3" />
 	</f:entry>
-	<f:entry title="${%Medium Test Job Name}" field="mediumTestJob">
-		<f:textbox id="zmon.mediumTestJob" name="mediumTestJob" />
+	<f:entry title="${%Job 4 Actual Name}" field="actualNameJob4">
+		<f:textbox id="zmon.actualNameJob4" name="actualNameJob4" />
 	</f:entry>
-	<f:entry title="${%Medium Test Job Display}" field="mediumTestDisplay">
-		<f:textbox id="zmon.mediumTestDisplay" name="mediumTestDisplay" />
+	<f:entry title="${%Job 4 Display Name}" field="displayNameJob4">
+		<f:textbox id="zmon.displayNameJob4" name="displayNameJob4" />
 	</f:entry>
-	<f:entry title="${%Slow Test Job Name}" field="slowTestJob">
-		<f:textbox id="zmon.slowTestJob" name="slowTestJob" />
+	<f:entry title="${%Job 5 Actual Name}" field="actualNameJob5">
+		<f:textbox id="zmon.actualNameJob5" name="actualNameJob5" />
 	</f:entry>
-	<f:entry title="${%Slow Test Job Display}" field="slowTestDisplay">
-		<f:textbox id="zmon.slowTestDisplay" name="slowTestDisplay" />
+	<f:entry title="${%Job 5 Display Name}" field="displayNameJob5">
+		<f:textbox id="zmon.displayNameJob5" name="displayNameJob5" />
 	</f:entry>
 	<f:entry title="${%Refresh time in seconds}" field="refresh">
 		<f:textbox id="zmon.refresh" name="refresh" />

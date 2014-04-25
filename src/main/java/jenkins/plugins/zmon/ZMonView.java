@@ -10,223 +10,232 @@ import java.math.BigDecimal;
 import java.io.IOException;
 
 public class ZMonView extends ListView {
-    private final int millisecondsInAMinute = 60000;
-    private final double minutesInAnHour = 60.0;
+	private final int MILLISECONDS_IN_A_MINUTE = 60000;
+	private final double MINUTES_IN_AN_HOUR = 60.0;
 
-    @DataBoundConstructor
-    public ZMonView(String name) {
-        super(name);
-    }
+	@DataBoundConstructor
+	public ZMonView(String name) {
+		super(name);
+	}
 
-  @Extension
-  public static final class ZMonViewDescriptor extends ViewDescriptor {
+	@Extension
+	public static final class ZMonViewDescriptor extends ViewDescriptor {
 
-    @Override
-    public String getDisplayName() {
-      return "Zynx Monitor";
-    }
+		@Override
+		public String getDisplayName() {
+			return "Zynx Monitor";
+		}
 
-  }
+	}
 
-    public String getBuildJobName(){ return buildJobName; }
-    public String getBuildDisplay() { return buildDisplay; }
-    public String getDeployJobName(){ return deployJobName; }
-    public String getDeployDisplay() { return deployDisplay; }
-    public String getFastTestJob(){ return fastTestJob; }
-    public String getFastTestDisplay(){ return fastTestDisplay; }
-    public String getMediumTestJob(){ return mediumTestJob; }
-    public String getMediumTestDisplay(){ return mediumTestDisplay; }
-    public String getSlowTestJob(){ return slowTestJob; }
-    public String getSlowTestDisplay(){ return slowTestDisplay; }
-    public String getTeamName() { return teamName; }
-    public String getTeamLogoURL() { return teamLogoURL; }
-    public String getRefresh() { return refresh; }
+	public String getTeamName() { return teamName; }
+	public String getTeamLogoURL() { return teamLogoURL; }
+	public String getRefresh() { return refresh; }
 
-    private String teamName;
-    private String teamLogoURL;
-    private String buildJobName;
-    private String buildDisplay;
-    private String deployJobName;
-    private String deployDisplay;
-    private String fastTestJob;
-    private String fastTestDisplay;
-    private String mediumTestJob;
-    private String mediumTestDisplay;
-    private String slowTestJob;
-    private String slowTestDisplay;
-    private String refresh;
+	public String getActualNameJob1() { return actualNameJob1; }
+	public String getActualNameJob2() { return actualNameJob2; }
+	public String getActualNameJob3() { return actualNameJob3; }
+	public String getActualNameJob4() { return actualNameJob4; }
+	public String getActualNameJob5() { return actualNameJob5; }
 
+	public String getDisplayNameJob1() { return displayNameJob1; }
+	public String getDisplayNameJob2() { return displayNameJob2; }
+	public String getDisplayNameJob3() { return displayNameJob3; }
+	public String getDisplayNameJob4() { return displayNameJob4; }
+	public String getDisplayNameJob5() { return displayNameJob5; }
 
-    @Override
-    protected void submit(StaplerRequest req) throws ServletException,
-          Descriptor.FormException, IOException {
-      super.submit(req);
-      this.teamName = (req.getParameter("teamName") != null) ? req.getParameter("teamName") : "the anonymous";
-      this.teamLogoURL = (req.getParameter("teamLogoURL") != null) ? req.getParameter("teamLogoURL") : "";
-      this.buildJobName = (req.getParameter("buildJobName") != null) ? req.getParameter("buildJobName") : "";
-      this.buildDisplay = (req.getParameter("buildDisplay") != null) ? req.getParameter("buildDisplay") : "build";
-      this.deployJobName = (req.getParameter("deployJobName") != null) ? req.getParameter("deployJobName") : "";
-      this.deployDisplay = (req.getParameter("deployDisplay") != null) ? req.getParameter("deployDisplay") : "deploy";
-      this.fastTestJob = (req.getParameter("fastTestJob") != null) ? req.getParameter("fastTestJob") : "";
-      this.fastTestDisplay = (req.getParameter("fastTestDisplay") != null) ? req.getParameter("fastTestDisplay") : "tests";
-      this.mediumTestJob = (req.getParameter("mediumTestJob") != null) ? req.getParameter("mediumTestJob") : "";
-      this.mediumTestDisplay = (req.getParameter("mediumTestDisplay") != null) ? req.getParameter("mediumTestDisplay") : "mature";
-      this.slowTestJob = (req.getParameter("slowTestJob") != null) ? req.getParameter("slowTestJob") : "";
-      this.slowTestDisplay = (req.getParameter("slowTestDisplay") != null) ? req.getParameter("slowTestDisplay") : "regression";
-      this.refresh = (req.getParameter("refresh") != null) ? req.getParameter("refresh") : "3";
-    }
+	private String teamName;
+	private String teamLogoURL;
 
-    public String getBuildNumber() {return String.valueOf((int) getLastBuild(buildJobName).number); }
+	private String actualNameJob1;
+	private String actualNameJob2;
+	private String actualNameJob3;
+	private String actualNameJob4;
+	private String actualNameJob5;
 
-    public String getBuildTime() {return getCurrentBuildDuration(buildJobName); }
-    public String getDeployTime() { return getCurrentBuildDuration(deployJobName); }
-    public String getTestsTime() { return getCurrentBuildDuration(fastTestJob); }
-    public String getMatureTime() {return getCurrentBuildDuration(mediumTestJob); }
-    public String getRegressionTime() { return getCurrentBuildDuration(slowTestJob); }
+	private String displayNameJob1;
+	private String displayNameJob2;
+	private String displayNameJob3;
+	private String displayNameJob4;
+	private String displayNameJob5;
 
-    public String getBuildPercentCompleted() {return getPercentCompleted(buildJobName); }
-    public String getDeployPercentCompleted() { return getPercentCompleted(deployJobName); }
-    public String getTestsPercentCompleted() { return getPercentCompleted(fastTestJob); }
-    public String getMaturePercentCompleted() {return getPercentCompleted(mediumTestJob); }
-    public String getRegressionPercentCompleted() { return getPercentCompleted(slowTestJob); }
+	private String refresh;
 
-    public String getBuildSinceLastRun() { return getTimeElapsedSinceLastRun(buildJobName); }
-    public String getDeploySinceLastRun() { return getTimeElapsedSinceLastRun(deployJobName); }
-    public String getTestsSinceLastRun() { return getTimeElapsedSinceLastRun(fastTestJob); }
-    public String getMatureSinceLastRun() { return getTimeElapsedSinceLastRun(mediumTestJob); }
-    public String getRegressionSinceLastRun() { return getTimeElapsedSinceLastRun(slowTestJob); }
+	@Override
+	protected void submit(StaplerRequest req) throws ServletException,
+	Descriptor.FormException, IOException {
+		super.submit(req);
+		this.teamName = (req.getParameter("teamName") != null) ? req.getParameter("teamName") : "Team Name";
+		this.teamLogoURL = (req.getParameter("teamLogoURL") != null) ? req.getParameter("teamLogoURL") : "";
 
-    public String getBuildLastRunPassFailAborted() { return getLastRunPassFailAborted(buildJobName); }
-    public String getDeployLastRunPassFailAborted() { return getLastRunPassFailAborted(deployJobName); }
-    public String getTestsLastRunPassFailAborted() { return getLastRunPassFailAborted(fastTestJob); }
-    public String getMatureLastRunPassFailAborted() { return getLastRunPassFailAborted(mediumTestJob); }
-    public String getRegressionLastRunPassFailAborted() { return getLastRunPassFailAborted(slowTestJob); }
+		this.actualNameJob1 = (req.getParameter("actualNameJob1") != null) ? req.getParameter("actualNameJob1") : "";
+		this.actualNameJob2 = (req.getParameter("actualNameJob2") != null) ? req.getParameter("actualNameJob2") : "";
+		this.actualNameJob3 = (req.getParameter("actualNameJob3") != null) ? req.getParameter("actualNameJob3") : "";
+		this.actualNameJob4 = (req.getParameter("actualNameJob4") != null) ? req.getParameter("actualNameJob4") : "";
+		this.actualNameJob5 = (req.getParameter("actualNameJob5") != null) ? req.getParameter("actualNameJob5") : "";
 
-    public String getBuildLastRunStatus() { return getLastRunStatus(buildJobName); }
-    public String getDeployLastRunStatus() { return getLastRunStatus(deployJobName); }
-    public String getTestsLastRunStatus() { return getLastRunStatus(fastTestJob); }
-    public String getMatureLastRunStatus() { return getLastRunStatus(mediumTestJob); }
-    public String getRegressionLastRunStatus() { return getLastRunStatus(slowTestJob); }
+		this.displayNameJob1 = (req.getParameter("displayNameJob1") != null) ? req.getParameter("displayNameJob1") : "Job 1";
+		this.displayNameJob2 = (req.getParameter("displayNameJob2") != null) ? req.getParameter("displayNameJob2") : "Job 2";
+		this.displayNameJob3 = (req.getParameter("displayNameJob3") != null) ? req.getParameter("displayNameJob3") : "Job 3";
+		this.displayNameJob4 = (req.getParameter("displayNameJob4") != null) ? req.getParameter("displayNameJob4") : "Job 4";
+		this.displayNameJob5 = (req.getParameter("displayNameJob5") != null) ? req.getParameter("displayNameJob5") : "Job 5";
 
-    public String getBuildStatus() { return getStatus(buildJobName); }
-    public String getDeployStatus() { return getStatus(deployJobName); }
-    public String getTestsStatus() { return getStatus(fastTestJob); }
-    public String getMatureStatus() { return getStatus(mediumTestJob); }
-    public String getRegressionStatus() { return getStatus(slowTestJob); }
+		this.refresh = (req.getParameter("refresh") != null) ? req.getParameter("refresh") : "10";
+	}
 
-    public String getTestsFailed() { return getFailedTests(fastTestJob); }
-    public String getMatureFailed() { return getFailedTests(mediumTestJob); }
-    public String getRegressionFailed() { return getFailedTests(slowTestJob); }
+	public String getBuildNumber() { return String.valueOf((int) getLastBuild(actualNameJob1).number); }
 
-    private String getCurrentBuildDuration(String jobName) {
-        AbstractProject tli = (AbstractProject)(Hudson.getInstance().getItem(jobName));
+	public String getJob1Time() { return getCurrentBuildDuration(actualNameJob1); }
+	public String getJob2Time() { return getCurrentBuildDuration(actualNameJob2); }
+	public String getJob3Time() { return getCurrentBuildDuration(actualNameJob3); }
+	public String getJob4Time() { return getCurrentBuildDuration(actualNameJob4); }
+	public String getJob5Time() { return getCurrentBuildDuration(actualNameJob5); }
 
-        if (tli.getLastBuild().isBuilding()) {
-            return convertDurationToDisplay((System.currentTimeMillis() - tli.getLastBuild().getTimeInMillis()));
-        }
-        else {
-            return convertDurationToDisplay(tli.getLastBuild().getDuration());
-        }
-    }
+	public String getJob1PercentCompleted() { return getPercentCompleted(actualNameJob1); }
+	public String getJob2PercentCompleted() { return getPercentCompleted(actualNameJob2); }
+	public String getJob3PercentCompleted() { return getPercentCompleted(actualNameJob3); }
+	public String getJob4PercentCompleted() { return getPercentCompleted(actualNameJob4); }
+	public String getJob5PercentCompleted() { return getPercentCompleted(actualNameJob5); }
 
-    private String getPercentCompleted(String jobName) {
-        AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItem(jobName));
-        AbstractBuild lastBuild = (AbstractBuild) tli.getLastBuild();
-        long percentCompleted = 0;
-        long duration = 0;
-        long estimatedDuration = 0;
+	public String getJob1SinceLastRun() { return getTimeElapsedSinceLastRun(actualNameJob1); }
+	public String getJob2SinceLastRun() { return getTimeElapsedSinceLastRun(actualNameJob2); }
+	public String getJob3SinceLastRun() { return getTimeElapsedSinceLastRun(actualNameJob3); }
+	public String getJob4SinceLastRun() { return getTimeElapsedSinceLastRun(actualNameJob4); }
+	public String getJob5SinceLastRun() { return getTimeElapsedSinceLastRun(actualNameJob5); }
 
-        if (lastBuild.isBuilding()) {
-            duration = System.currentTimeMillis() - lastBuild.getTimeInMillis();
-            estimatedDuration = lastBuild.getEstimatedDuration();
+	public String getJob1LastRunPassFailAborted() { return getLastRunPassFailAborted(actualNameJob1); }
+	public String getJob2LastRunPassFailAborted() { return getLastRunPassFailAborted(actualNameJob2); }
+	public String getJob3LastRunPassFailAborted() { return getLastRunPassFailAborted(actualNameJob3); }
+	public String getJob4LastRunPassFailAborted() { return getLastRunPassFailAborted(actualNameJob4); }
+	public String getJob5LastRunPassFailAborted() { return getLastRunPassFailAborted(actualNameJob5); }
 
-            if (estimatedDuration == -1) {
-                percentCompleted = 0;
-            }
-            else {
-                if (duration <= estimatedDuration) {
-                    percentCompleted = (long)((double) duration / (double) estimatedDuration * 100);
-                }
-                else {
-                    percentCompleted = 100;
-                }
-            }
-        }
+	public String getJob1LastRunStatus() { return getLastRunStatus(actualNameJob1); }
+	public String getJob2LastRunStatus() { return getLastRunStatus(actualNameJob2); }
+	public String getJob3LastRunStatus() { return getLastRunStatus(actualNameJob3); }
+	public String getJob4LastRunStatus() { return getLastRunStatus(actualNameJob4); }
+	public String getJob5LastRunStatus() { return getLastRunStatus(actualNameJob5); }
 
-        return String.valueOf(percentCompleted) + "%";
-    }
+	public String getJob1Status() { return getStatus(actualNameJob1); }
+	public String getJob2Status() { return getStatus(actualNameJob2); }
+	public String getJob3Status() { return getStatus(actualNameJob3); }
+	public String getJob4Status() { return getStatus(actualNameJob4); }
+	public String getJob5Status() { return getStatus(actualNameJob5); }
 
-    private String getTimeElapsedSinceLastRun(String jobName) {
-        return convertDurationToDisplay((System.currentTimeMillis() - getLastBuild(jobName).getTimeInMillis()));
-    }
+	public String getJob1Failed() { return getFailedTests(actualNameJob3); }
+	public String getJob2Failed() { return getFailedTests(actualNameJob3); }
+	public String getJob3Failed() { return getFailedTests(actualNameJob3); }
+	public String getJob4Failed() { return getFailedTests(actualNameJob4); }
+	public String getJob5Failed() { return getFailedTests(actualNameJob5); }
 
-    private String getFailedTests(String jobName) {
-        TestResultAction testResults = (TestResultAction) getLastBuild(jobName).getTestResultAction();
+	private String getCurrentBuildDuration(String jobName) {
+		AbstractProject tli = (AbstractProject)(Hudson.getInstance().getItem(jobName));
 
-        if (testResults != null) {
-            return "<strong>" + String.valueOf ( (int) (((double) testResults.getFailCount()/ (double) testResults.getTotalCount()) * 100.0)) + "%</strong> failed";
-        }
-        else {
-            return "";
-        }
-    }
+		if (tli.getLastBuild().isBuilding()) {
+			return convertDurationToDisplay((System.currentTimeMillis() - tli.getLastBuild().getTimeInMillis()));
+		}
+		else {
+			return convertDurationToDisplay(tli.getLastBuild().getDuration());
+		}
+	}
 
-    private AbstractBuild getLastBuild(String jobName) {
-        AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItem(jobName));
-        AbstractBuild lastBuild = (AbstractBuild) tli.getLastBuild();
+	private String getPercentCompleted(String jobName) {
+		AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItem(jobName));
+		AbstractBuild lastBuild = (AbstractBuild) tli.getLastBuild();
+		long percentCompleted = 0;
+		long duration = 0;
+		long estimatedDuration = 0;
 
-        // this logic exists because getLastBuild() will return the currently running build
-        if (lastBuild.isBuilding()) {
-            return (AbstractBuild) tli.getBuilds().get(1);
-        }
-        else {
-            return lastBuild;
-        }
-    }
+		if (lastBuild.isBuilding()) {
+			duration = System.currentTimeMillis() - lastBuild.getTimeInMillis();
+			estimatedDuration = lastBuild.getEstimatedDuration();
 
-    private String getLastRunPassFailAborted(String jobName) {
-    	String lastBuildStatusSummary = getLastRunStatus(jobName).toLowerCase();
-    	if ((lastBuildStatusSummary.equals("stable")) || (lastBuildStatusSummary.equals("back to normal"))) {
-    		return "pass";
-    	} else if (lastBuildStatusSummary.equals("aborted")) {
-    		return "aborted";
-    	} 
-    	return "fail";
-    }
+			if (estimatedDuration == -1) {
+				percentCompleted = 0;
+			}
+			else {
+				if (duration <= estimatedDuration) {
+					percentCompleted = (long)((double) duration / (double) estimatedDuration * 100);
+				}
+				else {
+					percentCompleted = 100;
+				}
+			}
+		}
 
-    private String getLastRunStatus(String jobName) {
-        return getLastBuild(jobName).getBuildStatusSummary().message.toString();
-    }
+		return String.valueOf(percentCompleted) + "%";
+	}
 
-    private String getStatus(String jobName) {
-        AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItem(jobName));
+	private String getTimeElapsedSinceLastRun(String jobName) {
+		return convertDurationToDisplay((System.currentTimeMillis() - getLastBuild(jobName).getTimeInMillis()));
+	}
 
-        if (tli.isBuilding()) {
-            return "running";
-        } else {
-            if (tli.getLastBuild().getResult().toString().equalsIgnoreCase("success")) {
-                return "passed";
-            } else if (tli.getLastBuild().getResult().toString().equalsIgnoreCase("aborted")) {
-                return "aborted";
-            } else {
-                return "failed";
-            }
-        }
-    }
+	private String getFailedTests(String jobName) {
+		TestResultAction testResults = (TestResultAction) getLastBuild(jobName).getTestResultAction();
 
-    private String convertDurationToDisplay(long durationInMillis) {
-        long durationInMins = durationInMillis / millisecondsInAMinute;
-        if (durationInMins > minutesInAnHour) {
-            return "<strong>" + String.valueOf(round(durationInMins / minutesInAnHour, 2, BigDecimal.ROUND_HALF_UP)) + "</strong> hours";
-        }
-        else {
-            return "<strong>" + String.valueOf(durationInMins) + "</strong> min" + ((durationInMins == 1) ? "" : "s");
-        }
-    }
+		if (testResults != null) {
+			return "<strong>" + String.valueOf ( (int) (((double) testResults.getFailCount()/ (double) testResults.getTotalCount()) * 100.0)) + "%</strong> failed";
+		}
+		else {
+			return "";
+		}
+	}
 
-    private static double round(double unrounded, int precision, int roundingMode) {
-        BigDecimal bd = new BigDecimal(unrounded);
-        BigDecimal rounded = bd.setScale(precision, roundingMode);
-        return rounded.doubleValue();
-    }
+	private AbstractBuild getLastBuild(String jobName) {
+		AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItem(jobName));
+		AbstractBuild lastBuild = (AbstractBuild) tli.getLastBuild();
+
+		// this logic exists because getLastBuild() will return the currently running build
+		if (lastBuild.isBuilding()) {
+			return (AbstractBuild) tli.getBuilds().get(1);
+		}
+		else {
+			return lastBuild;
+		}
+	}
+
+	private String getLastRunPassFailAborted(String jobName) {
+		String lastBuildStatusSummary = getLastRunStatus(jobName).toLowerCase();
+		if ((lastBuildStatusSummary.equals("stable")) || (lastBuildStatusSummary.equals("back to normal"))) {
+			return "pass";
+		} else if (lastBuildStatusSummary.equals("aborted")) {
+			return "aborted";
+		} 
+		return "fail";
+	}
+
+	private String getLastRunStatus(String jobName) {
+		return getLastBuild(jobName).getBuildStatusSummary().message.toString();
+	}
+
+	private String getStatus(String jobName) {
+		AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItem(jobName));
+
+		if (tli.isBuilding()) {
+			return "running";
+		} else {
+			if (tli.getLastBuild().getResult().toString().equalsIgnoreCase("success")) {
+				return "passed";
+			} else if (tli.getLastBuild().getResult().toString().equalsIgnoreCase("aborted")) {
+				return "aborted";
+			} else {
+				return "failed";
+			}
+		}
+	}
+
+	private String convertDurationToDisplay(long durationInMillis) {
+		long durationInMins = durationInMillis / MILLISECONDS_IN_A_MINUTE;
+		if (durationInMins > MINUTES_IN_AN_HOUR) {
+			return "<strong>" + String.valueOf(round(durationInMins / MINUTES_IN_AN_HOUR, 2, BigDecimal.ROUND_HALF_UP)) + "</strong> hours";
+		}
+		else {
+			return "<strong>" + String.valueOf(durationInMins) + "</strong> min" + ((durationInMins == 1) ? "" : "s");
+		}
+	}
+
+	private static double round(double unrounded, int precision, int roundingMode) {
+		BigDecimal bd = new BigDecimal(unrounded);
+		BigDecimal rounded = bd.setScale(precision, roundingMode);
+		return rounded.doubleValue();
+	}
 }
