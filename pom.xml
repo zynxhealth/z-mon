@@ -12,7 +12,7 @@
     </parent>
 
     <!-- Artifact identification -->
-    <artifactId>z-mon</artifactId>
+    <artifactId>z-mon2</artifactId>
     <version>1.559-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Z-Mon Feedback Panel</name>

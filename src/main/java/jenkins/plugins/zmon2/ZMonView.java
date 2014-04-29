@@ -1,4 +1,4 @@
-package jenkins.plugins.zmon;
+package jenkins.plugins.zmon2;
 
 import hudson.Extension;
 import hudson.model.*;
@@ -23,9 +23,8 @@ public class ZMonView extends ListView {
 
 		@Override
 		public String getDisplayName() {
-			return "Zynx Monitor";
+			return "Zynx Monitor 2";
 		}
-
 	}
 
 	public String getTeamName() { return teamName; }
