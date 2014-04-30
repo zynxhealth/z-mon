@@ -320,7 +320,7 @@ body {
         -webkit-border-radius: 5px;
         -khtml-border-radius: 5px;
         border-radius: 5px;
-        color: #caff2d;
+        color: #ffffff;
         background-color: #486000;
         border: 1px solid #5b7a00;
         font-size: 14.4px;
@@ -329,13 +329,16 @@ body {
         line-height: 24px;
         display: block;
         width: 70%;
-        margin: auto; }
+        margin: auto;
+        -webkit-animation-name: greenPulse;
+        -webkit-animation-duration: 2s;
+        -webkit-animation-iteration-count: infinite; }
       body div.job-container .last-ran .last-run-fail {
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
         -khtml-border-radius: 5px;
         border-radius: 5px;
-        color: #f07b6b;
+        color: #ffffff;
         background-color: #821b0d;
         border: 1px solid #99200f;
         font-size: 14.4px;
@@ -344,13 +347,16 @@ body {
         line-height: 24px;
         display: block;
         width: 70%;
-        margin: auto; }
+        margin: auto;
+        -webkit-animation-name: redPulse;
+        -webkit-animation-duration: 2s;
+        -webkit-animation-iteration-count: infinite; }
       body div.job-container .last-ran .last-run-aborted {
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
         -khtml-border-radius: 5px;
         border-radius: 5px;
-        color: #b3b3b3;
+        color: #ffffff;
         background-color: #4d4d4d;
         border: 1px solid #5a5a5a;
         font-size: 14.4px;
@@ -365,7 +371,7 @@ body {
         -webkit-border-radius: 5px;
         -khtml-border-radius: 5px;
         border-radius: 5px;
-        color: #8f8f8f;
+        color: #ffffff;
         background-color: #292929;
         border: 1px solid #353535;
         font-size: 14.4px;
@@ -407,7 +413,7 @@ body {
         font-size: 14.4px;
         text-align: center;
         display: block;
-        text-shadow: 1px 1px 1px #000; }
+        text-shadow: 1px 1px 1px #000000; }
         body div.job-container .job-status .time-value strong {
           font-size: 38.4px;
           font-weight: 600;
@@ -531,3 +537,29 @@ body {
 
   to {
     -ms-transform: rotate(360deg); } }
+
+@-webkit-keyframes greenPulse {
+  from {
+    background-color: #749a02;
+    -webkit-box-shadow: 0 0 9px #333333; }
+
+  50% {
+    background-color: #91bd09;
+    -webkit-box-shadow: 0 0 18px #91bd09; }
+
+  to {
+    background-color: #749a02;
+    -webkit-box-shadow: 0 0 9px #333333; } }
+
+@-webkit-keyframes redPulse {
+  from {
+    background-color: #bc330d;
+    -webkit-box-shadow: 0 0 9px #333333; }
+
+  50% {
+    background-color: #e33100;
+    -webkit-box-shadow: 0 0 18px #e33100; }
+
+  to {
+    background-color: #bc330d;
+    -webkit-box-shadow: 0 0 9px #333333; } }
