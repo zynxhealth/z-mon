@@ -6,16 +6,16 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>1.559</version>
+        <version>1.532.3</version>
         <!-- which version of Hudson is this plugin built against? -->
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <!-- Artifact identification -->
     <artifactId>z-mon2</artifactId>
-    <version>1.559-SNAPSHOT</version>
+    <version>1.532.3-SNAPSHOT</version>
     <packaging>hpi</packaging>
-    <name>Z-Mon Feedback Panel</name>
+    <name>Z-Mon 2 Feedback Panel</name>
 
     <developers>
         <developer>
