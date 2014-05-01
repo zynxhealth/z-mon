@@ -324,6 +324,15 @@ body {
 
 }
 
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
 @-webkit-keyframes spin {
   from {
     -webkit-transform: rotate(0deg);
@@ -351,6 +360,21 @@ body {
   }
 }
 
+@keyframes greenPulse {
+  from {
+    background-color: #749a02;
+    -webkit-box-shadow: 0 0 9px #333333;
+  }
+  50% {
+    background-color: #91bd09;
+    -webkit-box-shadow: 0 0 18px #91bd09;
+  }
+  to {
+    background-color: #749a02;
+    -webkit-box-shadow: 0 0 9px #333333;
+  }
+}
+
 @-webkit-keyframes greenPulse {
   from {
     background-color: #749a02;
@@ -366,7 +390,82 @@ body {
   }
 }
 
+@-moz-keyframes greenPulse {
+  from {
+    background-color: #749a02;
+    -webkit-box-shadow: 0 0 9px #333333;
+  }
+  50% {
+    background-color: #91bd09;
+    -webkit-box-shadow: 0 0 18px #91bd09;
+  }
+  to {
+    background-color: #749a02;
+    -webkit-box-shadow: 0 0 9px #333333;
+  }
+}
+
+@-ms-keyframes greenPulse {
+  from {
+    background-color: #749a02;
+    -webkit-box-shadow: 0 0 9px #333333;
+  }
+  50% {
+    background-color: #91bd09;
+    -webkit-box-shadow: 0 0 18px #91bd09;
+  }
+  to {
+    background-color: #749a02;
+    -webkit-box-shadow: 0 0 9px #333333;
+  }
+}
+
+@keyframes redPulse {
+  from {
+    background-color: #bc330d;
+    -webkit-box-shadow: 0 0 9px #333333;
+  }
+  50% {
+    background-color: #e33100;
+    -webkit-box-shadow: 0 0 18px #e33100;
+  }
+  to {
+    background-color: #bc330d;
+    -webkit-box-shadow: 0 0 9px #333333;
+  }
+}
+
 @-webkit-keyframes redPulse {
+  from {
+    background-color: #bc330d;
+    -webkit-box-shadow: 0 0 9px #333333;
+  }
+  50% {
+    background-color: #e33100;
+    -webkit-box-shadow: 0 0 18px #e33100;
+  }
+  to {
+    background-color: #bc330d;
+    -webkit-box-shadow: 0 0 9px #333333;
+  }
+}
+
+@-moz-keyframes redPulse {
+  from {
+    background-color: #bc330d;
+    -webkit-box-shadow: 0 0 9px #333333;
+  }
+  50% {
+    background-color: #e33100;
+    -webkit-box-shadow: 0 0 18px #e33100;
+  }
+  to {
+    background-color: #bc330d;
+    -webkit-box-shadow: 0 0 9px #333333;
+  }
+}
+
+@-ms-keyframes redPulse {
   from {
     background-color: #bc330d;
     -webkit-box-shadow: 0 0 9px #333333;
