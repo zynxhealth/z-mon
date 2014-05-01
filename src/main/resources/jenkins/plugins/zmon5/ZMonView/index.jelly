@@ -1,0 +1,140 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
+	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
+	xmlns:i="jelly:fmt">
+
+	<style>
+      html,body,body div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,figure,footer,header,hgroup,menu,nav,section,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}article,aside,figure,footer,header,hgroup,nav,section{display:block}img,object,embed{max-width:100%}html{overflow-y:scroll}ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent}del{text-decoration:line-through}abbr[title],dfn[title]{border-bottom:1px dotted #000;cursor:help}table{border-collapse:collapse;border-spacing:0}th{font-weight:bold;vertical-align:bottom}td{font-weight:normal;vertical-align:top}hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}input,select{vertical-align:middle}pre{white-space:pre;white-space:pre-wrap;white-space:pre-line;word-wrap:break-word}input[type="radio"]{vertical-align:text-bottom}input[type="checkbox"]{vertical-align:bottom;*vertical-align:baseline}.ie6 input{vertical-align:text-bottom}select,input,textarea{font:99% sans-serif}table{font-size:inherit;font:100%}a:hover,a:active{outline:none}small{font-size:85%}strong,th{font-weight:bold}td,td img{vertical-align:top}sub,sup{font-size:75%;line-height:0;position:relative}sup{top:-0.5em}sub{bottom:-0.25em}pre,code,kbd,samp{font-family:monospace, sans-serif}.clickable,label,input[type=button],input[type=submit],button{cursor:pointer}button,input,select,textarea{margin:0}button{width:auto;overflow:visible}.ie7 img{-ms-interpolation-mode:bicubic}.ie6 html{filter:expression(document.execCommand("BackgroundImageCache", false, true))}.clearfix:before,.clearfix:after{content:"\0020";display:block;height:0;overflow:hidden}.clearfix:after{clear:both}.clearfix{zoom:1}body{font:13px Helmet, Freesans, sans-serif}body,select,input,textarea{color:#333}a{color:#03f}a:hover{color:#69f}::-moz-selection{background:#fcd700;color:#fff;text-shadow:none}::selection{background:#fcd700;color:#fff;text-shadow:none}a:link{-webkit-tap-highlight-color:#fcd700}ins{background-color:#fcd700;color:#000;text-decoration:none}mark{background-color:#fcd700;color:#000;font-style:italic;font-weight:bold}html{overflow:hidden}body{background-color:#000;color:#424242;font-family:'Arial', 'Helvetica', sans-serif;font-size:24px;padding:6px;overflow:hidden}body #header{overflow:hidden;margin:auto;width:90%}body #header #team-name{float:left;font-weight:600;color:#757575;margin-right:21px;font-size:28.8px}body #header #build-num{display:block;text-align:center;font-size:28.8px;font-weight:600;float:left}body #header #build-num strong{color:#757575}body #header #logo{width:160px;height:80px;float:right}body #current-cycle{overflow:hidden;margin-left:auto;margin-right:auto;margin-bottom:15px;width:90%}body #other-info{overflow:hidden;margin-left:auto;margin-right:auto;margin-bottom:15px;width:90%;border-top:1px solid #424242;padding-top:9px}body #other-info .job-container{padding-left:60px}body #other-info span.loading-wheel{left:160px}body #footer{border-top:1px solid #0f0f0f;color:#141414;padding-top:6px;font-size:10.8px;font-style:italic;text-align:right;margin:auto;width:90%}body div.job-container{width:160px;float:left;margin-left:30px;margin-right:30px;position:relative}body div.job-container .job-name{color:#f5f5f5;font-size:19.2px;font-weight:600;text-align:center;display:block;margin-left:auto;margin-right:auto}body div.job-container .last-ran{font-size:13.2px;text-align:center;display:block;color:#5c5c5c;padding-bottom:6px;line-height:24px}body div.job-container .last-ran strong{color:#fff}body div.job-container .last-ran .last-run-pass{-moz-border-radius:5px;-webkit-border-radius:5px;-khtml-border-radius:5px;border-radius:5px;color:#ffffff;background-color:#486000;border:1px solid #5b7a00;font-size:14.4px;font-weight:600;padding:0 9.6px 0 9.6px;line-height:24px;display:block;width:70%;margin:auto;-webkit-animation-name:greenPulse;-webkit-animation-duration:2s;-webkit-animation-iteration-count:infinite}body div.job-container .last-ran .last-run-fail{-moz-border-radius:5px;-webkit-border-radius:5px;-khtml-border-radius:5px;border-radius:5px;color:#ffffff;background-color:#821b0d;border:1px solid #99200f;font-size:14.4px;font-weight:600;padding:0 9.6px 0 9.6px;line-height:24px;display:block;width:70%;margin:auto;-webkit-animation-name:redPulse;-webkit-animation-duration:2s;-webkit-animation-iteration-count:infinite}body div.job-container .last-ran .last-run-aborted{-moz-border-radius:5px;-webkit-border-radius:5px;-khtml-border-radius:5px;border-radius:5px;color:#ffffff;background-color:#4d4d4d;border:1px solid #5a5a5a;font-size:14.4px;font-weight:600;padding:0 9.6px 0 9.6px;line-height:24px;display:block;width:70%;margin:auto}body div.job-container .last-ran .last-run-{-moz-border-radius:5px;-webkit-border-radius:5px;-khtml-border-radius:5px;border-radius:5px;color:#ffffff;background-color:#292929;border:1px solid #353535;font-size:14.4px;font-weight:600;padding:0 9.6px 0 9.6px;line-height:24px;display:block;width:70%;margin:auto}body div.job-container .test-count{position:relative;height:0;margin-left:160px;top:-110.0px;color:#821b0d;font-size:16.8px;text-align:left}body div.job-container .test-count strong{font-size:33.6px;font-weight:600;color:#df2f16;clear:both;display:block}body div.job-container .job-status{-moz-border-radius:50%;-webkit-border-radius:50%;-khtml-border-radius:50%;border-radius:50%;background-color:#424242;width:100px;height:100px;margin:auto;margin-top:18px;margin-bottom:18px;color:#fff}body div.job-container .job-status .pb-container{visibility:hidden}body div.job-container .job-status .time-value{font-size:14.4px;text-align:center;display:block;text-shadow:1px 1px 1px #000000}body div.job-container .job-status .time-value strong{font-size:38.4px;font-weight:600;text-align:center;display:block;margin-top:12px}body div.job-container .passed{border:2px solid #7da700;background:-webkit-radial-gradient(circle, #a7e000, #486000);background:-moz-radial-gradient(circle, #94c600, #486000);background:-ms-radial-gradient(circle, #94c600, #486000);-moz-box-shadow:1px 2px 5px -1px #000;-webkit-box-shadow:1px 2px 5px -1px #424242;box-shadow:1px 2px 5px -1px #424242}body div.job-container .failed{border:2px solid #c32913;background:-webkit-radial-gradient(circle, #e93d25, #821b0d);background:-moz-radial-gradient(circle, #df2f16, #821b0d);background:-ms-radial-gradient(circle, #df2f16, #821b0d);-moz-box-shadow:1px 2px 5px -1px #000;-webkit-box-shadow:1px 2px 5px -1px #424242;box-shadow:1px 2px 5px -1px #424242}body div.job-container .aborted{border:2px solid #717171;background:-webkit-radial-gradient(circle, #8d8d8d, #4d4d4d);background:-moz-radial-gradient(circle, gray, #4d4d4d);background:-ms-radial-gradient(circle, gray, #4d4d4d);-moz-box-shadow:1px 2px 5px -1px #000;-webkit-box-shadow:1px 2px 5px -1px #424242;box-shadow:1px 2px 5px -1px #424242}body div.job-container .running{border:2px solid #333;background:-webkit-radial-gradient(circle, #4f4f4f, #0f0f0f);background:-moz-radial-gradient(circle, #424242, #0f0f0f);background:-ms-radial-gradient(circle, #424242, #0f0f0f);-moz-box-shadow:1px 2px 5px -1px #000;-webkit-box-shadow:1px 2px 5px -1px #424242;box-shadow:1px 2px 5px -1px #424242;border:1px solid #000}body div.job-container .running .pb-container{visibility:visible;-moz-border-radius:3px;-webkit-border-radius:3px;-khtml-border-radius:3px;border-radius:3px;border:1px solid #686868;width:50px;height:4.8px;margin:auto;margin-top:9.6px;position:relative;top:-130px}body div.job-container .running .pb-container .pb-value{background-color:#5c5c5c;height:4.8px}body div.job-container .running p.time-value{position:relative;top:-124px}body div.job-container div.running:before{content:"";-moz-border-radius:50%;-webkit-border-radius:50%;-khtml-border-radius:50%;border-radius:50%;position:relative;display:block;height:124px;width:124px;top:-12px;left:-12px;background-color:gray;border:1px solid #5c5c5c;z-index:-2}body div.job-container span.loading-wheel{position:absolute;width:0;height:0;left:80px;top:100px;border-left:100px solid transparent;border-top:50px solid #000;opacity:.6;z-index:-1;-webkit-animation:spin 6s linear infinite;-webkit-transform-origin:0 0;-moz-animation:spin 6s linear infinite;-moz-transform-origin:0 0}body div.job-container .running-time{position:relative;top:-124px}body div.job-container .waiting{border:2px dotted #424242;background-color:#0f0f0f}body .arrow-right{float:left;margin-top:80px;width:0;height:0;border-top:12px solid transparent;border-bottom:12px solid transparent;background-color:#000;border-left:18px solid #424242}@keyframes spin{from{-webkit-transform:rotate(0deg)}to{-webkit-transform:rotate(360deg)}}@-webkit-keyframes spin{from{-webkit-transform:rotate(0deg)}to{-webkit-transform:rotate(360deg)}}@-moz-keyframes spin{from{-moz-transform:rotate(0deg)}to{-moz-transform:rotate(360deg)}}@-ms-keyframes spin{from{-ms-transform:rotate(0deg)}to{-ms-transform:rotate(360deg)}}@keyframes greenPulse{from{background-color:#749a02;-webkit-box-shadow:0 0 9px #333333}50%{background-color:#91bd09;-webkit-box-shadow:0 0 18px #91bd09}to{background-color:#749a02;-webkit-box-shadow:0 0 9px #333333}}@-webkit-keyframes greenPulse{from{background-color:#749a02;-webkit-box-shadow:0 0 9px #333333}50%{background-color:#91bd09;-webkit-box-shadow:0 0 18px #91bd09}to{background-color:#749a02;-webkit-box-shadow:0 0 9px #333333}}@-moz-keyframes greenPulse{from{background-color:#749a02;-webkit-box-shadow:0 0 9px #333333}50%{background-color:#91bd09;-webkit-box-shadow:0 0 18px #91bd09}to{background-color:#749a02;-webkit-box-shadow:0 0 9px #333333}}@-ms-keyframes greenPulse{from{background-color:#749a02;-webkit-box-shadow:0 0 9px #333333}50%{background-color:#91bd09;-webkit-box-shadow:0 0 18px #91bd09}to{background-color:#749a02;-webkit-box-shadow:0 0 9px #333333}}@keyframes redPulse{from{background-color:#bc330d;-webkit-box-shadow:0 0 9px #333333}50%{background-color:#e33100;-webkit-box-shadow:0 0 18px #e33100}to{background-color:#bc330d;-webkit-box-shadow:0 0 9px #333333}}@-webkit-keyframes redPulse{from{background-color:#bc330d;-webkit-box-shadow:0 0 9px #333333}50%{background-color:#e33100;-webkit-box-shadow:0 0 18px #e33100}to{background-color:#bc330d;-webkit-box-shadow:0 0 9px #333333}}@-moz-keyframes redPulse{from{background-color:#bc330d;-webkit-box-shadow:0 0 9px #333333}50%{background-color:#e33100;-webkit-box-shadow:0 0 18px #e33100}to{background-color:#bc330d;-webkit-box-shadow:0 0 9px #333333}}@-ms-keyframes redPulse{from{background-color:#bc330d;-webkit-box-shadow:0 0 9px #333333}50%{background-color:#e33100;-webkit-box-shadow:0 0 18px #e33100}to{background-color:#bc330d;-webkit-box-shadow:0 0 9px #333333}}
+	</style>
+
+	<meta http-equiv="refresh" content="${it.refresh}" />
+
+	<div id="header">
+		<div id="team-name">${it.teamName}</div>
+		<div id="build-num">
+			[build #
+			<strong>${it.buildNumber}</strong>
+			]
+		</div>
+		<div id="logo">
+			<img src="${it.teamLogoURL}" />
+		</div>
+	</div>
+
+	<div id="current-cycle">
+
+      <j:if test="${it.displayNameJob1 != ''}">
+         <div class="job-container">
+            <h2 class="job-name">${it.displayNameJob1}</h2>
+            <span class="loading-wheel"></span>
+            <div class="job-status ${it.job1Status}">
+               <p class="time-value">${it.job1Time}</p>
+               <div class="pb-container">
+                  <div class="pb-value" style="width: ${it.job1PercentCompleted}"></div>
+               </div>
+            </div>
+            <p class="last-ran">
+               last ran
+               <strong>${it.job1SinceLastRun}</strong>
+               ago
+               <span class="last-run-${it.job1LastRunPassFailAborted}">${it.job1LastRunStatus}</span>
+            </p>
+         </div>
+      </j:if>
+
+      <j:if test="${it.displayNameJob2 != ''}">
+         <div class="arrow-right"></div>
+
+         <div class="job-container">
+            <h2 class="job-name">${it.displayNameJob2}</h2>
+            <span class="loading-wheel"></span>
+            <div class="job-status ${it.job2Status}">
+               <p class="time-value">${it.job2Time}</p>
+               <div class="pb-container">
+                  <div class="pb-value" style="width: ${it.job2PercentCompleted}"></div>
+               </div>
+            </div>
+            <p class="last-ran">
+               last ran
+               <strong>${it.job2SinceLastRun}</strong>
+               ago
+               <span class="last-run-${it.job2LastRunPassFailAborted}">${it.job2LastRunStatus}</span>
+            </p>
+         </div>
+      </j:if>
+
+      <j:if test="${it.displayNameJob3 != ''}">
+         <div class="arrow-right"></div>
+
+         <div class="job-container">
+            <h2 class="job-name">${it.displayNameJob3}</h2>
+            <span class="loading-wheel"></span>
+            <div class="job-status ${it.job3Status}">
+               <p class="time-value">${it.job3Time}</p>
+               <div class="pb-container">
+                  <div class="pb-value" style="width: ${it.job3PercentCompleted}"></div>
+               </div>
+            </div>
+            <p class="last-ran">
+               last ran
+               <strong>${it.job3SinceLastRun}</strong>
+               ago
+               <span class="last-run-${it.job3LastRunPassFailAborted}">${it.job3LastRunStatus}</span>
+            </p>
+         </div>
+      </j:if>
+
+      <j:if test="${it.displayNameJob4 != ''}">
+         <div class="arrow-right"></div>
+
+         <div class="job-container">
+            <h2 class="job-name">${it.displayNameJob4}</h2>
+            <span class="loading-wheel"></span>
+            <div class="job-status ${it.job4Status}">
+               <p class="time-value">${it.job4Time}</p>
+               <div class="pb-container">
+                  <div class="pb-value" style="width: ${it.job4PercentCompleted}"></div>
+               </div>
+            </div>
+            <p class="last-ran">
+               last ran
+               <strong>${it.job4SinceLastRun}</strong>
+               ago
+               <span class="last-run-${it.job4LastRunPassFailAborted}">${it.job4LastRunStatus}</span>
+            </p>
+         </div>
+      </j:if>
+
+      <j:if test="${it.displayNameJob5 != ''}">
+         <div class="arrow-right"></div>
+
+         <div class="job-container">
+            <h2 class="job-name">${it.displayNameJob5}</h2>
+            <span class="loading-wheel"></span>
+            <div class="job-status ${it.job5Status}">
+               <p class="time-value">${it.job5Time}</p>
+               <div class="pb-container">
+                  <div class="pb-value" style="width: ${it.job5PercentCompleted}"></div>
+               </div>
+            </div>
+            <p class="last-ran">
+               last ran
+               <strong>${it.job5SinceLastRun}</strong>
+               ago
+               <span class="last-run-${it.job5LastRunPassFailAborted}">${it.job5LastRunStatus}</span>
+            </p>
+         </div>
+      </j:if>
+
+	</div>
+
+	<!--<div id="other-info"> -->
+	<!--Future pipelines -->
+	<!--</div> -->
+
+	<div id="footer">
+		Created by Aslan Brooke, Steve Moyer, Alex Tatiyants, and Jesse Forrest -
+		Zynx Health, 2012-2014
+	</div>
+
+</j:jelly>
+

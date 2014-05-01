@@ -12,10 +12,10 @@
     </parent>
 
     <!-- Artifact identification -->
-    <artifactId>z-mon4</artifactId>
-    <version>1.532.3.4-SNAPSHOT</version>
+    <artifactId>z-mon5</artifactId>
+    <version>1.532.3.6-SNAPSHOT</version>
     <packaging>hpi</packaging>
-    <name>Z-Mon 4 Feedback Panel</name>
+    <name>Z-Mon 5 Feedback Panel</name>
 
     <developers>
         <developer>

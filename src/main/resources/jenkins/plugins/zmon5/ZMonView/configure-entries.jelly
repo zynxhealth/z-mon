@@ -1,0 +1,43 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
+	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
+	xmlns:i="jelly:fmt">
+	<f:entry title="${%Team / Project Name}" field="teamName">
+		<f:textbox id="zmon.teamName" name="teamName" />
+	</f:entry>
+	<f:entry title="${%Team / Project Logo URL}" field="teamLogoURL">
+		<f:textbox id="zmon.teamLogo" name="teamLogoURL" />
+	</f:entry>
+	<f:entry title="${%Job 1 Actual Name}" field="actualNameJob1">
+		<f:textbox id="zmon.actualNameJob1" name="actualNameJob1" />
+	</f:entry>
+	<f:entry title="${%Job 1 Display Name}" field="displayNameJob1">
+		<f:textbox id="zmon.displayNameJob1" name="displayNameJob1" />
+	</f:entry>
+	<f:entry title="${%Job 2 Actual Name}" field="actualNameJob2">
+		<f:textbox id="zmon.actualNameJob2" name="actualNameJob2" />
+	</f:entry>
+	<f:entry title="${%Job 2 Display Name}" field="displayNameJob2">
+		<f:textbox id="zmon.displayNameJob2" name="displayNameJob2" />
+	</f:entry>
+	<f:entry title="${%Job 3 Actual Name}" field="actualNameJob3">
+		<f:textbox id="zmon.actualNameJob3" name="actualNameJob3" />
+	</f:entry>
+	<f:entry title="${%Job 3 Display Name}" field="displayNameJob3">
+		<f:textbox id="zmon.displayNameJob3" name="displayNameJob3" />
+	</f:entry>
+	<f:entry title="${%Job 4 Actual Name}" field="actualNameJob4">
+		<f:textbox id="zmon.actualNameJob4" name="actualNameJob4" />
+	</f:entry>
+	<f:entry title="${%Job 4 Display Name}" field="displayNameJob4">
+		<f:textbox id="zmon.displayNameJob4" name="displayNameJob4" />
+	</f:entry>
+	<f:entry title="${%Job 5 Actual Name}" field="actualNameJob5">
+		<f:textbox id="zmon.actualNameJob5" name="actualNameJob5" />
+	</f:entry>
+	<f:entry title="${%Job 5 Display Name}" field="displayNameJob5">
+		<f:textbox id="zmon.displayNameJob5" name="displayNameJob5" />
+	</f:entry>
+	<f:entry title="${%Refresh time in seconds}" field="refresh">
+		<f:textbox id="zmon.refresh" name="refresh" />
+	</f:entry>
+</j:jelly>
