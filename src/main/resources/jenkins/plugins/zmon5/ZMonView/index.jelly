@@ -11,7 +11,8 @@
 	<div id="header">
 		<div id="team-name">${it.teamName}</div>
 		<div id="build-num">
-			[build #
+			[
+         build #
 			<strong>${it.buildNumber}</strong>
 			]
 		</div>
