@@ -1,4 +1,4 @@
-package jenkins.plugins.zmon5;
+package jenkins.plugins.zmon;
 
 import hudson.Extension;
 import hudson.model.*;

@@ -1,4 +1,4 @@
-package jenkins.plugins.zmon5;
+package jenkins.plugins.zmon;
 import hudson.Plugin;
 
 public class ZMonPlugin extends Plugin {
