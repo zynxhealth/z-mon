@@ -120,8 +120,8 @@ public class ZMonView extends ListView {
 	public String getJob4Status() { return getStatus(actualNameJob4); }
 	public String getJob5Status() { return getStatus(actualNameJob5); }
 
-	public String getJob1Failed() { return getFailedTests(actualNameJob3); }
-	public String getJob2Failed() { return getFailedTests(actualNameJob3); }
+	public String getJob1Failed() { return getFailedTests(actualNameJob1); }
+	public String getJob2Failed() { return getFailedTests(actualNameJob2); }
 	public String getJob3Failed() { return getFailedTests(actualNameJob3); }
 	public String getJob4Failed() { return getFailedTests(actualNameJob4); }
 	public String getJob5Failed() { return getFailedTests(actualNameJob5); }
