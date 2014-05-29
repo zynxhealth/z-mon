@@ -23,7 +23,7 @@ public class ZMonView extends ListView {
 
 		@Override
 		public String getDisplayName() {
-			return "Zynx Monitor 5";
+			return "Zynx Monitor";
 		}
 	}
 
