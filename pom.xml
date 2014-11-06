@@ -7,13 +7,13 @@
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
         <!-- The version of Hudson this plugin will run on -->
-        <version>1.565</version>
+        <version>1.580</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <!-- Artifact identification -->
     <artifactId>z-mon</artifactId>
-    <version>1.565-SNAPSHOT</version>
+    <version>1.580-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Z-Mon Feedback Panel</name>
 

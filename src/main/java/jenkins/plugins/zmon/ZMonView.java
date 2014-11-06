@@ -2,7 +2,6 @@ package jenkins.plugins.zmon;
 
 import hudson.Extension;
 import hudson.model.*;
-import hudson.tasks.junit.*;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 import javax.servlet.ServletException;
@@ -120,12 +119,6 @@ public class ZMonView extends ListView {
 	public String getJob4Status() { return getStatus(actualNameJob4); }
 	public String getJob5Status() { return getStatus(actualNameJob5); }
 
-	public String getJob1Failed() { return getFailedTests(actualNameJob1); }
-	public String getJob2Failed() { return getFailedTests(actualNameJob2); }
-	public String getJob3Failed() { return getFailedTests(actualNameJob3); }
-	public String getJob4Failed() { return getFailedTests(actualNameJob4); }
-	public String getJob5Failed() { return getFailedTests(actualNameJob5); }
-
 	private String getCurrentBuildDuration(String jobName) {
 		AbstractProject tli = (AbstractProject)(Hudson.getInstance().getItem(jobName));
 
@@ -166,17 +159,6 @@ public class ZMonView extends ListView {
 
 	private String getTimeElapsedSinceLastRun(String jobName) {
 		return convertDurationToDisplay((System.currentTimeMillis() - getLastBuild(jobName).getTimeInMillis()));
-	}
-
-	private String getFailedTests(String jobName) {
-		TestResultAction testResults = (TestResultAction) getLastBuild(jobName).getTestResultAction();
-
-		if (testResults != null) {
-			return "<strong>" + String.valueOf ( (int) (((double) testResults.getFailCount()/ (double) testResults.getTotalCount()) * 100.0)) + "%</strong> failed";
-		}
-		else {
-			return "";
-		}
 	}
 
 	private AbstractBuild getLastBuild(String jobName) {
