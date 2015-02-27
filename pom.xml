@@ -7,13 +7,13 @@
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
         <!-- The version of Hudson this plugin will run on -->
-        <version>1.565</version>
+        <version>1.598</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <!-- Artifact identification -->
     <artifactId>z-mon</artifactId>
-    <version>1.565-SNAPSHOT</version>
+    <version>1.598-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Z-Mon Feedback Panel</name>
 
@@ -37,6 +37,11 @@
             <id>jesseforrest</id>
             <name>Jesse Forrest</name>
             <email>jesseforrest@gmail.com</email>
+        </developer>
+        <developer>
+            <id>imuchnik</id>
+            <name>Irina Muchnik</name>
+            <email>muchnik.irina@gmail.com</email>
         </developer>
     </developers>
 
