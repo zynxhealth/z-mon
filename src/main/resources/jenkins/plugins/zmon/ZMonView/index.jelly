@@ -1,8 +1,12 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
 	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
-	xmlns:i="jelly:fmt">
-
-<style>
+	xmlns:i="jelly:fmt" xmlns:x="jelly:xml">
+<st:contentType value="text/html" />
+<x:doctype name="html"/>
+<html>
+<head>
+    <title>Radiate ALL things!!</title>
+    <style>
     /* style sheet */
     html {
     overflow: hidden; }
@@ -444,6 +448,10 @@
     background-color: #bc330d;
     -webkit-box-shadow: 0 0 9px #333333; } }
 </style>
+</head>
+<body>
+
+
 
 	<meta http-equiv="refresh" content="${it.refresh}" />
 
@@ -575,6 +583,9 @@
 		Created by Aslan Brooke, Steve Moyer, Alex Tatiyants, and Jesse Forrest -
 		Zynx Health, 2012-2014
 	</div>
+    </body>
+</html>
+
 
 </j:jelly>
 
