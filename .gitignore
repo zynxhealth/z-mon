@@ -9,6 +9,7 @@ work/
 ~*.pptx
 .idea
 tags
+.DS_Store
 
 .classpath
 
