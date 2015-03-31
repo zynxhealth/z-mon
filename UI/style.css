@@ -38,10 +38,11 @@ body {
         font-weight: 400; }
     body #header #logo {
       width: 80px;
-      height: 80px;
+      height: ls
+      
       float: left; }
       body #header #logo img {
-        width: 45px;
+        width: 230px;
         height: auto; }
   body #current-cycle {
     overflow: hidden;

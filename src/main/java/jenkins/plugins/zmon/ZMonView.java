@@ -12,7 +12,8 @@ public class ZMonView extends ListView {
 	private final int MILLISECONDS_IN_A_MINUTE = 60000;
 	private final double MINUTES_IN_AN_HOUR = 60.0;
 
-	@DataBoundConstructor
+
+    @DataBoundConstructor
 	public ZMonView(String name) {
 		super(name);
 	}
@@ -22,7 +23,7 @@ public class ZMonView extends ListView {
 
 		@Override
 		public String getDisplayName() {
-			return "Zynx Monitor";
+			return "CFPB Monitor";
 		}
 	}
 
@@ -113,6 +114,12 @@ public class ZMonView extends ListView {
 	public String getJob4LastRunStatus() { return getLastRunStatus(actualNameJob4); }
 	public String getJob5LastRunStatus() { return getLastRunStatus(actualNameJob5); }
 
+    public String getJob1Url() { return getBuildUrl(actualNameJob1); }
+    public String getJob2Url() { return getBuildUrl(actualNameJob2);}
+    public String getJob3Url() { return getBuildUrl(actualNameJob3); }
+	public String getJob4Url() { return getBuildUrl(actualNameJob4); }
+	public String getJob5Url() { return getBuildUrl(actualNameJob5); }
+
 	public String getJob1Status() { return getStatus(actualNameJob1); }
 	public String getJob2Status() { return getStatus(actualNameJob2); }
 	public String getJob3Status() { return getStatus(actualNameJob3); }
@@ -160,7 +167,10 @@ public class ZMonView extends ListView {
 	private String getTimeElapsedSinceLastRun(String jobName) {
 		return convertDurationToDisplay((System.currentTimeMillis() - getLastBuild(jobName).getTimeInMillis()));
 	}
-
+    private String getBuildUrl(String jobName){
+        String buildUrl=(Hudson.getInstance().getItem(jobName).getShortUrl());
+        return buildUrl;
+    }
 	private AbstractBuild getLastBuild(String jobName) {
 		AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItem(jobName));
 		AbstractBuild lastBuild = (AbstractBuild) tli.getLastBuild();

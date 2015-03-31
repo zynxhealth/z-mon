@@ -47,10 +47,10 @@
     font-weight: 400; }
     body #header #logo {
     width: 80px;
-    height: 80px;
+    height: 115px;
     float: left; }
     body #header #logo img {
-    width: 45px;
+    width: 230px;
     height: auto; }
     body #current-cycle {
     overflow: hidden;
@@ -471,8 +471,10 @@
 	<div id="current-cycle">
 
       <j:if test="${it.displayNameJob1 != ''}">
+
          <div class="job-container">
-            <h2 class="job-name">${it.displayNameJob1}</h2>
+
+            <a href="${it.job1Url}"> <h2 class="job-name">${it.displayNameJob1}</h2></a>
             <span class="loading-wheel"></span>
             <div class="job-status ${it.job1Status}">
                <p class="time-value">${it.job1Time}</p>
@@ -487,13 +489,12 @@
                <span class="last-run-${it.job1LastRunPassFailAborted}">${it.job1LastRunStatus}</span>
             </p>
          </div>
+
       </j:if>
 
       <j:if test="${it.displayNameJob2 != ''}">
-         <div class="arrow-right"></div>
-
          <div class="job-container">
-            <h2 class="job-name">${it.displayNameJob2}</h2>
+            <a href="${it.job2Url}"><h2 class="job-name">${it.displayNameJob2}</h2></a>
             <span class="loading-wheel"></span>
             <div class="job-status ${it.job2Status}">
                <p class="time-value">${it.job2Time}</p>
@@ -508,13 +509,14 @@
                <span class="last-run-${it.job2LastRunPassFailAborted}">${it.job2LastRunStatus}</span>
             </p>
          </div>
+
       </j:if>
 
       <j:if test="${it.displayNameJob3 != ''}">
-         <div class="arrow-right"></div>
-
          <div class="job-container">
-            <h2 class="job-name">${it.displayNameJob3}</h2>
+            <a href="${it.job3Url}">
+                <h2 class="job-name">${it.displayNameJob3}</h2>
+            </a>
             <span class="loading-wheel"></span>
             <div class="job-status ${it.job3Status}">
                <p class="time-value">${it.job3Time}</p>
@@ -535,7 +537,9 @@
          <div class="arrow-right"></div>
 
          <div class="job-container">
-            <h2 class="job-name">${it.displayNameJob4}</h2>
+            <a href="${it.job4Url}">
+                <h2 class="job-name">${it.displayNameJob4}</h2>
+            </a>
             <span class="loading-wheel"></span>
             <div class="job-status ${it.job4Status}">
                <p class="time-value">${it.job4Time}</p>
@@ -556,13 +560,15 @@
          <div class="arrow-right"></div>
 
          <div class="job-container">
-            <h2 class="job-name">${it.displayNameJob5}</h2>
-            <span class="loading-wheel"></span>
-            <div class="job-status ${it.job5Status}">
-               <p class="time-value">${it.job5Time}</p>
-               <div class="pb-container">
-                  <div class="pb-value" style="width: ${it.job5PercentCompleted}"></div>
-               </div>
+              <a href="${it.job5Url}">
+                <h2 class="job-name">${it.displayNameJob5}</h2>
+              </a>
+              <span class="loading-wheel"></span>
+                <div class="job-status ${it.job5Status}">
+                <p class="time-value">${it.job5Time}</p>
+                <div class="pb-container">
+                   <div class="pb-value" style="width: ${it.job5PercentCompleted}"></div>
+                </div>
             </div>
             <p class="last-ran">
                last ran
@@ -575,13 +581,13 @@
 
 	</div>
 
-	<!--<div id="other-info"> -->
-	<!--Future pipelines -->
-	<!--</div> -->
+
 
 	<div id="footer">
 		Created by Aslan Brooke, Steve Moyer, Alex Tatiyants, and Jesse Forrest -
 		Zynx Health, 2012-2014
+
+		Enhanced by Chris Contolini and Irina Muchnik, CFPB, 2015
 	</div>
     </body>
 </html>
