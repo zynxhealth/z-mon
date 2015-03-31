@@ -1,8 +1,9 @@
 /* style sheet */
-@import "reset";
+// @import "reset";
 
 $background-color: #000000;
 $base-color: #424242;
+$border-color: #333;
 $green: #94c600;
 $red: #df2f16;
 $grey: #808080;
@@ -14,6 +15,15 @@ $circle-size: 100px;
 $panel-width: 90%;
 $progress-circle-width: 12px;
 $gutter: 30px;
+
+// Media Query Ranges
+
+$small-range: (0em, 30em);
+
+$screen: "only screen";
+
+$small-up: $screen;
+$small-only: "#{$screen} and (max-width: #{upper-bound($small-range)})";
 
 @mixin rounded-corners($radius) {
   -moz-border-radius: $radius;
@@ -29,11 +39,12 @@ $gutter: 30px;
   border: 1px solid darken($color, 15%);
   font-size: $base-size * 0.6;
   font-weight: 600;
-  padding: 0 $base-size*0.4 0 $base-size*0.4;
+  padding: 0 $base-size*0.8 0 $base-size*0.8;
   line-height: $base-size;
   display: block;
   width: 70%;
   margin: auto;
+  margin-top: 10px;
 }
 
 @mixin panel-layout() {
@@ -42,6 +53,9 @@ $gutter: 30px;
   margin-right: auto;
   margin-bottom: $gutter / 2;
   width: $panel-width;
+  text-align: center;
+  left: 0px;
+  right: 0px;
 }
 
 @mixin radials($color) {
@@ -65,7 +79,7 @@ html {
 body {
   background-color: $background-color;
   color: $base-color;
-  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-family: 'proxima-nova', 'Helvetica', 'Arial', sans-serif;
   font-size: $base-size;
   padding: $gutter * 0.2;
   overflow: hidden;
@@ -74,36 +88,52 @@ body {
     overflow: hidden;
     margin: auto;
     width: $panel-width;
+    padding: 20px 20px 0px;
+    border-bottom: 1px solid $border-color; 
+
+    .title {
+      float: right;
+      padding-top: 10px;
+    }
 
     #team-name {
-      float: left;
-      font-weight: 600;
+      font-weight: 400;
       color: lighten($base-color, 20%);
       margin-right: $gutter * 0.7;
-      font-size: $base-size * 1.2;
+      font-size: $base-size;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: inline-block;
     }
 
     #build-num {
-      display: block;
+      display: inline-block;
       text-align: center;
-      font-size: $base-size * 1.2;
-      font-weight: 600;
-      float: left;
+      font-size: $base-size;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 200;
 
-      strong {
-        color: lighten($base-color, 20%);
+      span {
+        color: lighten($base-color, 50%);
+        font-weight: 400;
       }
     }
 
     #logo {
-      width: $box-width;
+      width: $box-width / 2;
       height: $box-width / 2;
-      float: right;
+      float: left;
+      img {
+        width: 45px;
+        height: auto;
+      }
     }
   }
 
   #current-cycle {
     @include panel-layout();
+    padding: 80px 10px;
   }
 
   #other-info {
@@ -133,19 +163,23 @@ body {
 
   div.job-container {
     width: $box-width;
-    float: left;
     margin-left: $gutter;
     margin-right: $gutter;
     position: relative;
+    display: inline-block;
+    vertical-align: top;
 
     .job-name {
       color: lighten($base-color, 70%);
-      font-size: $base-size * 0.8;
-      font-weight: 600;
+      font-size: $base-size * 0.7;
+      font-weight: 400;
       text-align: center;
       display: block;
       margin-left: auto;
       margin-right: auto;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
 
     .last-ran {
@@ -155,9 +189,13 @@ body {
       color: lighten($base-color, 10%);
       padding-bottom: $gutter * 0.2;
       line-height: $base-size;
+      margin-top: 10px;
+      text-transform: uppercase; 
+      letter-spacing: 0.5px;
 
-      strong {
+      span {
         color: lighten($base-color, 80%);
+        display: block;
       }
 
       .last-run-pass {
@@ -312,8 +350,8 @@ body {
   }
 
   .arrow-right {
-    float: left;
-    margin-top: $box-height * 0.8;
+    display: inline-block;
+    margin-top: $box-height * 1;
     width: 0;
     height: 0;
     border-top: $gutter * 0.4 solid transparent;
@@ -321,6 +359,39 @@ body {
     background-color: $background-color;
     border-left: $gutter * 0.6 solid $base-color;
   }
+
+  @media (max-width: 600px) {
+   #header {
+    padding: 20px 0px;
+    #logo {
+      width: $box-width / 3;
+      height: $box-width / 4;
+      display: inline-block;
+      img {
+        width: 30px;
+      }
+    }
+    .title {
+      width: 80%;
+      text-align: right; 
+      padding-top: 0px;
+    }
+    #team-name {
+      font-size: $base-size * 0.6;
+      display: inline-block;
+      letter-spacing: 0.3px;
+      margin-right: 5px;
+    }
+    #build-num {
+      font-size: $base-size * 0.6;
+      display: inline-block;
+      letter-spacing: 0.3px;
+    }
+   }
+   #current-cycle {
+    padding: 20px 10px;
+  }
+ }
 }
 
 @keyframes spin {

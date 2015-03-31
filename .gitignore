@@ -9,7 +9,9 @@ work/
 ~*.pptx
 .idea
 tags
+.DS_Store
 
 .classpath
 
 .project
+z-mon.iml
