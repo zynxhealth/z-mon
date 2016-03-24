@@ -16,11 +16,12 @@ Apache Maven.  You can download it from:
   "The version of Hudson this plugin will run on". The version number should
   match your version of Jenkins.  You can determine your version of Jenkins, by
   looking at the bottom right of a Jenkins page.
-5. Run Maven on this directory. For example:
+5. Copy this pom.xml file to the Apache Maven location. For example ~/Downloads/apache-maven-3.2.1/bin
+6. Run Maven on this directory. For example:
   ~/Downloads/apache-maven-3.2.1/bin/mvn clean install
-6. An .hpi file should be created in the target directory. For example:
+7. An .hpi file should be created in the target directory. For example:
   ls -al target/
-7. You can then upload the plugin via the "Advanced" tab on the Jenkins Manage
+8. You can then upload the plugin via the "Advanced" tab on the Jenkins Manage
 Plugins page.
 
 
