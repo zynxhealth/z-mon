@@ -24,3 +24,9 @@ Apache Maven.  You can download it from:
 Plugins page.
 
 
+
+To find job full names, run in Jenkins script console:
+Hudson.getInstance().getJobNames()
+
+To create monitor view click the + at the top of the tab and choose CFPB Monitor.
+You can configure the view by going to the monitor and appending /configure to the end

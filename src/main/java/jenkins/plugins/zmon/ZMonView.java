@@ -127,7 +127,7 @@ public class ZMonView extends ListView {
 	public String getJob5Status() { return getStatus(actualNameJob5); }
 
 	private String getCurrentBuildDuration(String jobName) {
-		AbstractProject tli = (AbstractProject)(Hudson.getInstance().getItem(jobName));
+		AbstractProject tli = (AbstractProject)(Hudson.getInstance().getItemByFullName(jobName));
 
 		if (tli.getLastBuild().isBuilding()) {
 			return convertDurationToDisplay((System.currentTimeMillis() - tli.getLastBuild().getTimeInMillis()));
@@ -138,7 +138,7 @@ public class ZMonView extends ListView {
 	}
 
 	private String getPercentCompleted(String jobName) {
-		AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItem(jobName));
+		AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItemByFullName(jobName));
 		AbstractBuild lastBuild = (AbstractBuild) tli.getLastBuild();
 		long percentCompleted = 0;
 		long duration = 0;
@@ -168,11 +168,11 @@ public class ZMonView extends ListView {
 		return convertDurationToDisplay((System.currentTimeMillis() - getLastBuild(jobName).getTimeInMillis()));
 	}
     private String getBuildUrl(String jobName){
-        String buildUrl=(Hudson.getInstance().getItem(jobName).getShortUrl());
+        String buildUrl=(Hudson.getInstance().getItemByFullName(jobName).getShortUrl());
         return buildUrl;
     }
 	private AbstractBuild getLastBuild(String jobName) {
-		AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItem(jobName));
+		AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItemByFullName(jobName));
 		AbstractBuild lastBuild = (AbstractBuild) tli.getLastBuild();
 
 		// this logic exists because getLastBuild() will return the currently running build
@@ -199,7 +199,7 @@ public class ZMonView extends ListView {
 	}
 
 	private String getStatus(String jobName) {
-		AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItem(jobName));
+		AbstractProject tli = (AbstractProject) (Hudson.getInstance().getItemByFullName(jobName));
 
 		if (tli.isBuilding()) {
 			return "running";
