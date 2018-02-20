@@ -124,7 +124,7 @@ public class ZMonView extends ListView {
                 return "ENV: " + envVars.get(envVar);
             }
         }
-        return "ENV: N/A";
+        return "";
     }
 
     private String getCurrentBuildDuration(String jobName) {
