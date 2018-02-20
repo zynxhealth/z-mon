@@ -1,29 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <!-- The version of Hudson this plugin will run on -->
-    <version>1.596.2</version>
+    <version>1.625.3</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
-
-  <!-- Artifact identification -->
-  <artifactId>z-mon</artifactId>
-  <version>1.596.2-SNAPSHOT</version>
+  <artifactId>continuous-monitor</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>hpi</packaging>
-  <name>Z-Mon Feedback Panel</name>
-  <dependencies>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins</groupId>
-      <artifactId>junit</artifactId>
-      <version>1.2</version>
-    </dependency>
-  </dependencies>
-
+  <name>continuous-monitor</name>
   <developers>
     <developer>
       <id>SteveMoyer</id>
@@ -36,9 +23,9 @@
       <email>aslandbrooke@yahoo.com</email>
     </developer>
     <developer>
-      <id></id>
+      <id />
       <name>Alex Tatiyants</name>
-      <email></email>
+      <email />
     </developer>
     <developer>
       <id>jesseforrest</id>
@@ -46,113 +33,88 @@
       <email>jesseforrest@gmail.com</email>
     </developer>
   </developers>
-
+  <properties>
+    <java_code.version>1.7</java_code.version>
+    <junit.version>1.2</junit.version>
+    <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
+    <log4j.version>1.2.17</log4j.version>
+    <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+    <maven-hpi-plugin.version>1.95</maven-hpi-plugin.version>
+    <maven.compiler.source>${java_code.version}</maven.compiler.source>
+    <maven.compiler.target>${java_code.version}</maven.compiler.target>
+    <sortpom-maven-plugin.version>2.6.0</sortpom-maven-plugin.version>
+    <commons-lang3.version>3.4</commons-lang3.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${commons-lang3.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+    </dependency>
+  </dependencies>
   <repositories>
     <repository>
       <id>jenkins-releases</id>
       <url>http://repo.jenkins-ci.org/releases/</url>
     </repository>
   </repositories>
-
   <pluginRepositories>
     <pluginRepository>
       <id>jenkins-releases</id>
       <url>http://repo.jenkins-ci.org/releases/</url>
     </pluginRepository>
   </pluginRepositories>
-
-  <!-- build process and details specification -->
   <build>
     <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.jenkins-ci.tools</groupId>
           <artifactId>maven-hpi-plugin</artifactId>
-          <version>1.95</version>
-        </plugin>
-        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-        <plugin>
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-          <configuration>
-            <lifecycleMappingMetadata>
-              <pluginExecutions>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.jenkins-ci.tools</groupId>
-                    <artifactId>maven-hpi-plugin</artifactId>
-                    <versionRange>[1.95,)</versionRange>
-                    <goals>
-                      <goal>apt-compile</goal>
-                      <goal>insert-test</goal>
-                      <goal>resolve-test-dependencies</goal>
-                      <goal>test-hpl</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
-                </pluginExecution>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.jvnet.localizer</groupId>
-                    <artifactId>maven-localizer-plugin</artifactId>
-                    <versionRange>[1.8,)</versionRange>
-                    <goals>
-                      <goal>generate</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
-                </pluginExecution>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.codehaus.groovy.maven</groupId>
-                    <artifactId>gmaven-plugin</artifactId>
-                    <versionRange>[1.0-rc-5,)</versionRange>
-                    <goals>
-                      <goal>testCompile</goal>
-                      <goal>generate</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
-                </pluginExecution>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <versionRange>[1.0-beta-1,)</versionRange>
-                    <goals>
-                      <goal>display-info</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
-                </pluginExecution>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.kohsuke</groupId>
-                    <artifactId>access-modifier-checker</artifactId>
-                    <versionRange>[1.0,)</versionRange>
-                    <goals>
-                      <goal>enforce</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
-                </pluginExecution>
-              </pluginExecutions>
-            </lifecycleMappingMetadata>
-          </configuration>
+          <version>${maven-hpi-plugin.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>com.github.ekryd.sortpom</groupId>
+        <artifactId>sortpom-maven-plugin</artifactId>
+        <version>${sortpom-maven-plugin.version}</version>
+        <configuration>
+          <verifyFail>Stop</verifyFail>
+          <predefinedSortOrder>recommended_2008_06</predefinedSortOrder>
+          <sortDependencies>scope,groupId,artifactId</sortDependencies>
+          <sortProperties>true</sortProperties>
+          <expandEmptyElements>false</expandEmptyElements>
+          <indentSize>2</indentSize>
+          <createBackupFile>false</createBackupFile>
+        </configuration>
+        <executions>
+          <execution>
+            <id>sortpom-verify</id>
+            <goals>
+              <goal>verify</goal>
+            </goals>
+            <phase>verify</phase>
+          </execution>
+          <execution>
+            <id>sortpom-sort</id>
+            <goals>
+              <goal>sort</goal>
+            </goals>
+            <phase>validate</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
-
 </project>

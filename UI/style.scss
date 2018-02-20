@@ -89,7 +89,7 @@ body {
     margin: auto;
     width: $panel-width;
     padding: 20px 20px 0px;
-    border-bottom: 1px solid $border-color; 
+    border-bottom: 1px solid $border-color;
 
     .title {
       float: right;
@@ -99,6 +99,16 @@ body {
     #team-name {
       font-weight: 400;
       color: lighten($base-color, 20%);
+      margin-right: $gutter * 0.7;
+      font-size: $base-size;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+
+    #environment {
+      font-weight: 400;
+      color: #FF4500;
       margin-right: $gutter * 0.7;
       font-size: $base-size;
       letter-spacing: 2px;
@@ -190,7 +200,7 @@ body {
       padding-bottom: $gutter * 0.2;
       line-height: $base-size;
       margin-top: 10px;
-      text-transform: uppercase; 
+      text-transform: uppercase;
       letter-spacing: 0.5px;
 
       span {
@@ -361,37 +371,37 @@ body {
   }
 
   @media (max-width: 600px) {
-   #header {
-    padding: 20px 0px;
-    #logo {
-      width: $box-width / 3;
-      height: $box-width / 4;
-      display: inline-block;
-      img {
-        width: 30px;
+    #header {
+      padding: 20px 0px;
+      #logo {
+        width: $box-width / 3;
+        height: $box-width / 4;
+        display: inline-block;
+        img {
+          width: 30px;
+        }
+      }
+      .title {
+        width: 80%;
+        text-align: right;
+        padding-top: 0px;
+      }
+      #team-name {
+        font-size: $base-size * 0.6;
+        display: inline-block;
+        letter-spacing: 0.3px;
+        margin-right: 5px;
+      }
+      #build-num {
+        font-size: $base-size * 0.6;
+        display: inline-block;
+        letter-spacing: 0.3px;
       }
     }
-    .title {
-      width: 80%;
-      text-align: right; 
-      padding-top: 0px;
+    #current-cycle {
+      padding: 20px 10px;
     }
-    #team-name {
-      font-size: $base-size * 0.6;
-      display: inline-block;
-      letter-spacing: 0.3px;
-      margin-right: 5px;
-    }
-    #build-num {
-      font-size: $base-size * 0.6;
-      display: inline-block;
-      letter-spacing: 0.3px;
-    }
-   }
-   #current-cycle {
-    padding: 20px 10px;
   }
- }
 }
 
 @keyframes spin {

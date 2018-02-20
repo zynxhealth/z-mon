@@ -37,6 +37,24 @@
 	<f:entry title="${%Job 5 Display Name}" field="displayNameJob5">
 		<f:textbox id="zmon.displayNameJob5" name="displayNameJob5" />
 	</f:entry>
+	<f:entry title="${%Job 6 Actual Name}" field="actualNameJob6">
+		<f:textbox id="zmon.actualNameJob6" name="actualNameJob6" />
+	</f:entry>
+	<f:entry title="${%Job 6 Display Name}" field="displayNameJob6">
+		<f:textbox id="zmon.displayNameJob6" name="displayNameJob6" />
+	</f:entry>
+	<f:entry title="${%Job 7 Actual Name}" field="actualNameJob7">
+		<f:textbox id="zmon.actualNameJob7" name="actualNameJob7" />
+	</f:entry>
+	<f:entry title="${%Job 7 Display Name}" field="displayNameJob7">
+		<f:textbox id="zmon.displayNameJob7" name="displayNameJob7" />
+	</f:entry>
+	<f:entry title="${%Job 8 Actual Name}" field="actualNameJob8">
+		<f:textbox id="zmon.actualNameJob8" name="actualNameJob8" />
+	</f:entry>
+	<f:entry title="${%Job 8 Display Name}" field="displayNameJob8">
+		<f:textbox id="zmon.displayNameJob8" name="displayNameJob8" />
+	</f:entry>
 	<f:entry title="${%Refresh time in seconds}" field="refresh">
 		<f:textbox id="zmon.refresh" name="refresh" />
 	</f:entry>

@@ -5,7 +5,7 @@
 <x:doctype name="html"/>
 <html>
 <head>
-    <title>Radiate ALL things!!</title>
+    <title>Qualcomm Monitor</title>
     <style>
     /* style sheet */
     html {
@@ -466,6 +466,7 @@
                 ]
             </div>
         </div>
+        <!--<div id="environment">${it.environmentVarsCompleted}</div>-->
 	</div>
 
 	<div id="current-cycle">
@@ -493,6 +494,8 @@
       </j:if>
 
       <j:if test="${it.displayNameJob2 != ''}">
+         <div class="arrow-right"></div>
+
          <div class="job-container">
             <a href="${it.job2Url}"><h2 class="job-name">${it.displayNameJob2}</h2></a>
             <span class="loading-wheel"></span>
@@ -513,6 +516,8 @@
       </j:if>
 
       <j:if test="${it.displayNameJob3 != ''}">
+         <div class="arrow-right"></div>
+
          <div class="job-container">
             <a href="${it.job3Url}">
                 <h2 class="job-name">${it.displayNameJob3}</h2>
@@ -578,6 +583,77 @@
             </p>
          </div>
       </j:if>
+
+      <j:if test="${it.displayNameJob6 != ''}">
+         <div class="arrow-right"></div>
+
+         <div class="job-container">
+              <a href="${it.job6Url}">
+                <h2 class="job-name">${it.displayNameJob6}</h2>
+              </a>
+              <span class="loading-wheel"></span>
+                <div class="job-status ${it.job6Status}">
+                <p class="time-value">${it.job6Time}</p>
+                <div class="pb-container">
+                   <div class="pb-value" style="width: ${it.job6PercentCompleted}"></div>
+                </div>
+            </div>
+            <p class="last-ran">
+               last ran
+                <span><strong>${it.job6SinceLastRun}</strong></span>
+               ago
+               <span class="last-run-${it.job6LastRunPassFailAborted}">${it.job6LastRunStatus}</span>
+            </p>
+         </div>
+      </j:if>
+
+      <j:if test="${it.displayNameJob7 != ''}">
+         <div class="arrow-right"></div>
+
+         <div class="job-container">
+              <a href="${it.job7Url}">
+                <h2 class="job-name">${it.displayNameJob7}</h2>
+              </a>
+              <span class="loading-wheel"></span>
+                <div class="job-status ${it.job7Status}">
+                <p class="time-value">${it.job7Time}</p>
+                <div class="pb-container">
+                   <div class="pb-value" style="width: ${it.job7PercentCompleted}"></div>
+                </div>
+            </div>
+            <p class="last-ran">
+               last ran
+                <span><strong>${it.job7SinceLastRun}</strong></span>
+               ago
+               <span class="last-run-${it.job7LastRunPassFailAborted}">${it.job7LastRunStatus}</span>
+            </p>
+         </div>
+      </j:if>
+
+      <j:if test="${it.displayNameJob8 != ''}">
+         <div class="arrow-right"></div>
+
+         <div class="job-container">
+              <a href="${it.job8Url}">
+                <h2 class="job-name">${it.displayNameJob8}</h2>
+              </a>
+              <span class="loading-wheel"></span>
+                <div class="job-status ${it.job8Status}">
+                <p class="time-value">${it.job8Time}</p>
+                <div class="pb-container">
+                   <div class="pb-value" style="width: ${it.job8PercentCompleted}"></div>
+                </div>
+            </div>
+            <p class="last-ran">
+               last ran
+                <span><strong>${it.job8SinceLastRun}</strong></span>
+               ago
+               <span class="last-run-${it.job8LastRunPassFailAborted}">${it.job8LastRunStatus}</span>
+            </p>
+         </div>
+      </j:if>
+
+
 
 	</div>
 
