@@ -487,6 +487,7 @@
                last ran
                <span><strong>${it.job1SinceLastRun}</strong></span>
                ago
+               <span><strong>${it.job1LastTestEnv}</strong></span>
                <span class="last-run-${it.job1LastRunPassFailAborted}">${it.job1LastRunStatus}</span>
             </p>
          </div>
@@ -509,6 +510,7 @@
                last ran
                 <span><strong>${it.job2SinceLastRun}</strong></span>
                ago
+               <span><strong>${it.job2LastTestEnv}</strong></span>
                <span class="last-run-${it.job2LastRunPassFailAborted}">${it.job2LastRunStatus}</span>
             </p>
          </div>
@@ -533,6 +535,7 @@
                last ran
                 <span><strong>${it.job3SinceLastRun}</strong></span>
                ago
+               <span><strong>${it.job3LastTestEnv}</strong></span>
                <span class="last-run-${it.job3LastRunPassFailAborted}">${it.job3LastRunStatus}</span>
             </p>
          </div>
@@ -556,6 +559,7 @@
                last ran
                 <span><strong>${it.job4SinceLastRun}</strong></span>
                ago
+               <span><strong>${it.job4LastTestEnv}</strong></span>
                <span class="last-run-${it.job4LastRunPassFailAborted}">${it.job4LastRunStatus}</span>
             </p>
          </div>
@@ -579,6 +583,7 @@
                last ran
                 <span><strong>${it.job5SinceLastRun}</strong></span>
                ago
+               <span><strong>${it.job5LastTestEnv}</strong></span>
                <span class="last-run-${it.job5LastRunPassFailAborted}">${it.job5LastRunStatus}</span>
             </p>
          </div>
@@ -602,6 +607,7 @@
                last ran
                 <span><strong>${it.job6SinceLastRun}</strong></span>
                ago
+               <span><strong>${it.job6LastTestEnv}</strong></span>
                <span class="last-run-${it.job6LastRunPassFailAborted}">${it.job6LastRunStatus}</span>
             </p>
          </div>
@@ -625,6 +631,7 @@
                last ran
                 <span><strong>${it.job7SinceLastRun}</strong></span>
                ago
+               <span><strong>${it.job7LastTestEnv}</strong></span>
                <span class="last-run-${it.job7LastRunPassFailAborted}">${it.job7LastRunStatus}</span>
             </p>
          </div>
@@ -648,6 +655,7 @@
                last ran
                 <span><strong>${it.job8SinceLastRun}</strong></span>
                ago
+               <span><strong>${it.job8LastTestEnv}</strong></span>
                <span class="last-run-${it.job8LastRunPassFailAborted}">${it.job8LastRunStatus}</span>
             </p>
          </div>

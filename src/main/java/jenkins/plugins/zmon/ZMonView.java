@@ -30,9 +30,10 @@ import java.util.List;
 
 public class ZMonView extends ListView {
 
-    final static Logger logger = Logger.getLogger(ZMonView.class);
+    private final static Logger logger = Logger.getLogger(ZMonView.class);
 
-    private static final String PLUGIN_NAME = "Q-Monitor";
+    private static final String PLUGIN_NAME = "Continuous-Monitor";
+    private static final String JENKINS_TEST_ENVIRONMENT_SYSTEM_VARIABLE = "Test_Environment";
     private final int MILLISECONDS_IN_A_MINUTE = 60000;
     private final double MINUTES_IN_AN_HOUR = 60.0;
 
@@ -72,6 +73,7 @@ public class ZMonView extends ListView {
         public String getDisplayName() {
             return PLUGIN_NAME;
         }
+
     }
 
     @Override
@@ -112,6 +114,17 @@ public class ZMonView extends ListView {
             envVariablesBuilder.append(" ");
         }
         return envVariablesBuilder.toString();
+    }
+
+    private String getLastTestEnv(String jobName) {
+
+        EnvVars envVars = getLastRunEnvVariables(jobName);
+        for (String envVar : envVars.keySet()) {
+            if (StringUtils.containsIgnoreCase(envVar, JENKINS_TEST_ENVIRONMENT_SYSTEM_VARIABLE)) {
+                return "ENV: " + envVars.get(envVar);
+            }
+        }
+        return "N/A";
     }
 
     private String getCurrentBuildDuration(String jobName) {
@@ -262,6 +275,38 @@ public class ZMonView extends ListView {
 
     public String getEnvironmentVarsCompleted() {
         return getLastEnvironmentVars();
+    }
+
+    public String getJob1LastTestEnv() {
+        return getLastTestEnv(actualNameJob1);
+    }
+
+    public String getJob2LastTestEnv() {
+        return getLastTestEnv(actualNameJob2);
+    }
+
+    public String getJob3LastTestEnv() {
+        return getLastTestEnv(actualNameJob3);
+    }
+
+    public String getJob4LastTestEnv() {
+        return getLastTestEnv(actualNameJob4);
+    }
+
+    public String getJob5LastTestEnv() {
+        return getLastTestEnv(actualNameJob5);
+    }
+
+    public String getJob6LastTestEnv() {
+        return getLastTestEnv(actualNameJob6);
+    }
+
+    public String getJob7LastTestEnv() {
+        return getLastTestEnv(actualNameJob7);
+    }
+
+    public String getJob8LastTestEnv() {
+        return getLastTestEnv(actualNameJob8);
     }
 
     public String getBuildNumber() {
