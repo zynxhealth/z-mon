@@ -20,4 +20,11 @@ ls -al target/continuous-monitor.hpi
 8.  You can then upload the plugin via the "Advanced" tab on the Jenkins Manage
 Plugins page.
 
+# Configuration
+Dashboard allows for monitoring up to 8 Jenkins jobs.  Simply, navigate to the /configure URI once you've created
+your dashboard to Edit.
+
+# Custom Dashboards
+![Sample](screenshots/sample.png "Sample Custom Dashboard")
+
 
