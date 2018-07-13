@@ -11,6 +11,14 @@
   <version>1.0.0-SNAPSHOT</version>
   <packaging>hpi</packaging>
   <name>continuous-monitor</name>
+  <licenses>
+    <license>
+      <name>The Clear BSD License</name>
+      <url>http://svn.openlayers.org/trunk/openlayers/license.txt</url>
+      <distribution>manual</distribution>
+      <comments>For any parts of OpenLayers</comments>
+    </license>
+  </licenses>
   <developers>
     <developer>
       <id>SteveMoyer</id>
@@ -38,6 +46,22 @@
       <email>AnthonyL22@gmail.com</email>
     </developer>
   </developers>
+  <scm>
+    <connection>scm:git:https://github.com/AnthonyL22/z-mon</connection>
+    <developerConnection>scm:git:https://github.com/AnthonyL22/z-mon</developerConnection>
+    <tag>HEAD</tag>
+    <url>scm:git:https://github.com/AnthonyL22/z-mon</url>
+  </scm>
+  <distributionManagement>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
   <properties>
     <commons-lang3.version>3.4</commons-lang3.version>
     <java_code.version>1.8</java_code.version>
@@ -45,14 +69,14 @@
     <log4j.version>1.2.17</log4j.version>
     <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
     <maven-hpi-plugin.version>1.95</maven-hpi-plugin.version>
+    <maven-scm-plugin.version>1.8.1</maven-scm-plugin.version>
+    <maven-scm-provider-gitxexe.version>1.9</maven-scm-provider-gitxexe.version>
     <maven.compiler.source>${java_code.version}</maven.compiler.source>
     <maven.compiler.target>${java_code.version}</maven.compiler.target>
     <netbeans-insane.version>RELEASE73</netbeans-insane.version>
     <sortpom-maven-plugin.version>2.6.0</sortpom-maven-plugin.version>
-    <maven-scm-provider-gitxexe.version>1.9</maven-scm-provider-gitxexe.version>
-    <versions-maven-plugin.version>2.1</versions-maven-plugin.version>
-    <maven-scm-plugin.version>1.8.1</maven-scm-plugin.version>
     <surefire.junit.version>2.18.1</surefire.junit.version>
+    <versions-maven-plugin.version>2.1</versions-maven-plugin.version>
   </properties>
   <dependencies>
     <dependency>
@@ -86,6 +110,36 @@
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>com.github.ekryd.sortpom</groupId>
+          <artifactId>sortpom-maven-plugin</artifactId>
+          <version>${sortpom-maven-plugin.version}</version>
+          <configuration>
+            <verifyFail>Stop</verifyFail>
+            <predefinedSortOrder>recommended_2008_06</predefinedSortOrder>
+            <sortDependencies>scope,groupId,artifactId</sortDependencies>
+            <sortProperties>true</sortProperties>
+            <expandEmptyElements>false</expandEmptyElements>
+            <indentSize>2</indentSize>
+            <createBackupFile>false</createBackupFile>
+          </configuration>
+          <executions>
+            <execution>
+              <id>sortpom-verify</id>
+              <goals>
+                <goal>verify</goal>
+              </goals>
+              <phase>verify</phase>
+            </execution>
+            <execution>
+              <id>sortpom-sort</id>
+              <goals>
+                <goal>sort</goal>
+              </goals>
+              <phase>validate</phase>
+            </execution>
+          </executions>
+        </plugin>
         <plugin>
           <groupId>org.jenkins-ci.tools</groupId>
           <artifactId>maven-hpi-plugin</artifactId>
