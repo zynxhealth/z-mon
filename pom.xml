@@ -33,21 +33,21 @@
       <email>jesseforrest@gmail.com</email>
     </developer>
     <developer>
-      <id>AnthonyL22</id>
+      <id>Anthonyl22</id>
       <name>Anthony Lombardo</name>
-      <email>Anthony@pacificwebconsulting.com</email>
+      <email>AnthonyL22@gmail.com</email>
     </developer>
   </developers>
   <properties>
     <commons-lang3.version>3.4</commons-lang3.version>
-    <java_code.version>1.7</java_code.version>
-    <junit.version>1.2</junit.version>
+    <java_code.version>1.8</java_code.version>
     <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
     <log4j.version>1.2.17</log4j.version>
     <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
     <maven-hpi-plugin.version>1.95</maven-hpi-plugin.version>
     <maven.compiler.source>${java_code.version}</maven.compiler.source>
     <maven.compiler.target>${java_code.version}</maven.compiler.target>
+    <netbeans-insane.version>RELEASE73</netbeans-insane.version>
     <sortpom-maven-plugin.version>2.6.0</sortpom-maven-plugin.version>
   </properties>
   <dependencies>
@@ -62,9 +62,9 @@
       <version>${commons-lang3.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.jenkins-ci.plugins</groupId>
-      <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
+      <groupId>org.netbeans</groupId>
+      <artifactId>insane</artifactId>
+      <version>${netbeans-insane.version}</version>
     </dependency>
   </dependencies>
   <repositories>
