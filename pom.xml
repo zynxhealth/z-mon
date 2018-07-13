@@ -49,6 +49,10 @@
     <maven.compiler.target>${java_code.version}</maven.compiler.target>
     <netbeans-insane.version>RELEASE73</netbeans-insane.version>
     <sortpom-maven-plugin.version>2.6.0</sortpom-maven-plugin.version>
+    <maven-scm-provider-gitxexe.version>1.9</maven-scm-provider-gitxexe.version>
+    <versions-maven-plugin.version>2.1</versions-maven-plugin.version>
+    <maven-scm-plugin.version>1.8.1</maven-scm-plugin.version>
+    <surefire.junit.version>2.18.1</surefire.junit.version>
   </properties>
   <dependencies>
     <dependency>
@@ -87,38 +91,114 @@
           <artifactId>maven-hpi-plugin</artifactId>
           <version>${maven-hpi-plugin.version}</version>
         </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>buildnumber-maven-plugin</artifactId>
+          <version>${buildnumber.plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${maven-resources-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin.version}</version>
+          <configuration>
+            <source>${java_code.version}</source>
+            <target>${java_code.version}</target>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
       <plugin>
-        <groupId>com.github.ekryd.sortpom</groupId>
-        <artifactId>sortpom-maven-plugin</artifactId>
-        <version>${sortpom-maven-plugin.version}</version>
-        <configuration>
-          <verifyFail>Stop</verifyFail>
-          <predefinedSortOrder>recommended_2008_06</predefinedSortOrder>
-          <sortDependencies>scope,groupId,artifactId</sortDependencies>
-          <sortProperties>true</sortProperties>
-          <expandEmptyElements>false</expandEmptyElements>
-          <indentSize>2</indentSize>
-          <createBackupFile>false</createBackupFile>
-        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>${maven-gpg-plugin.version}</version>
         <executions>
           <execution>
-            <id>sortpom-verify</id>
+            <id>sign-artifacts</id>
             <goals>
-              <goal>verify</goal>
+              <goal>sign</goal>
             </goals>
             <phase>verify</phase>
           </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${maven-source-plugin.version}</version>
+        <executions>
           <execution>
-            <id>sortpom-sort</id>
+            <id>attach-sources</id>
             <goals>
-              <goal>sort</goal>
+              <goal>jar-no-fork</goal>
             </goals>
-            <phase>validate</phase>
+            <phase>post-integration-test</phase>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${maven-javadoc-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>${maven-clean-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>${maven-release-plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.scm</groupId>
+            <artifactId>maven-scm-provider-gitexe</artifactId>
+            <version>${maven-scm-provider-gitxexe.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-junit47</artifactId>
+            <version>${surefire.junit.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>${versions-maven-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-scm-plugin</artifactId>
+        <version>${maven-scm-plugin.version}</version>
+        <configuration>
+          <tag>${project.artifactId}-${project.version}</tag>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.github.ekryd.sortpom</groupId>
+        <artifactId>sortpom-maven-plugin</artifactId>
+        <version>${sortpom-maven-plugin.version}</version>
       </plugin>
     </plugins>
   </build>
