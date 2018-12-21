@@ -137,6 +137,7 @@ body div.job-container .last-ran {
     margin-top: 10px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-weight: bolder;
 }
 
 body div.job-container .last-ran span {
@@ -230,9 +231,10 @@ body div.job-container .test-count {
     color: #821b0d;
     font-size: 16.8px;
     text-align: left;
+    font-weight: bolder;
 }
 
-body div.job-container .test-count strong {
+body div.job-container .test-count {
     font-size: 33.6px;
     font-weight: 600;
     color: #df2f16;
@@ -258,20 +260,15 @@ body div.job-container .job-status .pb-container {
     visibility: hidden;
 }
 
-body div.job-container .job-status .time-value {
-    font-size: 14.4px;
+body div.job-container .job-status p.time-value {
+    font-size: 24px;
     text-align: center;
     display: block;
     text-shadow: 1px 1px 1px #000000;
+    font-weight: 600;
+    margin-top: 36px;
 }
 
-body div.job-container .job-status .time-value strong {
-    font-size: 38.4px;
-    font-weight: 600;
-    text-align: center;
-    display: block;
-    margin-top: 12px;
-}
 
 body div.job-container .passed {
     border: 2px solid #7da700;

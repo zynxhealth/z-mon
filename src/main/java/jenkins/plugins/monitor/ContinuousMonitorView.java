@@ -334,9 +334,9 @@ public class ContinuousMonitorView extends ListView {
 
         long durationInMinutes = durationInMillis / MILLISECONDS_IN_A_MINUTE;
         if (durationInMinutes > MINUTES_IN_AN_HOUR) {
-            return "<strong>" + String.valueOf(round(durationInMinutes / MINUTES_IN_AN_HOUR, 2, BigDecimal.ROUND_HALF_UP)) + "</strong> hours";
+            return String.valueOf(round(durationInMinutes / MINUTES_IN_AN_HOUR, 2, BigDecimal.ROUND_HALF_UP)) + " hours";
         } else {
-            return "<strong>" + String.valueOf(durationInMinutes) + "</strong> min" + ((durationInMinutes == 1) ? "" : "s");
+            return String.valueOf(durationInMinutes) + " min" + ((durationInMinutes == 1) ? "" : "s");
         }
     }
 
