@@ -5,7 +5,8 @@
 Got a question?  [Email us](http://www.pacificwebconsulting.com/contact/) or reach out on [LinkedIn](https://www.linkedin.com/in/alombardo/) 
 
 # Introduction
-A Jenkins continuous build/test monitor plugin that creates color-coded dashboards.
+A Jenkins continuous build/test monitor plugin that creates color-coded dashboards.  This plugin supports the display of
+both build pipeline-based jobs as well as traditional Jenkins jobs.
 
 # Build Project
 1.  Pull the latest continuous-monitor source from GitHub to your local machine
