@@ -2,20 +2,12 @@ package jenkins.plugins.monitor;
 
 import hudson.EnvVars;
 import hudson.Extension;
-import hudson.model.AbstractBuild;
-import hudson.model.AbstractProject;
-import hudson.model.Computer;
-import hudson.model.Descriptor;
-import hudson.model.Hudson;
-import hudson.model.Job;
-import hudson.model.ListView;
-import hudson.model.Run;
-import hudson.model.StreamBuildListener;
-import hudson.model.TopLevelItem;
-import hudson.model.ViewDescriptor;
+import hudson.model.*;
 import hudson.model.listeners.RunListener;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.jenkinsci.plugins.workflow.job.WorkflowJob;
+import org.jenkinsci.plugins.workflow.job.WorkflowRun;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 
@@ -147,11 +139,21 @@ public class ContinuousMonitorView extends ListView {
      */
     private String getCurrentBuildDuration(final String jobName) {
 
-        AbstractProject tli = findItemByJobName(jobName);
-        if (tli.getLastBuild().isBuilding()) {
-            return convertDurationToDisplay((System.currentTimeMillis() - tli.getLastBuild().getTimeInMillis()));
+        Object itemFromJob = findItemByJobName(jobName);
+        if (itemFromJob instanceof WorkflowJob) {
+            WorkflowJob workflowJob = (WorkflowJob) itemFromJob;
+            if (workflowJob.getLastBuild().isBuilding()) {
+                return convertDurationToDisplay((System.currentTimeMillis() - workflowJob.getLastBuild().getTimeInMillis()));
+            } else {
+                return convertDurationToDisplay(workflowJob.getLastBuild().getDuration());
+            }
         } else {
-            return convertDurationToDisplay(tli.getLastBuild().getDuration());
+            AbstractProject abstractProject = (AbstractProject) itemFromJob;
+            if (abstractProject.getLastBuild().isBuilding()) {
+                return convertDurationToDisplay((System.currentTimeMillis() - abstractProject.getLastBuild().getTimeInMillis()));
+            } else {
+                return convertDurationToDisplay(abstractProject.getLastBuild().getDuration());
+            }
         }
     }
 
@@ -163,28 +165,50 @@ public class ContinuousMonitorView extends ListView {
      */
     private String getPercentCompleted(final String jobName) {
 
-        AbstractProject tli = findItemByJobName(jobName);
-        AbstractBuild lastBuild = tli.getLastBuild();
         long percentCompleted = 0;
-        long duration;
-        long estimatedDuration;
+        Object itemFromJob = findItemByJobName(jobName);
+        if (itemFromJob instanceof WorkflowJob) {
+            WorkflowJob workflowJob = (WorkflowJob) itemFromJob;
+            WorkflowRun lastBuild = workflowJob.getLastBuild();
+            long duration;
+            long estimatedDuration;
 
-        if (lastBuild.isBuilding()) {
-            duration = System.currentTimeMillis() - lastBuild.getTimeInMillis();
-            estimatedDuration = lastBuild.getEstimatedDuration();
+            if (lastBuild.isBuilding()) {
+                duration = System.currentTimeMillis() - lastBuild.getTimeInMillis();
+                estimatedDuration = lastBuild.getEstimatedDuration();
 
-            if (estimatedDuration == -1) {
-                percentCompleted = 0;
-            } else {
-                if (duration <= estimatedDuration) {
-                    percentCompleted = (long) ((double) duration / (double) estimatedDuration * 100);
+                if (estimatedDuration == -1) {
+                    percentCompleted = 0;
                 } else {
-                    percentCompleted = 100;
+                    if (duration <= estimatedDuration) {
+                        percentCompleted = (long) ((double) duration / (double) estimatedDuration * 100);
+                    } else {
+                        percentCompleted = 100;
+                    }
+                }
+            }
+        } else {
+            AbstractProject tli = (AbstractProject) findItemByJobName(jobName);
+            AbstractBuild lastBuild = tli.getLastBuild();
+            long duration;
+            long estimatedDuration;
+
+            if (lastBuild.isBuilding()) {
+                duration = System.currentTimeMillis() - lastBuild.getTimeInMillis();
+                estimatedDuration = lastBuild.getEstimatedDuration();
+
+                if (estimatedDuration == -1) {
+                    percentCompleted = 0;
+                } else {
+                    if (duration <= estimatedDuration) {
+                        percentCompleted = (long) ((double) duration / (double) estimatedDuration * 100);
+                    } else {
+                        percentCompleted = 100;
+                    }
                 }
             }
         }
-
-        return String.valueOf(percentCompleted) + "%";
+        return percentCompleted + "%";
     }
 
     /**
@@ -194,7 +218,15 @@ public class ContinuousMonitorView extends ListView {
      * @return time elapsed since last run in .ms
      */
     private String getTimeElapsedSinceLastRun(final String jobName) {
-        return convertDurationToDisplay((System.currentTimeMillis() - getLastBuild(jobName).getTimeInMillis()));
+
+        Object lastBuild = getLastBuild(jobName);
+        if (lastBuild instanceof WorkflowRun) {
+            WorkflowRun workflowRun = (WorkflowRun) lastBuild;
+            return convertDurationToDisplay((System.currentTimeMillis() - workflowRun.getTimeInMillis()));
+        } else {
+            AbstractBuild abstractBuild = (AbstractBuild) lastBuild;
+            return convertDurationToDisplay((System.currentTimeMillis() - abstractBuild.getTimeInMillis()));
+        }
     }
 
     /**
@@ -205,8 +237,14 @@ public class ContinuousMonitorView extends ListView {
      */
     private String getBuildUrl(final String jobName) {
 
-        AbstractProject tli = findItemByJobName(jobName);
-        return tli.getShortUrl();
+        Object itemFromJob = findItemByJobName(jobName);
+        if (itemFromJob instanceof WorkflowJob) {
+            WorkflowJob workflowJob = (WorkflowJob) itemFromJob;
+            return workflowJob.getShortUrl();
+        } else {
+            AbstractProject tli = (AbstractProject) findItemByJobName(jobName);
+            return tli.getShortUrl();
+        }
     }
 
     /**
@@ -215,14 +253,25 @@ public class ContinuousMonitorView extends ListView {
      * @param jobName Jenkins job name
      * @return last build
      */
-    private AbstractBuild getLastBuild(final String jobName) {
+    private Object getLastBuild(final String jobName) {
 
-        AbstractProject tli = findItemByJobName(jobName);
-        AbstractBuild lastBuild = tli.getLastBuild();
-        if (lastBuild.isBuilding()) {
-            return (AbstractBuild) tli.getBuilds().get(1);
+        Object itemFromJob = findItemByJobName(jobName);
+        if (itemFromJob instanceof WorkflowJob) {
+            WorkflowJob workflowJob = (WorkflowJob) itemFromJob;
+            WorkflowRun lastBuild = workflowJob.getLastBuild();
+            if (lastBuild.isBuilding()) {
+                return workflowJob.getBuilds().get(1);
+            } else {
+                return lastBuild;
+            }
         } else {
-            return lastBuild;
+            AbstractProject abstractProject = (AbstractProject) itemFromJob;
+            AbstractBuild lastBuild = abstractProject.getLastBuild();
+            if (lastBuild.isBuilding()) {
+                return abstractProject.getBuilds().get(1);
+            } else {
+                return lastBuild;
+            }
         }
     }
 
@@ -232,16 +281,24 @@ public class ContinuousMonitorView extends ListView {
      * @param jobName desired Jenkins job to find
      * @return matching Jenkins job
      */
-    private AbstractProject findItemByJobName(String jobName) {
+    private Object findItemByJobName(String jobName) {
 
-        List<TopLevelItem> allTopLevelItems = Hudson.getActiveInstance().getItems();
+        List<TopLevelItem> allTopLevelItems = Hudson.getInstanceOrNull().getItems();
         for (TopLevelItem allTopLevelItem : allTopLevelItems) {
 
             Collection<Job> secondLevelJobs = (Collection<Job>) allTopLevelItem.getAllJobs();
             for (Job secondLevelJob : secondLevelJobs) {
-                if (StringUtils.containsIgnoreCase(secondLevelJob.getName(), jobName)) {
-                    logger.debug(String.format("Found Job Name Match.  Expected='%s' :: Actual='%s'", jobName, secondLevelJob.getName()));
-                    return (AbstractProject) secondLevelJob;
+                if (secondLevelJob instanceof WorkflowJob) {
+                    if (StringUtils.containsIgnoreCase(secondLevelJob.getName(), jobName)) {
+                        logger.debug(String.format("Found Workflow Job Name Match.  Expected='%s' :: Actual='%s'", jobName, secondLevelJob.getName()));
+                        return secondLevelJob;
+                    }
+
+                } else {
+                    if (StringUtils.containsIgnoreCase(secondLevelJob.getName(), jobName)) {
+                        logger.debug(String.format("Found Abstract Job Name Match.  Expected='%s' :: Actual='%s'", jobName, secondLevelJob.getName()));
+                        return secondLevelJob;
+                    }
                 }
             }
         }
@@ -273,7 +330,14 @@ public class ContinuousMonitorView extends ListView {
      */
     private String getLastRunStatus(final String jobName) {
 
-        return getLastBuild(jobName).getBuildStatusSummary().message.toString();
+        Object lastBuild = getLastBuild(jobName);
+        if (lastBuild instanceof WorkflowRun) {
+            WorkflowRun workflowRun = (WorkflowRun) lastBuild;
+            return workflowRun.getBuildStatusSummary().message;
+        } else {
+            AbstractBuild abstractBuild = (AbstractBuild) lastBuild;
+            return abstractBuild.getBuildStatusSummary().message;
+        }
     }
 
     /**
@@ -291,11 +355,24 @@ public class ContinuousMonitorView extends ListView {
             if (e != null) {
                 charset = e.getDefaultCharset();
             }
-            Object e1 = new FileOutputStream(getLastBuild(jobName).getLogFile());
-            listener = new StreamBuildListener((OutputStream) e1, charset);
-            Run build = getLastBuild(jobName);
-            RunListener.fireStarted(build, listener);
-            return getLastBuild(jobName).getEnvironment(listener);
+
+            Object e1;
+            Object lastBuild = getLastBuild(jobName);
+            if (lastBuild instanceof WorkflowRun) {
+                WorkflowRun workflowRun = (WorkflowRun) lastBuild;
+                e1 = new FileOutputStream(workflowRun.getLogFile());
+                listener = new StreamBuildListener((OutputStream) e1, charset);
+                Run build = workflowRun;
+                RunListener.fireStarted(build, listener);
+                return workflowRun.getEnvironment(listener);
+            } else {
+                AbstractBuild abstractBuild = (AbstractBuild) lastBuild;
+                e1 = new FileOutputStream(abstractBuild.getLogFile());
+                listener = new StreamBuildListener((OutputStream) e1, charset);
+                Run build = abstractBuild;
+                RunListener.fireStarted(build, listener);
+                return abstractBuild.getEnvironment(listener);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -310,16 +387,32 @@ public class ContinuousMonitorView extends ListView {
      */
     private String getStatus(final String jobName) {
 
-        AbstractProject tli = findItemByJobName(jobName);
-        if (tli.isBuilding()) {
-            return Status.RUNNING_STATUS;
-        } else {
-            if (org.apache.commons.lang3.StringUtils.equalsIgnoreCase(String.valueOf(tli.getLastBuild().getResult()), Status.SUCCESS_STATUS)) {
-                return Status.PASSED_STATUS;
-            } else if (tli.getLastBuild().getResult().toString().equalsIgnoreCase(Status.ABORTED_STATUS)) {
-                return Status.ABORTED_STATUS;
+        Object itemFromJob = findItemByJobName(jobName);
+        if (itemFromJob instanceof WorkflowJob) {
+            WorkflowJob workflowJob = (WorkflowJob) itemFromJob;
+            if (workflowJob.isBuilding()) {
+                return Status.RUNNING_STATUS;
             } else {
-                return Status.FAILED_STATUS;
+                if (org.apache.commons.lang3.StringUtils.equalsIgnoreCase(String.valueOf(workflowJob.getLastBuild().getResult()), Status.SUCCESS_STATUS)) {
+                    return Status.PASSED_STATUS;
+                } else if (workflowJob.getLastBuild().getResult().toString().equalsIgnoreCase(Status.ABORTED_STATUS)) {
+                    return Status.ABORTED_STATUS;
+                } else {
+                    return Status.FAILED_STATUS;
+                }
+            }
+        } else {
+            AbstractProject abstractProject = (AbstractProject) itemFromJob;
+            if (abstractProject.isBuilding()) {
+                return Status.RUNNING_STATUS;
+            } else {
+                if (org.apache.commons.lang3.StringUtils.equalsIgnoreCase(String.valueOf(abstractProject.getLastBuild().getResult()), Status.SUCCESS_STATUS)) {
+                    return Status.PASSED_STATUS;
+                } else if (abstractProject.getLastBuild().getResult().toString().equalsIgnoreCase(Status.ABORTED_STATUS)) {
+                    return Status.ABORTED_STATUS;
+                } else {
+                    return Status.FAILED_STATUS;
+                }
             }
         }
     }
@@ -392,7 +485,15 @@ public class ContinuousMonitorView extends ListView {
     }
 
     public String getBuildNumber() {
-        return String.valueOf((int) getLastBuild(actualNameJob1).number);
+        Object lastBuild = getLastBuild(actualNameJob1);
+        if (lastBuild instanceof WorkflowRun) {
+            WorkflowRun workflowRun = (WorkflowRun) lastBuild;
+            return String.valueOf(workflowRun.number);
+        } else {
+            AbstractBuild abstractBuild = (AbstractBuild) lastBuild;
+            return String.valueOf(abstractBuild.number);
+
+        }
     }
 
     public String getJob1Time() {

@@ -66,6 +66,7 @@
   <properties>
     <commons-lang3.version>3.4</commons-lang3.version>
     <java_code.version>1.8</java_code.version>
+    <jenkins-core.version>2.85</jenkins-core.version>
     <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
     <log4j.version>1.2.17</log4j.version>
     <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
@@ -78,6 +79,7 @@
     <sortpom-maven-plugin.version>2.6.0</sortpom-maven-plugin.version>
     <surefire.junit.version>2.18.1</surefire.junit.version>
     <versions-maven-plugin.version>2.1</versions-maven-plugin.version>
+    <workflow-job.version>2.1</workflow-job.version>
   </properties>
   <dependencies>
     <dependency>
@@ -89,6 +91,16 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>${commons-lang3.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.main</groupId>
+      <artifactId>jenkins-core</artifactId>
+      <version>${jenkins-core.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-job</artifactId>
+      <version>${workflow-job.version}</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans</groupId>
