@@ -185,6 +185,7 @@ body {
       margin-bottom: 30px;
       text-transform: uppercase;
       letter-spacing: 2px;
+      height: 40px;
     }
 
     .last-ran {
@@ -363,6 +364,7 @@ body {
     border-bottom: $gutter * 0.4 solid transparent;
     background-color: $background-color;
     border-left: $gutter * 0.6 solid $base-color;
+    margin-top: 123px;
   }
 
   @media (max-width: 600px) {
