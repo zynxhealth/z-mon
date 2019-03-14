@@ -125,6 +125,7 @@ body div.job-container .job-name {
     margin-bottom: 30px;
     text-transform: uppercase;
     letter-spacing: 2px;
+    height: 40px;
 }
 
 body div.job-container .last-ran {
@@ -381,13 +382,13 @@ body div.job-container .waiting {
 
 body .arrow-right {
     display: inline-block;
-    margin-top: 100px;
     width: 0;
     height: 0;
     border-top: 12px solid transparent;
     border-bottom: 12px solid transparent;
     background-color: #000000;
     border-left: 18px solid #424242;
+    margin-top: 123px;
 }
 
 @media (max-width: 600px) {

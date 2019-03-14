@@ -103,7 +103,8 @@
     margin-right: auto;
     margin-bottom: 30px;
     text-transform: uppercase;
-    letter-spacing: 2px; }
+    letter-spacing: 2px;
+    height: 40px;}
     body div.job-container .last-ran {
     font-size: 13.2px;
     text-align: center;
@@ -317,7 +318,7 @@
     background-color: #0f0f0f; }
     body .arrow-right {
     display: inline-block;
-    margin-top: 100px;
+    margin-top: 123px;
     width: 0;
     height: 0;
     border-top: 12px solid transparent;
