@@ -30,6 +30,17 @@ ls -al target/continuous-monitor.hpi
 Dashboard allows for monitoring up to 8 Jenkins jobs.  Simply, navigate to the /configure URI once you've created
 your dashboard to Edit.
 
+## Test Environment Display
+There is a hidden feature that is very useful for showing which environment your Jenkins Job(s) have been executed in.  This
+is an optional feature that if included shows a the normally hidden Test Environment field in the dashboard detailing which environment
+is being executed upon.  The monitor scans the build log for the **test.env=** log entry.  To take advantage of you must 
+include `test.env=ANYTHING` somewhere in your Jenkins log file output for your job.  
+
+Here is a typical example of its usage
+```
+mvn clean install -Dtest.env=production -PbuildApplication
+```
+
 # Custom Dashboards
 ![Sample](screenshots/sample.png "Sample Custom Dashboard")
 

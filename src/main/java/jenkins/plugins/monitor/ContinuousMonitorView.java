@@ -1,23 +1,31 @@
 package jenkins.plugins.monitor;
 
-import hudson.EnvVars;
 import hudson.Extension;
-import hudson.model.*;
-import hudson.model.listeners.RunListener;
+import hudson.Util;
+import hudson.model.AbstractBuild;
+import hudson.model.AbstractProject;
+import hudson.model.Descriptor;
+import hudson.model.Hudson;
+import hudson.model.Item;
+import hudson.model.Job;
+import hudson.model.ListView;
+import hudson.model.ViewDescriptor;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.jenkinsci.plugins.workflow.job.WorkflowJob;
 import org.jenkinsci.plugins.workflow.job.WorkflowRun;
+import org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 
 import javax.servlet.ServletException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Reader;
 import java.math.BigDecimal;
-import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 public class ContinuousMonitorView extends ListView {
@@ -25,7 +33,7 @@ public class ContinuousMonitorView extends ListView {
     private final static Logger logger = Logger.getLogger(ContinuousMonitorView.class);
 
     private static final String MANAGED_PLUGINS_PLUGIN_NAME = "Continuous-Monitor";
-    private static final String JENKINS_TEST_ENVIRONMENT_SYSTEM_VARIABLE = "Test_Environment";
+    private static final String MAVEN_JOB_ENVIRONMENT_RUNTIME_VARIABLE = "test.env=";
     private final int MILLISECONDS_IN_A_MINUTE = 60000;
     private final double MINUTES_IN_AN_HOUR = 60.0;
 
@@ -99,22 +107,6 @@ public class ContinuousMonitorView extends ListView {
     }
 
     /**
-     * Get last job execution environment variable
-     *
-     * @return last run environment information
-     */
-    private String getLastEnvironmentVars() {
-
-        StringBuilder envVariablesBuilder = new StringBuilder();
-        EnvVars envVars = getLastRunEnvVariables(actualNameJob1);
-        for (String envVar : envVars.keySet()) {
-            envVariablesBuilder.append(envVar);
-            envVariablesBuilder.append(" ");
-        }
-        return envVariablesBuilder.toString();
-    }
-
-    /**
      * Get last test environment name defined in the system variable Test_Environment
      *
      * @param jobName Jenkins job
@@ -122,13 +114,12 @@ public class ContinuousMonitorView extends ListView {
      */
     private String getLastTestEnv(final String jobName) {
 
-        EnvVars envVars = getLastRunEnvVariables(jobName);
-        for (String envVar : envVars.keySet()) {
-            if (StringUtils.containsIgnoreCase(envVar, JENKINS_TEST_ENVIRONMENT_SYSTEM_VARIABLE)) {
-                return "ENV: " + envVars.get(envVar);
-            }
+        String environment = getLastRunEnvVariables(jobName);
+        if (StringUtils.isNotEmpty(environment)) {
+            return environment;
+        } else {
+            return "";
         }
-        return "";
     }
 
     /**
@@ -146,6 +137,14 @@ public class ContinuousMonitorView extends ListView {
                 return convertDurationToDisplay((System.currentTimeMillis() - workflowJob.getLastBuild().getTimeInMillis()));
             } else {
                 return convertDurationToDisplay(workflowJob.getLastBuild().getDuration());
+            }
+        } else if (itemFromJob instanceof WorkflowMultiBranchProject) {
+            WorkflowMultiBranchProject job = (WorkflowMultiBranchProject) itemFromJob;
+            WorkflowRun lastBuild = getLastWorkflowRunFromMultiBranch(job);
+            if (lastBuild.isBuilding()) {
+                return convertDurationToDisplay((System.currentTimeMillis() - lastBuild.getTimeInMillis()));
+            } else {
+                return convertDurationToDisplay(lastBuild.getDuration());
             }
         } else {
             AbstractProject abstractProject = (AbstractProject) itemFromJob;
@@ -168,6 +167,7 @@ public class ContinuousMonitorView extends ListView {
         long percentCompleted = 0;
         Object itemFromJob = findItemByJobName(jobName);
         if (itemFromJob instanceof WorkflowJob) {
+
             WorkflowJob workflowJob = (WorkflowJob) itemFromJob;
             WorkflowRun lastBuild = workflowJob.getLastBuild();
             long duration;
@@ -187,12 +187,33 @@ public class ContinuousMonitorView extends ListView {
                     }
                 }
             }
+        } else if (itemFromJob instanceof WorkflowMultiBranchProject) {
+
+            WorkflowMultiBranchProject job = (WorkflowMultiBranchProject) itemFromJob;
+            WorkflowRun lastBuild = getLastWorkflowRunFromMultiBranch(job);
+            long duration;
+            long estimatedDuration;
+
+            if (lastBuild.isBuilding()) {
+                duration = System.currentTimeMillis() - lastBuild.getTimeInMillis();
+                estimatedDuration = lastBuild.getEstimatedDuration();
+
+                if (estimatedDuration == -1) {
+                    percentCompleted = 0;
+                } else {
+                    if (duration <= estimatedDuration) {
+                        percentCompleted = (long) ((double) duration / (double) estimatedDuration * 100);
+                    } else {
+                        percentCompleted = 100;
+                    }
+                }
+            }
         } else {
+
             AbstractProject tli = (AbstractProject) findItemByJobName(jobName);
             AbstractBuild lastBuild = tli.getLastBuild();
             long duration;
             long estimatedDuration;
-
             if (lastBuild.isBuilding()) {
                 duration = System.currentTimeMillis() - lastBuild.getTimeInMillis();
                 estimatedDuration = lastBuild.getEstimatedDuration();
@@ -230,7 +251,7 @@ public class ContinuousMonitorView extends ListView {
     }
 
     /**
-     * Get build URL
+     * Get build URL.
      *
      * @param jobName Jenkins job name
      * @return build URL
@@ -241,6 +262,9 @@ public class ContinuousMonitorView extends ListView {
         if (itemFromJob instanceof WorkflowJob) {
             WorkflowJob workflowJob = (WorkflowJob) itemFromJob;
             return workflowJob.getShortUrl();
+        } else if (itemFromJob instanceof WorkflowMultiBranchProject) {
+            WorkflowMultiBranchProject job = (WorkflowMultiBranchProject) itemFromJob;
+            return getShortUrl(job);
         } else {
             AbstractProject tli = (AbstractProject) findItemByJobName(jobName);
             return tli.getShortUrl();
@@ -248,7 +272,20 @@ public class ContinuousMonitorView extends ListView {
     }
 
     /**
-     * Get last build
+     * Get the short URL for a WorkflowMultiBranchProject job.
+     *
+     * @param job job to get name from
+     * @return build URL
+     */
+    public String getShortUrl(WorkflowMultiBranchProject job) {
+
+        String prefix = job.getParent().getUrlChildPrefix();
+        String subdir = Util.rawEncode(job.getName());
+        return prefix.equals(".") ? subdir + '/' : prefix + '/' + subdir + '/';
+    }
+
+    /**
+     * Get last build.
      *
      * @param jobName Jenkins job name
      * @return last build
@@ -257,22 +294,40 @@ public class ContinuousMonitorView extends ListView {
 
         Object itemFromJob = findItemByJobName(jobName);
         if (itemFromJob instanceof WorkflowJob) {
+
             WorkflowJob workflowJob = (WorkflowJob) itemFromJob;
             WorkflowRun lastBuild = workflowJob.getLastBuild();
-            if (lastBuild.isBuilding()) {
-                return workflowJob.getBuilds().get(1);
+            if (null == lastBuild) {
+                logger.debug(String.format("Unable to find last build for job named '%s", jobName));
+            } else if (lastBuild.isBuilding()) {
+                return workflowJob.getBuilds().getLastBuild();
+            } else {
+                return lastBuild;
+            }
+        } else if (itemFromJob instanceof WorkflowMultiBranchProject) {
+
+            WorkflowMultiBranchProject job = (WorkflowMultiBranchProject) itemFromJob;
+            WorkflowRun lastBuild = getLastWorkflowRunFromMultiBranch(job);
+            if (null == lastBuild) {
+                logger.debug(String.format("Unable to find last build for job named '%s", jobName));
+            } else if (lastBuild.isBuilding()) {
+                return lastBuild;
             } else {
                 return lastBuild;
             }
         } else {
+
             AbstractProject abstractProject = (AbstractProject) itemFromJob;
             AbstractBuild lastBuild = abstractProject.getLastBuild();
-            if (lastBuild.isBuilding()) {
-                return abstractProject.getBuilds().get(1);
+            if (null == lastBuild) {
+                logger.debug(String.format("Unable to find last build for job named '%s", jobName));
+            } else if (lastBuild.isBuilding()) {
+                return abstractProject.getBuilds().getLastBuild();
             } else {
                 return lastBuild;
             }
         }
+        return null;
     }
 
     /**
@@ -283,17 +338,24 @@ public class ContinuousMonitorView extends ListView {
      */
     private Object findItemByJobName(String jobName) {
 
-        List<TopLevelItem> allTopLevelItems = Hudson.getInstanceOrNull().getItems();
-        for (TopLevelItem allTopLevelItem : allTopLevelItems) {
+        List<Item> allTopLevelItems = Hudson.getInstanceOrNull().getAllItems();
+        for (Item allTopLevelItem : allTopLevelItems) {
+
+            if (allTopLevelItem instanceof WorkflowMultiBranchProject) {
+                if (StringUtils.containsIgnoreCase(allTopLevelItem.getName(), jobName)) {
+                    logger.debug(String.format("Found WorkflowMultiBranchProject Job Name Match.  Expected='%s' :: Actual='%s'", jobName, allTopLevelItem.getName()));
+                    return allTopLevelItem;
+                }
+            }
 
             Collection<Job> secondLevelJobs = (Collection<Job>) allTopLevelItem.getAllJobs();
             for (Job secondLevelJob : secondLevelJobs) {
+
                 if (secondLevelJob instanceof WorkflowJob) {
                     if (StringUtils.containsIgnoreCase(secondLevelJob.getName(), jobName)) {
                         logger.debug(String.format("Found Workflow Job Name Match.  Expected='%s' :: Actual='%s'", jobName, secondLevelJob.getName()));
                         return secondLevelJob;
                     }
-
                 } else {
                     if (StringUtils.containsIgnoreCase(secondLevelJob.getName(), jobName)) {
                         logger.debug(String.format("Found Abstract Job Name Match.  Expected='%s' :: Actual='%s'", jobName, secondLevelJob.getName()));
@@ -346,35 +408,27 @@ public class ContinuousMonitorView extends ListView {
      * @param jobName Jenkins job name
      * @return last job execution environment variables
      */
-    private EnvVars getLastRunEnvVariables(final String jobName) {
+    private String getLastRunEnvVariables(final String jobName) {
 
-        StreamBuildListener listener;
         try {
-            Computer e = Computer.currentComputer();
-            Charset charset = null;
-            if (e != null) {
-                charset = e.getDefaultCharset();
-            }
-
-            Object e1;
             Object lastBuild = getLastBuild(jobName);
             if (lastBuild instanceof WorkflowRun) {
                 WorkflowRun workflowRun = (WorkflowRun) lastBuild;
-                e1 = new FileOutputStream(workflowRun.getLogFile());
-                listener = new StreamBuildListener((OutputStream) e1, charset);
-                Run build = workflowRun;
-                RunListener.fireStarted(build, listener);
-                return workflowRun.getEnvironment(listener);
+                Reader initialReader = workflowRun.getLogReader();
+                String targetString = IOUtils.toString(initialReader);
+                if (StringUtils.containsIgnoreCase(targetString, MAVEN_JOB_ENVIRONMENT_RUNTIME_VARIABLE)) {
+                    return StringUtils.substringBetween(targetString, MAVEN_JOB_ENVIRONMENT_RUNTIME_VARIABLE, " ").trim();
+                }
             } else {
                 AbstractBuild abstractBuild = (AbstractBuild) lastBuild;
-                e1 = new FileOutputStream(abstractBuild.getLogFile());
-                listener = new StreamBuildListener((OutputStream) e1, charset);
-                Run build = abstractBuild;
-                RunListener.fireStarted(build, listener);
-                return abstractBuild.getEnvironment(listener);
+                Reader initialReader = abstractBuild.getLogReader();
+                String targetString = IOUtils.toString(initialReader);
+                if (StringUtils.containsIgnoreCase(targetString, MAVEN_JOB_ENVIRONMENT_RUNTIME_VARIABLE)) {
+                    return StringUtils.substringBetween(targetString, MAVEN_JOB_ENVIRONMENT_RUNTIME_VARIABLE, " ").trim();
+                }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         return null;
     }
@@ -401,12 +455,26 @@ public class ContinuousMonitorView extends ListView {
                     return Status.FAILED_STATUS;
                 }
             }
+        } else if (itemFromJob instanceof WorkflowMultiBranchProject) {
+            WorkflowMultiBranchProject job = (WorkflowMultiBranchProject) itemFromJob;
+            WorkflowRun lastBuild = getLastWorkflowRunFromMultiBranch(job);
+            if (lastBuild.isBuilding()) {
+                return Status.RUNNING_STATUS;
+            } else {
+                if (StringUtils.equalsIgnoreCase(String.valueOf(lastBuild.getResult()), Status.SUCCESS_STATUS)) {
+                    return Status.PASSED_STATUS;
+                } else if (lastBuild.getResult().toString().equalsIgnoreCase(Status.ABORTED_STATUS)) {
+                    return Status.ABORTED_STATUS;
+                } else {
+                    return Status.FAILED_STATUS;
+                }
+            }
         } else {
             AbstractProject abstractProject = (AbstractProject) itemFromJob;
             if (abstractProject.isBuilding()) {
                 return Status.RUNNING_STATUS;
             } else {
-                if (org.apache.commons.lang3.StringUtils.equalsIgnoreCase(String.valueOf(abstractProject.getLastBuild().getResult()), Status.SUCCESS_STATUS)) {
+                if (StringUtils.equalsIgnoreCase(String.valueOf(abstractProject.getLastBuild().getResult()), Status.SUCCESS_STATUS)) {
                     return Status.PASSED_STATUS;
                 } else if (abstractProject.getLastBuild().getResult().toString().equalsIgnoreCase(Status.ABORTED_STATUS)) {
                     return Status.ABORTED_STATUS;
@@ -415,6 +483,38 @@ public class ContinuousMonitorView extends ListView {
                 }
             }
         }
+    }
+
+    /**
+     * Returns the last build.
+     *
+     * @param multiBranchProject WorkflowMultiBranchProject project to interrogate
+     * @return last build found
+     */
+    private WorkflowRun getLastWorkflowRunFromMultiBranch(WorkflowMultiBranchProject multiBranchProject) {
+
+        WorkflowRun lastRun = null;
+        List<WorkflowRun> allRuns = new ArrayList<>();
+
+        Collection<WorkflowJob> items = multiBranchProject.getItems();
+        logger.debug(String.format("Found %s branches in MultiBranch project", items.size()));
+
+        for (WorkflowJob item : items) {
+            allRuns.add(item.getLastBuild());
+        }
+
+        try {
+            lastRun = allRuns.stream()
+                    .max(Comparator.comparing(WorkflowRun::getTimeInMillis))
+                    .orElse(allRuns.get(0));
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
+        logger.debug(String.format("Returning last MultiBranch project found named '%s' at %s",
+                lastRun.getFullDisplayName(), lastRun.getTime()));
+        return lastRun;
+
     }
 
     /**
@@ -427,9 +527,9 @@ public class ContinuousMonitorView extends ListView {
 
         long durationInMinutes = durationInMillis / MILLISECONDS_IN_A_MINUTE;
         if (durationInMinutes > MINUTES_IN_AN_HOUR) {
-            return String.valueOf(round(durationInMinutes / MINUTES_IN_AN_HOUR, 2, BigDecimal.ROUND_HALF_UP)) + " hours";
+            return round(durationInMinutes / MINUTES_IN_AN_HOUR, 2, BigDecimal.ROUND_HALF_UP) + " hours";
         } else {
-            return String.valueOf(durationInMinutes) + " min" + ((durationInMinutes == 1) ? "" : "s");
+            return durationInMinutes + " min" + ((durationInMinutes == 1) ? "" : "s");
         }
     }
 
@@ -446,10 +546,6 @@ public class ContinuousMonitorView extends ListView {
         BigDecimal bd = new BigDecimal(unRounded);
         BigDecimal rounded = bd.setScale(precision, roundingMode);
         return rounded.doubleValue();
-    }
-
-    public String getEnvironmentVarsCompleted() {
-        return getLastEnvironmentVars();
     }
 
     public String getJob1LastTestEnv() {
