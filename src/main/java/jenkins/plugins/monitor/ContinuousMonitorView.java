@@ -410,25 +410,27 @@ public class ContinuousMonitorView extends ListView {
      */
     private String getLastRunEnvVariables(final String jobName) {
 
-        try {
-            Object lastBuild = getLastBuild(jobName);
-            if (lastBuild instanceof WorkflowRun) {
-                WorkflowRun workflowRun = (WorkflowRun) lastBuild;
-                Reader initialReader = workflowRun.getLogReader();
+        Object lastBuild = getLastBuild(jobName);
+        if (lastBuild instanceof WorkflowRun) {
+            WorkflowRun workflowRun = (WorkflowRun) lastBuild;
+            try (Reader initialReader = workflowRun.getLogReader()) {
                 String targetString = IOUtils.toString(initialReader);
                 if (StringUtils.containsIgnoreCase(targetString, MAVEN_JOB_ENVIRONMENT_RUNTIME_VARIABLE)) {
                     return StringUtils.substringBetween(targetString, MAVEN_JOB_ENVIRONMENT_RUNTIME_VARIABLE, " ").trim();
                 }
-            } else {
-                AbstractBuild abstractBuild = (AbstractBuild) lastBuild;
-                Reader initialReader = abstractBuild.getLogReader();
-                String targetString = IOUtils.toString(initialReader);
-                if (StringUtils.containsIgnoreCase(targetString, MAVEN_JOB_ENVIRONMENT_RUNTIME_VARIABLE)) {
-                    return StringUtils.substringBetween(targetString, MAVEN_JOB_ENVIRONMENT_RUNTIME_VARIABLE, " ").trim();
-                }
+            } catch (Exception e) {
+                logger.debug(String.format("Unable to WorkflowRun LastRun Variable due to exception %s", e.getCause()));
             }
-        } catch (Exception e) {
-            e.getMessage();
+        } else {
+            AbstractBuild abstractBuild = (AbstractBuild) lastBuild;
+            try (Reader initialReader = abstractBuild.getLogReader()) {
+                String targetString = IOUtils.toString(initialReader);
+                if (StringUtils.containsIgnoreCase(targetString, MAVEN_JOB_ENVIRONMENT_RUNTIME_VARIABLE)) {
+                    return StringUtils.substringBetween(targetString, MAVEN_JOB_ENVIRONMENT_RUNTIME_VARIABLE, " ").trim();
+                }
+            } catch (Exception e) {
+                logger.debug(String.format("Unable to AbstractBuild LastRun Variable due to exception %s", e.getCause()));
+            }
         }
         return null;
     }
